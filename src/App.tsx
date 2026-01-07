@@ -7,6 +7,7 @@ import { Analytics } from "@vercel/analytics/react";
 import Home from "./pages/Home";
 import GameDetail from "./pages/GameDetail";
 import BestProps from "./pages/BestProps";
+import HowItWorks from "./pages/HowItWorks";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import About from "./pages/About";
 import NotFound from "./pages/NotFound";
@@ -29,6 +30,7 @@ const App = () => (
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/props" element={<BestProps />} />
+          <Route path="/how-it-works" element={<HowItWorks />} />
           <Route path="/game/:gameId" element={<GameDetail />} />
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />
           <Route path="/about" element={<About />} />

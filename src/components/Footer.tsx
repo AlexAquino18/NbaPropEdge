@@ -13,6 +13,9 @@ export function Footer() {
             <Link to="/about" className="text-muted-foreground hover:text-foreground transition-colors">
               About
             </Link>
+            <Link to="/how-it-works" className="text-muted-foreground hover:text-foreground transition-colors">
+              How It Works
+            </Link>
             <Link to="/privacy-policy" className="text-muted-foreground hover:text-foreground transition-colors">
               Privacy Policy
             </Link>
