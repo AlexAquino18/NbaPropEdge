@@ -1,9 +1,17 @@
 import { Link, useLocation } from 'react-router-dom';
-import { TrendingUp, Trophy, RefreshCw } from 'lucide-react';
+import { TrendingUp, Trophy, RefreshCw, Gift } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useState } from 'react';
 import { refreshData } from '@/lib/api';
 import { toast } from 'sonner';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
 
 export function Navbar() {
   const location = useLocation();
@@ -24,6 +32,29 @@ export function Navbar() {
     
     setIsRefreshing(false);
   };
+
+  const referralLinks = [
+    {
+      name: 'PrizePicks',
+      url: 'https://app.prizepicks.com/sign-up?invite_code=PR-YA0U8GS&source=prizepicks&medium=user_referral&campaign=7fe0c867-d058-4651-97a8-3aa738a1b5bc&content=copy_link',
+      bonus: '$25 Bonus Funds'
+    },
+    {
+      name: 'Underdog Fantasy',
+      url: 'https://play.underdogfantasy.com/alexaquino-bbbdfc02f9d75f4b',
+      bonus: '100% Deposit Match + Bonus'
+    },
+    {
+      name: 'DraftKings Pick6',
+      url: 'https://pick6.draftkings.com/r/psx/Ace18367/US-PSX/US-TX',
+      bonus: '100% Match Up to $50'
+    },
+    {
+      name: 'Chalkboard',
+      url: 'https://links.chalkboard.io/refer/cb-alexa',
+      bonus: 'Promo Pack + $10 Bonus'
+    }
+  ];
 
   const navItems = [
     { path: '/', label: 'Best Props', icon: Trophy },
@@ -60,6 +91,39 @@ export function Navbar() {
         </nav>
 
         <div className="flex items-center gap-2">
+          {/* Referral Links Dropdown */}
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button
+                variant="default"
+                size="sm"
+                className="gap-2 bg-gradient-to-r from-emerald-600 to-green-600 hover:from-emerald-700 hover:to-green-700 text-white font-semibold"
+              >
+                <Gift className="h-4 w-4" />
+                <span className="hidden lg:inline">Free Bonuses</span>
+                <span className="lg:hidden">Bonuses</span>
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end" className="w-64">
+              <DropdownMenuLabel>🎁 Exclusive Sign-Up Bonuses</DropdownMenuLabel>
+              <DropdownMenuSeparator />
+              {referralLinks.map((link) => (
+                <DropdownMenuItem key={link.name} asChild>
+                  <a
+                    href={link.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex flex-col gap-1 cursor-pointer"
+                  >
+                    <div className="font-semibold">{link.name}</div>
+                    <div className="text-xs text-muted-foreground">{link.bonus}</div>
+                  </a>
+                </DropdownMenuItem>
+              ))}
+            </DropdownMenuContent>
+          </DropdownMenu>
+
+          {/* Refresh Button */}
           <Button
             variant="outline"
             size="sm"
@@ -94,6 +158,38 @@ export function Navbar() {
           })}
         </div>
         <div className="flex items-center gap-2">
+          {/* Mobile Referral Button */}
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button
+                variant="default"
+                size="sm"
+                className="gap-2 bg-gradient-to-r from-emerald-600 to-green-600 hover:from-emerald-700 hover:to-green-700 text-white font-semibold flex-1"
+              >
+                <Gift className="h-4 w-4" />
+                <span className="text-xs">Free Bonuses</span>
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end" className="w-64">
+              <DropdownMenuLabel>🎁 Exclusive Sign-Up Bonuses</DropdownMenuLabel>
+              <DropdownMenuSeparator />
+              {referralLinks.map((link) => (
+                <DropdownMenuItem key={link.name} asChild>
+                  <a
+                    href={link.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex flex-col gap-1 cursor-pointer"
+                  >
+                    <div className="font-semibold">{link.name}</div>
+                    <div className="text-xs text-muted-foreground">{link.bonus}</div>
+                  </a>
+                </DropdownMenuItem>
+              ))}
+            </DropdownMenuContent>
+          </DropdownMenu>
+
+          {/* Mobile Refresh Button */}
           <Button
             variant="outline"
             size="sm"
