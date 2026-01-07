@@ -54,7 +54,13 @@ export default function Index() {
         .order('edge', { ascending: false });
       
       if (error) throw error;
-      return data as Prop[];
+      
+      // Filter out Free Throws Made props
+      const filteredData = (data as Prop[]).filter(
+        prop => prop.stat_type !== 'Free Throws Made'
+      );
+      
+      return filteredData;
     },
     refetchInterval: 30000,
   });
