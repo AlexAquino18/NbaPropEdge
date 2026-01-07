@@ -42,17 +42,17 @@ export function Navbar() {
     {
       name: 'Underdog Fantasy',
       url: 'https://play.underdogfantasy.com/alexaquino-bbbdfc02f9d75f4b',
-      bonus: '100% Deposit Match + Bonus'
+      bonus: '100% Deposit Match + Bonus Funds'
     },
     {
       name: 'DraftKings Pick6',
       url: 'https://pick6.draftkings.com/r/psx/Ace18367/US-PSX/US-TX',
-      bonus: '100% Match Up to $50'
+      bonus: '100% Deposit Match up to $50'
     },
     {
       name: 'Chalkboard',
       url: 'https://links.chalkboard.io/refer/cb-alexa',
-      bonus: 'Promo Pack + $10 Bonus'
+      bonus: 'Promo Pack + $10 Bonus Funds'
     }
   ];
 
