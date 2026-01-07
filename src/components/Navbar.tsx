@@ -57,7 +57,8 @@ export function Navbar() {
   ];
 
   const navItems = [
-    { path: '/', label: 'Best Props', icon: Trophy },
+    { path: '/', label: 'Home', icon: TrendingUp },
+    { path: '/props', label: 'Best Props', icon: Trophy },
   ];
 
   return (

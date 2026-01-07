@@ -1,7 +1,8 @@
 import { useState, useMemo } from 'react';
 import { useQuery } from '@tanstack/react-query';
-import { Trophy, Filter } from 'lucide-react';
+import { Trophy, Filter, Search } from 'lucide-react';
 import { Navbar } from '@/components/Navbar';
+import { Footer } from '@/components/Footer';
 import { PropTable } from '@/components/PropTable';
 import { StatFilter } from '@/components/StatFilter';
 import { LoadingState } from '@/components/LoadingState';
@@ -28,6 +29,7 @@ export default function BestProps() {
   const [selectedStat, setSelectedStat] = useState<string | null>(null);
   const [selectedTeam, setSelectedTeam] = useState<string | null>(null);
   const [showPositiveOnly, setShowPositiveOnly] = useState(true);
+  const [searchQuery, setSearchQuery] = useState('');
 
   const { data: props, isLoading, error } = useQuery({
     queryKey: ['all-props'],
@@ -49,6 +51,13 @@ export default function BestProps() {
     if (!props) return [];
     
     let filtered = [...props];
+    
+    // Filter by player name search
+    if (searchQuery) {
+      filtered = filtered.filter((p) => 
+        p.player_name.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+    }
     
     // Filter by stat type
     if (selectedStat) {
@@ -73,7 +82,7 @@ export default function BestProps() {
     });
     
     return filtered;
-  }, [props, selectedStat, selectedTeam, showPositiveOnly]);
+  }, [props, selectedStat, selectedTeam, showPositiveOnly, searchQuery]);
 
   const positiveEdgeCount = props?.filter((p) => p.edge !== null && p.edge > 0).length || 0;
   const avgEdge = filteredProps.length > 0
@@ -115,6 +124,32 @@ export default function BestProps() {
             </p>
           </div>
         </div>
+
+        {/* Search Bar */}
+        <div className="relative max-w-md mb-6">
+          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-muted-foreground" />
+          <input
+            type="text"
+            placeholder="Search by player name..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            className="w-full pl-10 pr-4 py-3 bg-card border border-border rounded-lg text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+          />
+          {searchQuery && (
+            <button
+              onClick={() => setSearchQuery('')}
+              className="absolute right-3 top-1/2 transform -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
+            >
+              ✕
+            </button>
+          )}
+        </div>
+
+        {searchQuery && (
+          <p className="mb-4 text-sm text-muted-foreground">
+            Found {filteredProps.length} props matching "{searchQuery}"
+          </p>
+        )}
 
         {/* Filters */}
         <div className="flex flex-wrap items-center gap-4 mb-6">
@@ -212,6 +247,8 @@ export default function BestProps() {
           </>
         )}
       </main>
+
+      <Footer />
     </div>
   );
 }

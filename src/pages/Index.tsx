@@ -1,5 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
-import { TrendingUp, Calendar, Zap, Database, Calculator } from 'lucide-react';
+import { TrendingUp, Calendar, Zap, Database, Calculator, Search } from 'lucide-react';
+import { useState } from 'react';
 import { Navbar } from '@/components/Navbar';
 import { supabase } from '@/integrations/supabase/client';
 import { Card } from '@/components/ui/card';
@@ -31,6 +32,8 @@ interface Prop {
 }
 
 export default function Index() {
+  const [searchQuery, setSearchQuery] = useState('');
+
   const { data: games, isLoading } = useQuery({
     queryKey: ['games'],
     queryFn: async () => {
@@ -65,9 +68,15 @@ export default function Index() {
     refetchInterval: 30000,
   });
 
+  // Filter props based on search query
+  const filteredProps = props?.filter(prop => 
+    searchQuery === '' || 
+    prop.player_name.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
   const getPropsForGame = (gameId: string) => {
-    if (!props) return [];
-    return props.filter(p => p.game_id === gameId).slice(0, 3);
+    if (!filteredProps) return [];
+    return filteredProps.filter(p => p.game_id === gameId).slice(0, 3);
   };
 
   const formatTime = (isoDate: string) => {
@@ -181,6 +190,32 @@ export default function Index() {
               </Button>
             </div>
           </div>
+
+          {/* Search Bar */}
+          <div className="relative max-w-md">
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-slate-400" />
+            <input
+              type="text"
+              placeholder="Search by player name..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="w-full pl-10 pr-4 py-3 bg-slate-900/50 border border-slate-800 rounded-lg text-white placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
+            />
+            {searchQuery && (
+              <button
+                onClick={() => setSearchQuery('')}
+                className="absolute right-3 top-1/2 transform -translate-y-1/2 text-slate-400 hover:text-white"
+              >
+                ✕
+              </button>
+            )}
+          </div>
+          
+          {searchQuery && filteredProps && (
+            <p className="mt-2 text-sm text-slate-400">
+              Found {filteredProps.length} props matching "{searchQuery}"
+            </p>
+          )}
         </div>
 
         {/* Games Not Found */}
@@ -198,6 +233,9 @@ export default function Index() {
             <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
               {games.map((game) => {
                 const gameProps = getPropsForGame(game.id);
+                
+                // Hide games with no matching props when searching
+                if (searchQuery && gameProps.length === 0) return null;
                 
                 return (
                   <Card 
@@ -308,6 +346,24 @@ export default function Index() {
               })}
             </div>
 
+            {/* No Results Message */}
+            {searchQuery && filteredProps?.length === 0 && (
+              <Card className="p-12 text-center bg-slate-900/50 border-slate-800 mt-6">
+                <Search className="h-16 w-16 text-slate-600 mx-auto mb-4" />
+                <h3 className="text-2xl font-bold text-white mb-2">No Players Found</h3>
+                <p className="text-slate-400">
+                  No props found for "{searchQuery}". Try a different player name.
+                </p>
+                <Button 
+                  onClick={() => setSearchQuery('')}
+                  className="mt-4"
+                  variant="outline"
+                >
+                  Clear Search
+                </Button>
+              </Card>
+            )}
+
             {/* Stats Footer */}
             <div className="mt-12 grid gap-4 md:grid-cols-3">
               <Card className="bg-gradient-to-br from-emerald-500/10 to-emerald-500/5 border-emerald-500/20 p-6">
@@ -316,12 +372,12 @@ export default function Index() {
               </Card>
               <Card className="bg-gradient-to-br from-blue-500/10 to-blue-500/5 border-blue-500/20 p-6">
                 <p className="text-slate-400 text-sm mb-1">Total Props</p>
-                <p className="text-4xl font-bold text-white">{props?.length || 0}</p>
+                <p className="text-4xl font-bold text-white">{filteredProps?.length || 0}</p>
               </Card>
               <Card className="bg-gradient-to-br from-purple-500/10 to-purple-500/5 border-purple-500/20 p-6">
                 <p className="text-slate-400 text-sm mb-1">High Edge Props</p>
                 <p className="text-4xl font-bold text-white">
-                  {props?.filter(p => p.edge >= 18).length || 0}
+                  {filteredProps?.filter(p => p.edge >= 18).length || 0}
                 </p>
               </Card>
             </div>

@@ -4,8 +4,11 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Analytics } from "@vercel/analytics/react";
+import Home from "./pages/Home";
 import GameDetail from "./pages/GameDetail";
 import BestProps from "./pages/BestProps";
+import PrivacyPolicy from "./pages/PrivacyPolicy";
+import About from "./pages/About";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient({
@@ -24,8 +27,11 @@ const App = () => (
       <Sonner position="top-center" />
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<BestProps />} />
+          <Route path="/" element={<Home />} />
+          <Route path="/props" element={<BestProps />} />
           <Route path="/game/:gameId" element={<GameDetail />} />
+          <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+          <Route path="/about" element={<About />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
