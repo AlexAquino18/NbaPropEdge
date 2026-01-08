@@ -46,21 +46,21 @@ def main():
     print('🔧 FIXING TEAM ABBREVIATIONS')
     print('=' * 60)
     
-    # Get all props
+    # Fix props table
     print('📥 Fetching props...')
     props_response = supabase.table('props').select('*').execute()
     props = props_response.data
     print(f'✓ Found {len(props)} props\n')
     
-    fixed_count = 0
-    unchanged_count = 0
+    fixed_props = 0
+    unchanged_props = 0
     
     for prop in props:
         prop_id = prop['id']
         current_team = prop.get('team', '')
         
         if not current_team:
-            unchanged_count += 1
+            unchanged_props += 1
             continue
         
         # Check if this team needs fixing
@@ -72,17 +72,56 @@ def main():
                 'team': correct_team
             }).eq('id', prop_id).execute()
             
-            print(f'✅ Fixed: {prop["player_name"]} - {current_team} → {correct_team}')
-            fixed_count += 1
+            print(f'✅ Fixed prop: {prop["player_name"]} - {current_team} → {correct_team}')
+            fixed_props += 1
         else:
-            unchanged_count += 1
+            unchanged_props += 1
+    
+    # Fix games table
+    print(f'\n📥 Fetching games...')
+    games_response = supabase.table('games').select('*').execute()
+    games = games_response.data
+    print(f'✓ Found {len(games)} games\n')
+    
+    fixed_games = 0
+    unchanged_games = 0
+    
+    for game in games:
+        game_id = game['id']
+        home_team = game.get('home_team_abbr', '')
+        away_team = game.get('away_team_abbr', '')
+        
+        needs_update = False
+        updates = {}
+        
+        # Check home team
+        if home_team in TEAM_FIX_MAP:
+            correct_home = TEAM_FIX_MAP[home_team]
+            updates['home_team_abbr'] = correct_home
+            needs_update = True
+            print(f'✅ Fixed game home: {home_team} → {correct_home}')
+        
+        # Check away team
+        if away_team in TEAM_FIX_MAP:
+            correct_away = TEAM_FIX_MAP[away_team]
+            updates['away_team_abbr'] = correct_away
+            needs_update = True
+            print(f'✅ Fixed game away: {away_team} → {correct_away}')
+        
+        if needs_update:
+            supabase.table('games').update(updates).eq('id', game_id).execute()
+            fixed_games += 1
+        else:
+            unchanged_games += 1
     
     print()
     print('=' * 60)
     print('✅ FIX COMPLETE')
     print('=' * 60)
-    print(f'✅ Fixed: {fixed_count} props')
-    print(f'⏭️  Unchanged: {unchanged_count} props')
+    print(f'✅ Fixed props: {fixed_props}')
+    print(f'⏭️  Unchanged props: {unchanged_props}')
+    print(f'✅ Fixed games: {fixed_games}')
+    print(f'⏭️  Unchanged games: {unchanged_games}')
     print('=' * 60)
     print()
     print('💡 Now run the projections script to see correct matchups!')
