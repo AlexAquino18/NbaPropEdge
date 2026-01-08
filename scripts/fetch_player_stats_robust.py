@@ -57,7 +57,7 @@ def get_all_players():
     if ALL_PLAYERS_CACHE:
         return ALL_PLAYERS_CACHE
     
-    url = 'https://stats.nba.com/stats/commonallplayers?LeagueID=00&Season=2024-25&IsOnlyCurrentSeason=1'
+    url = 'https://stats.nba.com/stats/commonallplayers?LeagueID=00&Season=2025-26&IsOnlyCurrentSeason=1'
     
     print('📥 Fetching player list from NBA API...')
     for attempt in range(5):
@@ -133,7 +133,7 @@ def find_player(player_name):
         return None
 
 def fetch_player_stats(player_id, player_name):
-    url = f'https://stats.nba.com/stats/playergamelog?PlayerID={player_id}&Season=2024-25&SeasonType=Regular+Season'
+    url = f'https://stats.nba.com/stats/playergamelog?PlayerID={player_id}&Season=2025-26&SeasonType=Regular+Season'
     
     for attempt in range(5):
         try:
