@@ -216,6 +216,27 @@ for i, player_name in enumerate(unique_players, 1):
             time.sleep(2)
             continue
         
+        # Fetch stats
+        stats = fetch_player_stats(player['id'], player['name'])
+        if not stats or len(stats) == 0:
+            print(f'  ⚠️  No stats found\n')
+            errors += 1
+            time.sleep(2)
+            continue
+        
+        # Save to database
+        for stat in stats:
+            # Check if stat already exists
+            existing = supabase.table('player_stats')\
+                .select('id')\
+                .eq('player_name', stat['player_name'])\
+                .eq('game_date', stat['game_date'])\
+                .execute()
+            
+            if not existing.data:
+                supabase.table('player_stats').insert(stat).execute()
+        
+        print(f'  ✅ Saved {len(stats)} games')
         print(f'     Latest: {stats[0]["game_date"]} - {stats[0]["points"]} PTS, {stats[0]["rebounds"]} REB, {stats[0]["assists"]} AST vs {stats[0]["opponent"]}\n')
         success += 1
         
