@@ -13,4 +13,4 @@ Allow: /
 User-agent: *
 Allow: /
 
-Sitemap: https://nba-prop-edge.vercel.app/sitemap.xml
+Sitemap: https://nba-prop-edge.vercel.app/sitemap-2026.xml
