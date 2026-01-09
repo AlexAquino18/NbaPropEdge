@@ -25,7 +25,10 @@ export function Navbar() {
     
     if (result.success) {
       toast.success('Data refreshed successfully!');
-      window.location.reload();
+      // Avoid full page reload to preserve current projections/state
+      // Instead, rely on your data layer to re-fetch or auto-update views.
+      // If needed, trigger a client-side refetch from the component that owns the projections.
+      // window.location.reload();
     } else {
       toast.error(result.message || 'Failed to refresh data');
     }
