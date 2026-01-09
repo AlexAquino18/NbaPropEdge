@@ -54,7 +54,7 @@ TEAM_ABBR_MAP = {
     'NY': 'NYK',
     'GS': 'GSW',
     'PHX': 'PHO',
-    
+    'TRA': 'POR',
    
 }
 
