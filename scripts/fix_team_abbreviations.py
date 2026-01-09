@@ -33,7 +33,7 @@ TEAM_FIX_MAP = {
     'TIM': 'MIN',  # Timberwolves -> Minnesota
     'PEL': 'NOP',  # Pelicans -> New Orleans
     'KNI': 'NYK',  # Knicks -> New York
-    'SUN': 'PHO',  # Suns -> Phoenix
+    'SUN': 'PHX',  # Suns -> Phoenix
     '76E': 'PHI',  # 76ers -> Philadelphia
     'TRA': 'POR',  # Trail Blazers -> Portland
     'KIN': 'SAC',  # Kings -> Sacramento

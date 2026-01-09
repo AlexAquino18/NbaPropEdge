@@ -49,12 +49,11 @@ NBA_TEAM_STATS = {
 # Team abbreviation mapping to handle variations
 TEAM_ABBR_MAP = {
     'LAK': 'LAL',  # Fix for Los Angeles Lakers
-    'TIM': 'SAS',  # Fix for San Antonio (Timberwolves/Spurs confusion)
     'SA': 'SAS',
     'NO': 'NOP',
     'NY': 'NYK',
     'GS': 'GSW',
-    'PHX': 'PHO',
+   
 }
 
 def normalize_team_abbr(team_abbr):
