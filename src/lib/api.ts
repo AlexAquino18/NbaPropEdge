@@ -1,5 +1,6 @@
 import { supabase } from "@/integrations/supabase/client";
 import type { Game, PlayerStat, GameWithProps, Prop } from "@/types";
+import { mergePropsWithProjectionCache, updateProjectionCacheFromProps } from '@/lib/utils';
 
 // Filter out unwanted stat types
 const shouldExcludeProp = (statType: string): boolean => {
@@ -74,9 +75,14 @@ export const fetchGamesWithTopProps = async (): Promise<GameWithProps[]> => {
     // Filter out unwanted prop types
     const filteredProps = (props || []).filter((prop: Prop) => !shouldExcludeProp(prop.stat_type));
 
+    // Merge projections from cache so they persist
+    const mergedProps = mergePropsWithProjectionCache(filteredProps);
+    // Update cache with any fresh projections
+    updateProjectionCacheFromProps(mergedProps);
+
     // Map games with their props and top props
     const gamesWithProps: GameWithProps[] = games.map((game) => {
-      const gameProps = filteredProps.filter((prop: Prop) => prop.game_id === game.id);
+      const gameProps = mergedProps.filter((prop: Prop) => prop.game_id === game.id);
       const topProps = gameProps.filter((prop: Prop) => prop.edge !== null && prop.edge > 0);
       
       return {
@@ -175,7 +181,9 @@ export const fetchPropsForGame = async (gameId: string): Promise<Prop[]> => {
 
     // Filter out unwanted prop types
     const filteredProps = (props || []).filter((prop: Prop) => !shouldExcludeProp(prop.stat_type));
-    return filteredProps;
+    const merged = mergePropsWithProjectionCache(filteredProps);
+    updateProjectionCacheFromProps(merged);
+    return merged;
   } catch (error) {
     console.error('Error in fetchPropsForGame:', error);
     throw error;
@@ -197,8 +205,10 @@ export const fetchAllProps = async (): Promise<Prop[]> => {
 
     // Filter out unwanted prop types
     const filteredProps = (props || []).filter((prop: Prop) => !shouldExcludeProp(prop.stat_type));
-    console.log(`Successfully fetched ${filteredProps.length} props (filtered from ${props?.length || 0})`);
-    return filteredProps;
+    const merged = mergePropsWithProjectionCache(filteredProps);
+    updateProjectionCacheFromProps(merged);
+    console.log(`Successfully fetched ${merged.length} props (filtered from ${props?.length || 0})`);
+    return merged;
   } catch (error) {
     console.error('Error in fetchAllProps:', error);
     throw error;
