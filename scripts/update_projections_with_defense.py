@@ -551,7 +551,7 @@ def run_script_safely(args: list[str], label: str, timeout: int = 60):
 
 def link_props_to_games():
     try:
-        print('🔗 Linking props to games (internal, today only)...')
+        print('🔗 Linking props to games (internal, today + tomorrow)...')
         # Load props (id, team, game_id)
         props_resp = supabase.table('props').select('id, team, game_id').limit(5000).execute()
         props = props_resp.data or []
@@ -566,27 +566,26 @@ def link_props_to_games():
             print('⚠️  No games available to link')
             return False
 
-        # Only consider today's games (UTC day)
+        # Consider games in the next 48 hours (UTC)
         now = datetime.now(timezone.utc)
         start = now.replace(hour=0, minute=0, second=0, microsecond=0)
-        end = now.replace(hour=23, minute=59, second=59, microsecond=0)
+        end = (now + timedelta(days=1)).replace(hour=23, minute=59, second=59, microsecond=0)
         def parse_time(s):
             try:
-                dt = datetime.fromisoformat(s.replace('Z','+00:00'))
+                dt = datetime.fromisoformat((s or '').replace('Z','+00:00'))
                 if dt.tzinfo is None:
                     dt = dt.replace(tzinfo=timezone.utc)
                 return dt.astimezone(timezone.utc)
             except Exception:
                 return None
-        today_games = []
+        window_games = []
         for g in games:
-            gt = g.get('game_time')
-            dt = parse_time(gt) if gt else None
+            dt = parse_time(g.get('game_time'))
             if dt and start <= dt <= end:
-                today_games.append(g)
-        games = today_games
+                window_games.append(g)
+        games = window_games
         if not games:
-            print('⚠️  No games found for today')
+            print('⚠️  No games found for today/tomorrow')
             return False
 
         # Build index by team
@@ -613,7 +612,7 @@ def link_props_to_games():
                 continue
             # Choose earliest by time
             def sort_key(g):
-                dt = parse_time(g.get('game_time') or '')
+                dt = parse_time(g.get('game_time'))
                 return dt or end
             chosen = sorted(candidates, key=sort_key)[0]
             if p.get('game_id') != chosen['id']:
@@ -734,13 +733,12 @@ def main():
     all_props = props_response.data or []
     print(f'✓ Found {len(all_props)} props')
 
-    # Only process props whose game is scheduled today
-    # Build map of today game ids
-    games_today_resp = supabase.table('games').select('id, game_time').execute()
-    games_today = games_today_resp.data or []
+    # Only process props whose game is scheduled today or tomorrow
+    games_window_resp = supabase.table('games').select('id, game_time').execute()
+    games_window = games_window_resp.data or []
     now = datetime.now(timezone.utc)
     start = now.replace(hour=0, minute=0, second=0, microsecond=0)
-    end = now.replace(hour=23, minute=59, second=59, microsecond=0)
+    end = (now + timedelta(days=1)).replace(hour=23, minute=59, second=59, microsecond=0)
     def parse_time2(s):
         try:
             dt = datetime.fromisoformat((s or '').replace('Z','+00:00'))
@@ -749,9 +747,9 @@ def main():
             return dt.astimezone(timezone.utc)
         except Exception:
             return None
-    today_game_ids = set(g['id'] for g in games_today if (parse_time2(g.get('game_time')) and start <= parse_time2(g.get('game_time')) <= end))
-    props = [p for p in all_props if p.get('game_id') in today_game_ids]
-    print(f'✓ Processing {len(props)} props scheduled for today\n')
+    window_game_ids = set(g['id'] for g in games_window if (parse_time2(g.get('game_time')) and start <= parse_time2(g.get('game_time')) <= end))
+    props = [p for p in all_props if p.get('game_id') in window_game_ids]
+    print(f'✓ Processing {len(props)} props scheduled for today/tomorrow\n')
 
     updated = 0
     errors = 0
