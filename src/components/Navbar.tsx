@@ -12,27 +12,30 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
+import { useQueryClient } from '@tanstack/react-query';
 
 export function Navbar() {
   const location = useLocation();
+  const queryClient = useQueryClient();
   const [isRefreshing, setIsRefreshing] = useState(false);
 
   const handleRefresh = async () => {
     setIsRefreshing(true);
     toast.info('Refreshing prop data...');
+
+    // Keep previous props visible while refreshing
+    queryClient.setQueryData(['all-props'], (old: any) => old ?? []);
     
     const result = await refreshData();
-    
+
     if (result.success) {
       toast.success('Data refreshed successfully!');
-      // Avoid full page reload to preserve current projections/state
-      // Instead, rely on your data layer to re-fetch or auto-update views.
-      // If needed, trigger a client-side refetch from the component that owns the projections.
-      // window.location.reload();
+      // Refetch props and keep previous data to avoid empty UI flicker
+      await queryClient.invalidateQueries({ queryKey: ['all-props'], refetchType: 'active' });
     } else {
       toast.error(result.message || 'Failed to refresh data');
     }
-    
+
     setIsRefreshing(false);
   };
 

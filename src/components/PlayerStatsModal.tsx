@@ -97,6 +97,19 @@ const PLAYER_POSITIONS: Record<string, string> = {
 
 const LEAGUE_AVG_PACE = 100.0;
 
+const TEAM_ABBR_NORMALIZE: Record<string, string> = {
+  'PHO': 'PHX',
+  'TRA': 'POR',
+  'GS': 'GSW',
+  'NY': 'NYK',
+  'SA': 'SAS',
+};
+
+function normalizeTeam(abbr: string | null | undefined): string | null {
+  if (!abbr) return null;
+  return TEAM_ABBR_NORMALIZE[abbr] || abbr;
+}
+
 function getDefensiveRank(opponentTeam: string, playerName: string): number | null {
   const position = PLAYER_POSITIONS[playerName] || 'SF';
   return DEFENSIVE_MATCHUPS[opponentTeam]?.[position] || null;
@@ -170,9 +183,10 @@ export function PlayerStatsModal({
   });
 
   // Calculate opponent team
-  const opponentTeam = gameInfo && prop?.team
+  const opponentTeamRaw = gameInfo && prop?.team
     ? (prop.team === gameInfo.home_team_abbr ? gameInfo.away_team_abbr : gameInfo.home_team_abbr)
     : null;
+  const opponentTeam = normalizeTeam(opponentTeamRaw);
 
   const getStatValue = (stat: PlayerStat, type: string): number | null => {
     const normalizedType = type.toLowerCase();
@@ -455,9 +469,15 @@ export function PlayerStatsModal({
                       Edge
                     </span>
                   </div>
-                  <p className={`text-2xl font-bold ${(prop.edge || 0) > 0 ? 'text-green-600' : 'text-red-600'}`}>
-                    {prop.edge ? (prop.edge > 0 ? '+' : '') + prop.edge.toFixed(1) : '0.0'}%
-                  </p>
+                  {(() => {
+                    const edgeRaw = prop.edge ?? 0;
+                    const edgePct = edgeRaw >= 1 ? edgeRaw : edgeRaw * 100;
+                    return (
+                      <p className={`text-2xl font-bold ${edgePct > 0 ? 'text-green-600' : 'text-red-600'}`}>
+                        {edgePct > 0 ? '+' : ''}{edgePct.toFixed(1)}%
+                      </p>
+                    );
+                  })()}
                   <p className="text-xs text-muted-foreground mt-1">
                     {(prop.edge || 0) > 0 ? 'Favorable' : 'Unfavorable'}
                   </p>

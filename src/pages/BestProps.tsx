@@ -24,6 +24,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
+import type { Prop } from '@/types';
 
 export default function BestProps() {
   const [selectedStat, setSelectedStat] = useState<string | null>(null);
@@ -31,15 +32,18 @@ export default function BestProps() {
   const [showPositiveOnly, setShowPositiveOnly] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
 
-  const { data: props, isLoading, error } = useQuery({
+  const { data: props = [], isLoading, isFetching, error } = useQuery<Prop[], Error>({
     queryKey: ['all-props'],
     queryFn: fetchAllProps,
     refetchInterval: 60000,
+    staleTime: 60_000,
+    refetchOnWindowFocus: false,
+    retry: 1,
+    initialData: [],
   });
 
   // Get unique teams from props
   const teams = useMemo(() => {
-    if (!props) return [];
     const uniqueTeams = new Set<string>();
     props.forEach((p) => {
       if (p.team) uniqueTeams.add(p.team);
@@ -48,8 +52,6 @@ export default function BestProps() {
   }, [props]);
 
   const filteredProps = useMemo(() => {
-    if (!props) return [];
-    
     let filtered = [...props];
     
     // Filter by player name search
@@ -84,7 +86,7 @@ export default function BestProps() {
     return filtered;
   }, [props, selectedStat, selectedTeam, showPositiveOnly, searchQuery]);
 
-  const positiveEdgeCount = props?.filter((p) => p.edge !== null && p.edge > 0).length || 0;
+  const positiveEdgeCount = props.filter((p) => p.edge !== null && p.edge > 0).length || 0;
   const avgEdge = filteredProps.length > 0
     ? filteredProps.reduce((acc, p) => acc + (p.edge || 0), 0) / filteredProps.length
     : 0;
@@ -242,6 +244,7 @@ export default function BestProps() {
           <>
             <div className="mb-4 text-sm text-muted-foreground">
               Showing {filteredProps.length} prop{filteredProps.length !== 1 ? 's' : ''}
+              {isFetching && <span className="ml-2">(updating...)</span>}
             </div>
             <PropTable props={filteredProps} />
           </>
