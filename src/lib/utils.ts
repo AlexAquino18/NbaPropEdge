@@ -2,8 +2,8 @@ import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
 import type { Prop } from '@/types';
 
-const PROJECTION_CACHE_KEY = 'projectionCache:v1';
-const LAST_PROPS_CACHE_KEY = 'lastPropsCache:v1';
+const PROJECTION_CACHE_KEY = 'projectionCache:v2';
+const LAST_PROPS_CACHE_KEY = 'lastPropsCache:v2';
 
 type ProjectionSnapshot = Pick<Prop, 'external_id' | 'player_name' | 'stat_type' | 'line' | 'projection' | 'probability_over' | 'edge' | 'confidence'>;
 
@@ -76,10 +76,11 @@ export function mergePropsWithProjectionCache(props: Prop[]): Prop[] {
     if (!snap) return p;
     return {
       ...p,
-      projection: snap.projection ?? p.projection,
-      probability_over: snap.probability_over ?? p.probability_over,
-      edge: snap.edge ?? p.edge,
-      confidence: snap.confidence ?? p.confidence,
+      // Prefer DB values; only fall back to cache when DB fields are null/undefined
+      projection: p.projection ?? snap.projection ?? null,
+      probability_over: p.probability_over ?? snap.probability_over ?? null,
+      edge: p.edge ?? snap.edge ?? null,
+      confidence: p.confidence ?? snap.confidence ?? null,
     };
   });
 }
