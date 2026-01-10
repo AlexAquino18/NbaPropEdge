@@ -1,142 +1,120 @@
 import os
+import sys
+from datetime import date, timedelta
 import requests
-from datetime import datetime, date
 from dotenv import load_dotenv
 from supabase import create_client
-import sys
-
-# Fix Windows console encoding for emojis
-if sys.platform == 'win32':
-    sys.stdout.reconfigure(encoding='utf-8')
 
 load_dotenv()
+
+try:
+    sys.stdout.reconfigure(encoding='utf-8')
+except Exception:
+    pass
 
 supabase = create_client(
     os.getenv('VITE_SUPABASE_URL'),
     os.getenv('VITE_SUPABASE_PUBLISHABLE_KEY')
 )
 
-# Ball Don't Lie API key
-BALLDONTLIE_API_KEY = 'd096acdb-bd8a-419a-b921-05a24a0f44f9'
+BALLDONTLIE_API_KEY = os.getenv('BALLDONTLIE_API_KEY') or 'd096acdb-bd8a-419a-b921-05a24a0f44f9'
 
-# Team name mapping from Ball Don't Lie to standard abbreviations
 TEAM_ABBR_MAP = {
     'ATL': 'ATL', 'BOS': 'BOS', 'BKN': 'BKN', 'CHA': 'CHA', 'CHI': 'CHI',
     'CLE': 'CLE', 'DAL': 'DAL', 'DEN': 'DEN', 'DET': 'DET', 'GSW': 'GSW',
     'HOU': 'HOU', 'IND': 'IND', 'LAC': 'LAC', 'LAL': 'LAL', 'MEM': 'MEM',
     'MIA': 'MIA', 'MIL': 'MIL', 'MIN': 'MIN', 'NOP': 'NOP', 'NYK': 'NYK',
-    'OKC': 'OKC', 'ORL': 'ORL', 'PHI': 'PHI', 'PHX': 'PHO', 'POR': 'POR',
-    'SAC': 'SAC', 'SAS': 'SAS', 'TOR': 'TOR', 'UTA': 'UTA', 'WAS': 'WAS'
+    'OKC': 'OKC', 'ORL': 'ORL', 'PHI': 'PHI', 'PHO': 'PHO', 'PHX': 'PHO', 'POR': 'POR',
+    'SAC': 'SAC', 'SAS': 'SAS', 'TOR': 'TOR', 'UTA': 'UTA', 'WAS': 'WAS',
+    # Variants sometimes seen
+    'HAW': 'ATL', 'TIM': 'MIN', 'PAC': 'IND', 'TRA': 'POR', 'GS': 'GSW', 'NY': 'NYK', 'SA': 'SAS'
 }
 
-TEAM_FULL_NAMES = {
-    'ATL': 'Atlanta Hawks', 'BOS': 'Boston Celtics', 'BKN': 'Brooklyn Nets',
-    'CHA': 'Charlotte Hornets', 'CHI': 'Chicago Bulls', 'CLE': 'Cleveland Cavaliers',
-    'DAL': 'Dallas Mavericks', 'DEN': 'Denver Nuggets', 'DET': 'Detroit Pistons',
-    'GSW': 'Golden State Warriors', 'HOU': 'Houston Rockets', 'IND': 'Indiana Pacers',
-    'LAC': 'Los Angeles Clippers', 'LAL': 'Los Angeles Lakers', 'MEM': 'Memphis Grizzlies',
-    'MIA': 'Miami Heat', 'MIL': 'Milwaukee Bucks', 'MIN': 'Minnesota Timberwolves',
-    'NOP': 'New Orleans Pelicans', 'NYK': 'New York Knicks', 'OKC': 'Oklahoma City Thunder',
-    'ORL': 'Orlando Magic', 'PHI': 'Philadelphia 76ers', 'PHO': 'Phoenix Suns',
-    'POR': 'Portland Trail Blazers', 'SAC': 'Sacramento Kings', 'SAS': 'San Antonio Spurs',
-    'TOR': 'Toronto Raptors', 'UTA': 'Utah Jazz', 'WAS': 'Washington Wizards'
-}
 
-def fetch_todays_games():
-    """Fetch today's NBA games from Ball Don't Lie API"""
-    print('FETCHING TODAY\'S NBA GAMES FROM BALL DON\'T LIE')
-    print('=' * 60)
-    
-    # Get today's date
-    today = date.today()
-    date_str = today.strftime('%Y-%m-%d')
-    
-    print(f'Fetching games for {date_str}...')
-    
-    try:
-        # Ball Don't Lie API v1 with API key as query parameter
-        url = f'https://api.balldontlie.io/v1/games?dates[]={date_str}&api_key={BALLDONTLIE_API_KEY}'
-        
-        response = requests.get(url, timeout=10)
-        
-        if response.status_code != 200:
-            print(f'API Error: Status {response.status_code}')
-            print(f'Response: {response.text}')
-            return False
-        
-        data = response.json()
-        games_data = data.get('data', [])
-        
-        print(f'Found {len(games_data)} games\n')
-        
-        if len(games_data) == 0:
-            print('No games found for today')
-            return False
-        
-        # Prepare games to insert
-        games_to_insert = []
-        
-        for i, game in enumerate(games_data):
-            home_team = game['home_team']
-            visitor_team = game['visitor_team']
-            
-            home_abbr = TEAM_ABBR_MAP.get(home_team['abbreviation'], home_team['abbreviation'])
-            away_abbr = TEAM_ABBR_MAP.get(visitor_team['abbreviation'], visitor_team['abbreviation'])
-            
-            home_full = TEAM_FULL_NAMES.get(home_abbr, home_team['full_name'])
-            away_full = TEAM_FULL_NAMES.get(away_abbr, visitor_team['full_name'])
-            
-            game_id = f'game-{i+1}-{date_str}'
-            
-            # Handle game_time - use today's date with default time if status is not a timestamp
-            game_status = game.get('status', '')
-            if isinstance(game_status, str) and ('Qtr' in game_status or 'Final' in game_status or 'Half' in game_status):
-                # Game is in progress or finished, use today at 7 PM
-                game_time = today.isoformat() + 'T19:00:00Z'
-            else:
-                # Try to use the provided time, fallback to 7 PM
-                game_time = game.get('date', today.isoformat() + 'T19:00:00Z')
-            
-            games_to_insert.append({
-                'id': game_id,
+def normalize_abbr(abbr: str) -> str:
+    if not abbr:
+        return abbr
+    return TEAM_ABBR_MAP.get(abbr, abbr)
+
+
+def fetch_games_for_dates(dates):
+    all_games = []
+    for d in dates:
+        url = f'https://api.balldontlie.io/v1/games?dates[]={d}'
+        headers = {'Authorization': BALLDONTLIE_API_KEY}
+        resp = requests.get(url, headers=headers, timeout=15)
+        if resp.status_code == 401:
+            url = f'https://api.balldontlie.io/v1/games?dates[]={d}&api_key={BALLDONTLIE_API_KEY}'
+            resp = requests.get(url, timeout=15)
+        if resp.status_code != 200:
+            print(f'⚠️  BallDontLie status {resp.status_code} for {d}')
+            continue
+        data = resp.json().get('data', [])
+        for g in data:
+            home_abbr = normalize_abbr(g['home_team']['abbreviation'])
+            away_abbr = normalize_abbr(g['visitor_team']['abbreviation'])
+            home_full = g['home_team']['full_name']
+            away_full = g['visitor_team']['full_name']
+            # Use game datetime from API, normalize to ISO UTC
+            raw_dt = g.get('date')
+            game_dt = raw_dt if raw_dt else f'{d}T19:00:00+00:00'
+            all_games.append({
+                'date': d,
                 'home_team': home_full,
-                'away_team': away_full,
                 'home_team_abbr': home_abbr,
+                'away_team': away_full,
                 'away_team_abbr': away_abbr,
-                'game_time': game_time,
+                'game_time': game_dt.replace('Z', '+00:00'),
                 'status': 1,
             })
-            
-            print(f'{i+1}. {away_abbr} @ {home_abbr} - {away_full} at {home_full}')
-        
-        # Clear existing games with TBD
-        print(f'\nClearing old TBD games...')
-        supabase.table('games').delete().eq('home_team', 'TBD').execute()
-        
-        # Insert new games
-        print(f'Inserting {len(games_to_insert)} games into database...')
-        supabase.table('games').insert(games_to_insert).execute()
-        
-        print('\n' + '=' * 60)
-        print('SUCCESS! REAL NBA GAMES LOADED')
-        print('=' * 60)
-        print(f'Date: {date_str}')
-        print(f'Games: {len(games_to_insert)}')
-        print('\nGAMES LOADED:')
-        for game in games_to_insert:
-            print(f'  {game["away_team_abbr"]} @ {game["home_team_abbr"]}')
-        print('=' * 60)
-        
-        return True
-        
-    except Exception as e:
-        print(f'Error: {e}')
-        import traceback
-        traceback.print_exc()
+    return all_games
+
+
+def upsert_games(games):
+    if not games:
+        print('No games to upsert')
         return False
+    inserted = 0
+    for game in games:
+        try:
+            # Build day range for the game date in UTC
+            day = game['date']
+            start = f"{day}T00:00:00+00:00"
+            end = f"{day}T23:59:59+00:00"
+            # Look for existing game with same home/away on that day
+            existing = supabase.table('games').select('id')\
+                .eq('home_team_abbr', game['home_team_abbr'])\
+                .eq('away_team_abbr', game['away_team_abbr'])\
+                .gte('game_time', start)\
+                .lte('game_time', end)\
+                .limit(1)\
+                .execute().data
+            payload = {
+                'home_team': game['home_team'],
+                'home_team_abbr': game['home_team_abbr'],
+                'away_team': game['away_team'],
+                'away_team_abbr': game['away_team_abbr'],
+                'game_time': game['game_time'],
+                'status': 1,
+            }
+            if existing:
+                supabase.table('games').update(payload).eq('id', existing[0]['id']).execute()
+            else:
+                supabase.table('games').insert(payload).execute()
+            inserted += 1
+        except Exception as e:
+            print(f'⚠️  Upsert error: {e}')
+    print(f'✅ Upserted {inserted} games')
+    return True
+
+
+def main():
+    print('FETCHING BALL DONT LIE GAMES (Today + Tomorrow)')
+    today = date.today()
+    dates = [today.strftime('%Y-%m-%d'), (today + timedelta(days=1)).strftime('%Y-%m-%d')]
+    games = fetch_games_for_dates(dates)
+    print(f'Found {len(games)} games across {len(dates)} dates')
+    upsert_games(games)
 
 if __name__ == '__main__':
-    success = fetch_todays_games()
-    if not success:
-        print('\nFailed to fetch games. Make sure you have internet connection.')
-        exit(1)
+    main()

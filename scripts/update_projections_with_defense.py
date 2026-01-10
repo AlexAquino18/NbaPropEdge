@@ -6,6 +6,8 @@ import numpy as np
 from scipy import stats as scipy_stats
 import subprocess
 import sys
+import requests
+from datetime import datetime, timedelta, timezone
 
 # NBA Team Pace and Advanced Stats (2024-25 Season)
 NBA_TEAM_STATS = {
@@ -55,8 +57,14 @@ TEAM_ABBR_MAP = {
     'GS': 'GSW',
     'PHX': 'PHO',
     'TRA': 'POR',
-   
 }
+
+TEAM_ABBR_MAP.update({
+    'HAW': 'ATL',   # Hawks
+    'TIM': 'MIN',   # Timberwolves
+    'PAC': 'IND',   # Pacers
+    'OPP': 'UNK',   # Unknown opponent placeholder
+})
 
 def normalize_team_abbr(team_abbr):
     '''Normalize team abbreviations to match our data'''
@@ -513,52 +521,244 @@ def calculate_projection(player_stats, line, stat_type, opponent_team, player_po
     
     return round(adjusted_projection, 1), round(prob_over, 4), confidence
 
+def run_script_safely(args: list[str], label: str, timeout: int = 60):
+    try:
+        print(f"🔧 {label}...")
+        result = subprocess.run(
+            args,
+            capture_output=True,
+            text=True,
+            encoding='utf-8',
+            errors='replace',
+            timeout=timeout,
+        )
+        out = (result.stdout or '').strip()
+        err = (result.stderr or '').strip()
+        if result.returncode == 0:
+            if out:
+                print(out[:1000])
+            print(f"✅ {label} complete\n")
+            return True
+        else:
+            if err:
+                print(f"⚠️  {label} warning:\n{err[:1000]}\n")
+            else:
+                print(f"⚠️  {label} warning: (no error output)\n")
+            return False
+    except Exception as e:
+        print(f"⚠️  {label} error: {e}\n")
+        return False
+
+def link_props_to_games():
+    try:
+        print('🔗 Linking props to games (internal, today only)...')
+        # Load props (id, team, game_id)
+        props_resp = supabase.table('props').select('id, team, game_id').limit(5000).execute()
+        props = props_resp.data or []
+        if not props:
+            print('ℹ️  No props to link')
+            return True
+
+        # Load games
+        games_resp = supabase.table('games').select('id, home_team_abbr, away_team_abbr, game_time').limit(5000).execute()
+        games = games_resp.data or []
+        if not games:
+            print('⚠️  No games available to link')
+            return False
+
+        # Only consider today's games (UTC day)
+        now = datetime.now(timezone.utc)
+        start = now.replace(hour=0, minute=0, second=0, microsecond=0)
+        end = now.replace(hour=23, minute=59, second=59, microsecond=0)
+        def parse_time(s):
+            try:
+                dt = datetime.fromisoformat(s.replace('Z','+00:00'))
+                if dt.tzinfo is None:
+                    dt = dt.replace(tzinfo=timezone.utc)
+                return dt.astimezone(timezone.utc)
+            except Exception:
+                return None
+        today_games = []
+        for g in games:
+            gt = g.get('game_time')
+            dt = parse_time(gt) if gt else None
+            if dt and start <= dt <= end:
+                today_games.append(g)
+        games = today_games
+        if not games:
+            print('⚠️  No games found for today')
+            return False
+
+        # Build index by team
+        from collections import defaultdict
+        by_team = defaultdict(list)
+        for g in games:
+            home = normalize_team_abbr(g.get('home_team_abbr'))
+            away = normalize_team_abbr(g.get('away_team_abbr'))
+            if home and home not in ('TBD','UNK'):
+                by_team[home].append(g)
+            if away and away not in ('TBD','UNK'):
+                by_team[away].append(g)
+
+        updated = 0
+        skipped = 0
+        for p in props:
+            team = normalize_team_abbr(p.get('team'))
+            if not team or team in ('TBD','UNK'):
+                skipped += 1
+                continue
+            candidates = by_team.get(team, [])
+            if not candidates:
+                skipped += 1
+                continue
+            # Choose earliest by time
+            def sort_key(g):
+                dt = parse_time(g.get('game_time') or '')
+                return dt or end
+            chosen = sorted(candidates, key=sort_key)[0]
+            if p.get('game_id') != chosen['id']:
+                supabase.table('props').update({ 'game_id': chosen['id'] }).eq('id', p['id']).execute()
+                updated += 1
+        print(f'✅ Linked {updated} props, skipped {skipped}')
+        return True
+    except Exception as e:
+        print(f'⚠️  Linking error: {e}')
+        return False
+
+def step0_refresh_props():
+    print('=' * 60)
+    print('STEP 0: FETCHING PLAYER PROPS')
+    print('=' * 60)
+    url = os.getenv('VITE_SUPABASE_URL')
+    anon = os.getenv('VITE_SUPABASE_PUBLISHABLE_KEY')
+    if not url or not anon:
+        print('Missing Supabase env vars, skipping props refresh')
+        return False
+
+    def invoke(fn_name: str):
+        try:
+            fn_url = f"{url}/functions/v1/{fn_name}"
+            headers = {
+                'Authorization': f'Bearer {anon}',
+                'apikey': anon,
+                'Content-Type': 'application/json',
+            }
+            resp = requests.post(fn_url, headers=headers, timeout=60)
+            ok = resp.status_code in (200, 202)
+            print(f"Invoke {fn_name}: status {resp.status_code}{' (ok)' if ok else ''}")
+            if not ok:
+                print(resp.text[:200])
+            return ok
+        except Exception as e:
+            print(f"Error invoking {fn_name}: {e}")
+            return False
+
+    # Refresh the current props board
+    return invoke('refresh-data')
+
+def clear_props_board():
+    """Delete all rows from props to ensure only active board props remain after refresh"""
+    try:
+        print('🧹 Clearing existing props board...')
+        ids_resp = supabase.table('props').select('id').limit(100000).execute()
+        ids = [row['id'] for row in ids_resp.data or []]
+        if not ids:
+            print('ℹ️  Props board already empty')
+            return True
+        # Batch delete to avoid URL size limits
+        batch_size = 100
+        for i in range(0, len(ids), batch_size):
+            batch = ids[i:i+batch_size]
+            supabase.table('props').delete().in_('id', batch).execute()
+        print(f'✅ Deleted {len(ids)} props')
+        return True
+    except Exception as e:
+        print(f'⚠️  Could not clear props board: {e}')
+        return False
+
 def main():
     print('🏀 ADVANCED PROJECTION MODEL')
     print('=' * 60)
-    print('📊 Step 1: Fetching Today\'s NBA Games')
+
+    # Step 0a: Clear props so we only keep active board items
+    clear_props_board()
+
+    # Step 0b: Refresh props so projections run on the latest board
+    refreshed = step0_refresh_props()
+    if refreshed:
+        print('✅ Props refreshed from board (active only)')
+        try:
+            print('🔧 Fetching player stats via PowerShell (fetch-stats.ps1)...')
+            subprocess.run([
+                'powershell',
+                '-NoProfile',
+                '-ExecutionPolicy', 'Bypass',
+                '-File', '.\\fetch-stats.ps1',
+                '-NoPause'
+            ], check=False)
+            print('✅ Player stats fetch complete\n')
+        except Exception as e:
+            print(f'⚠️  Could not run fetch-stats.ps1: {e}\n')
+    else:
+        print('⚠️  Could not verify props refresh; continuing with existing props')
+
+    # Fetch today's games from Ball Don't Lie before linking
+    ok_games = run_script_safely([sys.executable, 'scripts/fetch_balldontlie_games.py'], "Fetch today's games (Ball Don't Lie)", timeout=40)
+    if not ok_games:
+        # Secondary: try ESPN games
+        run_script_safely([sys.executable, 'scripts/fetch_espn_games.py'], "Fetch today's games (ESPN)", timeout=40)
+
+    # Step 1: Ensure games and teams are linked
+    print('📊 Step 1: Linking Games and Teams')
     print('=' * 60)
     print()
-    
-    # Run the Ball Don't Lie games fetcher first
-    print('🔄 Running Ball Don\'t Lie API to get today\'s games...\n')
-    try:
-        result = subprocess.run(
-            [sys.executable, 'scripts/fetch_balldontlie_games.py'],
-            capture_output=True,
-            text=True,
-            timeout=30
-        )
-        
-        if result.returncode == 0:
-            print(result.stdout)
-            print('✅ Games loaded successfully!\n')
-        else:
-            print('⚠️  Warning: Could not fetch games automatically')
-            print(result.stderr)
-            print('\n⚠️  Continuing with existing games in database...\n')
-    except Exception as e:
-        print(f'⚠️  Warning: {e}')
-        print('⚠️  Continuing with existing games in database...\n')
-    
+
+    # Normalize before linking to fix team variants
+    run_script_safely([sys.executable, 'scripts/fix_team_abbreviations.py'], 'Normalize team abbreviations', timeout=30)
+
+    # Link props to games (today only)
+    link_props_to_games()
+
+    # Re-link once more to catch any late fixes
+    link_props_to_games()
+
     print()
     print('=' * 60)
     print('📊 Step 2: Calculating Advanced Projections')
     print('=' * 60)
     print()
-    
+
     # Get all props
     print('📥 Fetching props from database...')
     props_response = supabase.table('props').select('*').execute()
-    props = props_response.data
-    print(f'✓ Found {len(props)} props\n')
-    
+    all_props = props_response.data or []
+    print(f'✓ Found {len(all_props)} props')
+
+    # Only process props whose game is scheduled today
+    # Build map of today game ids
+    games_today_resp = supabase.table('games').select('id, game_time').execute()
+    games_today = games_today_resp.data or []
+    now = datetime.now(timezone.utc)
+    start = now.replace(hour=0, minute=0, second=0, microsecond=0)
+    end = now.replace(hour=23, minute=59, second=59, microsecond=0)
+    def parse_time2(s):
+        try:
+            dt = datetime.fromisoformat((s or '').replace('Z','+00:00'))
+            if dt.tzinfo is None:
+                dt = dt.replace(tzinfo=timezone.utc)
+            return dt.astimezone(timezone.utc)
+        except Exception:
+            return None
+    today_game_ids = set(g['id'] for g in games_today if (parse_time2(g.get('game_time')) and start <= parse_time2(g.get('game_time')) <= end))
+    props = [p for p in all_props if p.get('game_id') in today_game_ids]
+    print(f'✓ Processing {len(props)} props scheduled for today\n')
+
     updated = 0
     errors = 0
     skipped = 0
     
-    # Show first 3 detailed examples
-    show_details = 3
+    # Show first detailed example
+    show_details = 1
     
     for i, prop in enumerate(props, 1):
         try:
@@ -595,11 +795,14 @@ def main():
                 continue
                 
             opponent_team = away_team if player_team == home_team else home_team
+            if opponent_team == 'UNK' or not opponent_team:
+                skipped += 1
+                continue
             
             # Get player position
             player_position = get_player_position(player_name)
             
-            # Show detailed info for first few props
+            # Show detailed info for first prop
             if i <= show_details:
                 print(f'\n{"="*60}')
                 print(f'DETAILED PROJECTION #{i}')
@@ -655,7 +858,7 @@ def main():
             edge = (prob_over - 0.5) * 100
             edge = max(-30, min(30, edge))
             
-            # Show result for detailed examples
+            # Show result for detailed example
             if i <= show_details:
                 print(f'\n  📈 RESULT:')
                 print(f'     Projection: {projection}')

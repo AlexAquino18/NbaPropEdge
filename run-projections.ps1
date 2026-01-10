@@ -10,9 +10,9 @@ Write-Host ""
 # Activate virtual environment
 & ".\.venv\Scripts\Activate.ps1"
 
-# Run the full projection pipeline
-Write-Host "Running full projection pipeline..." -ForegroundColor Yellow
-python scripts\run_full_projections.py
+# Run the projections with built-in props refresh
+Write-Host "Running projections with defense (includes props refresh)..." -ForegroundColor Yellow
+python scripts\update_projections_with_defense.py
 
 Write-Host ""
 Write-Host "================================" -ForegroundColor Green

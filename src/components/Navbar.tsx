@@ -1,9 +1,6 @@
 import { Link, useLocation } from 'react-router-dom';
-import { TrendingUp, Trophy, RefreshCw, Gift } from 'lucide-react';
+import { TrendingUp, Trophy, Gift } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { useState } from 'react';
-import { refreshData } from '@/lib/api';
-import { toast } from 'sonner';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -12,32 +9,9 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { useQueryClient } from '@tanstack/react-query';
 
 export function Navbar() {
   const location = useLocation();
-  const queryClient = useQueryClient();
-  const [isRefreshing, setIsRefreshing] = useState(false);
-
-  const handleRefresh = async () => {
-    setIsRefreshing(true);
-    toast.info('Refreshing prop data...');
-
-    // Keep previous props visible while refreshing
-    queryClient.setQueryData(['all-props'], (old: any) => old ?? []);
-    
-    const result = await refreshData();
-
-    if (result.success) {
-      toast.success('Data refreshed successfully!');
-      // Refetch props and keep previous data to avoid empty UI flicker
-      await queryClient.invalidateQueries({ queryKey: ['all-props'], refetchType: 'active' });
-    } else {
-      toast.error(result.message || 'Failed to refresh data');
-    }
-
-    setIsRefreshing(false);
-  };
 
   const referralLinks = [
     {
@@ -129,19 +103,6 @@ export function Navbar() {
               ))}
             </DropdownMenuContent>
           </DropdownMenu>
-
-          {/* Refresh Button */}
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={handleRefresh}
-            disabled={isRefreshing}
-            className="gap-2"
-            title="Refresh player props"
-          >
-            <RefreshCw className={`h-4 w-4 ${isRefreshing ? 'animate-spin' : ''}`} />
-            <span className="hidden lg:inline">Refresh</span>
-          </Button>
         </div>
       </div>
 
@@ -195,18 +156,6 @@ export function Navbar() {
               ))}
             </DropdownMenuContent>
           </DropdownMenu>
-
-          {/* Mobile Refresh Button */}
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={handleRefresh}
-            disabled={isRefreshing}
-            className="gap-2 flex-1"
-          >
-            <RefreshCw className={`h-4 w-4 ${isRefreshing ? 'animate-spin' : ''}`} />
-            <span className="text-xs">Refresh</span>
-          </Button>
         </div>
       </nav>
     </header>

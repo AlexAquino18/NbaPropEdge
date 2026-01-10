@@ -79,7 +79,9 @@ export function PropTable({ props, onPlayerClick }: PropTableProps) {
 
   const formatProbability = (prob: number | null) => {
     if (prob === null) return 'N/A';
-    return `${(prob * 100).toFixed(1)}%`;
+    // If prob is a decimal (0–1), convert to percent. If it's already percent (>1), use as-is
+    const val = Number(prob);
+    return val > 1 ? `${val.toFixed(1)}%` : `${(val * 100).toFixed(1)}%`;
   };
 
   const ConfidenceBadge = ({ confidence }: { confidence: string | null }) => {

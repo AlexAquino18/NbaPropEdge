@@ -24,6 +24,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
+import { getLastPropsCache } from '@/lib/utils';
 import type { Prop } from '@/types';
 
 export default function BestProps() {
@@ -39,7 +40,7 @@ export default function BestProps() {
     staleTime: 60_000,
     refetchOnWindowFocus: false,
     retry: 1,
-    initialData: [],
+    initialData: getLastPropsCache(),
   });
 
   // Get unique teams from props

@@ -43,6 +43,41 @@ TEAM_FULL_NAMES = {
     'TOR': 'Toronto Raptors', 'UTA': 'Utah Jazz', 'WAS': 'Washington Wizards'
 }
 
+def step0_refresh_props():
+    """Step 0: Fetch latest player props via Supabase Edge Function"""
+    print('=' * 60)
+    print('STEP 0: FETCHING PLAYER PROPS')
+    print('=' * 60)
+
+    url = os.getenv('VITE_SUPABASE_URL')
+    anon = os.getenv('VITE_SUPABASE_PUBLISHABLE_KEY')
+    if not url or not anon:
+        print('Missing Supabase env vars, skipping props refresh')
+        return False
+
+    def invoke(fn_name: str):
+        try:
+            fn_url = f"{url}/functions/v1/{fn_name}"
+            headers = {
+                'Authorization': f'Bearer {anon}',
+                'apikey': anon,
+                'Content-Type': 'application/json',
+            }
+            resp = requests.post(fn_url, headers=headers, timeout=60)
+            ok = resp.status_code in (200, 202)
+            print(f"Invoke {fn_name}: status {resp.status_code}{' (ok)' if ok else ''}")
+            if not ok:
+                print(resp.text[:200])
+            return ok
+        except Exception as e:
+            print(f"Error invoking {fn_name}: {e}")
+            return False
+
+    # First, load/update player stats if needed
+    invoke('fetch-player-stats')
+    # Then, refresh props from provider/board
+    return invoke('refresh-data')
+
 def step1_fetch_games():
     """Step 1: Fetch today's NBA games from Ball Don't Lie API"""
     print('=' * 60)
@@ -267,12 +302,16 @@ def main():
     print('\n')
     print('*' * 60)
     print('  FULL PROJECTION PIPELINE')
+    print('  0. Fetch player props (Edge Function)')
     print('  1. Fetch games from Ball Don\'t Lie')
     print('  2. Link props to games')
     print('  3. Run advanced projections')
     print('*' * 60)
     print('\n')
     
+    # Step 0: Fetch/refresh props so they are available before projections
+    step0_refresh_props()
+
     # Step 1: Fetch games
     matchups = step1_fetch_games()
     

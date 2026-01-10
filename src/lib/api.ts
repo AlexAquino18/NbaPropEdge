@@ -1,6 +1,6 @@
 import { supabase } from "@/integrations/supabase/client";
 import type { Game, PlayerStat, GameWithProps, Prop } from "@/types";
-import { mergePropsWithProjectionCache, updateProjectionCacheFromProps } from '@/lib/utils';
+import { mergePropsWithProjectionCache, updateProjectionCacheFromProps, setLastPropsCache, getLastPropsCache } from '@/lib/utils';
 
 // Filter out unwanted stat types
 const shouldExcludeProp = (statType: string): boolean => {
@@ -22,25 +22,33 @@ const shouldExcludeProp = (statType: string): boolean => {
   );
 };
 
-export const fetchGames = async (): Promise<Game[]> => {
-  try {
-    console.log('Fetching games from database...');
-    const { data: games, error } = await supabase
-      .from('games')
-      .select('*')
-      .order('game_time', { ascending: true });
-    
-    if (error) {
-      console.error('Error fetching games:', error);
-      throw error;
-    }
-
-    return games || [];
-  } catch (error) {
-    console.error('Error fetching games:', error);
-    throw error;
-  }
-};
+// Ensure all Prop fields exist (fill missing sportsbook fields with null)
+function normalizeProps(rows: any[] | null | undefined): Prop[] {
+  const arr = Array.isArray(rows) ? rows : [];
+  return arr.map((r: any) => ({
+    id: r.id,
+    game_id: r.game_id ?? null,
+    external_id: r.external_id ?? null,
+    player_name: r.player_name,
+    player_id: r.player_id ?? null,
+    team: r.team ?? null,
+    stat_type: r.stat_type,
+    line: r.line,
+    projection: r.projection ?? null,
+    edge: r.edge ?? null,
+    probability_over: r.probability_over ?? null,
+    confidence: r.confidence ?? null,
+    created_at: r.created_at,
+    updated_at: r.updated_at,
+    prizepicks_odds: r.prizepicks_odds ?? null,
+    draftkings_line: r.draftkings_line ?? null,
+    draftkings_over_odds: r.draftkings_over_odds ?? null,
+    draftkings_under_odds: r.draftkings_under_odds ?? null,
+    fanduel_line: r.fanduel_line ?? null,
+    fanduel_over_odds: r.fanduel_over_odds ?? null,
+    fanduel_under_odds: r.fanduel_under_odds ?? null,
+  }));
+}
 
 export const fetchGamesWithTopProps = async (): Promise<GameWithProps[]> => {
   try {
@@ -72,8 +80,10 @@ export const fetchGamesWithTopProps = async (): Promise<GameWithProps[]> => {
       throw propsError;
     }
 
+    const allProps = normalizeProps(props);
+
     // Filter out unwanted prop types
-    const filteredProps = (props || []).filter((prop: Prop) => !shouldExcludeProp(prop.stat_type));
+    const filteredProps = allProps.filter((prop) => !shouldExcludeProp(prop.stat_type));
 
     // Merge projections from cache so they persist
     const mergedProps = mergePropsWithProjectionCache(filteredProps);
@@ -82,8 +92,8 @@ export const fetchGamesWithTopProps = async (): Promise<GameWithProps[]> => {
 
     // Map games with their props and top props
     const gamesWithProps: GameWithProps[] = games.map((game) => {
-      const gameProps = mergedProps.filter((prop: Prop) => prop.game_id === game.id);
-      const topProps = gameProps.filter((prop: Prop) => prop.edge !== null && prop.edge > 0);
+      const gameProps = mergedProps.filter((prop) => prop.game_id === game.id);
+      const topProps = gameProps.filter((prop) => prop.edge !== null && prop.edge > 0);
       
       return {
         ...game,
@@ -179,11 +189,14 @@ export const fetchPropsForGame = async (gameId: string): Promise<Prop[]> => {
       throw error;
     }
 
+    const allProps = normalizeProps(props);
+
     // Filter out unwanted prop types
-    const filteredProps = (props || []).filter((prop: Prop) => !shouldExcludeProp(prop.stat_type));
+    const filteredProps = allProps.filter((prop) => !shouldExcludeProp(prop.stat_type));
     const merged = mergePropsWithProjectionCache(filteredProps);
     updateProjectionCacheFromProps(merged);
-    return merged;
+    setLastPropsCache(merged);
+    return merged.length > 0 ? merged : getLastPropsCache().filter(p => p.game_id === gameId);
   } catch (error) {
     console.error('Error in fetchPropsForGame:', error);
     throw error;
@@ -203,15 +216,19 @@ export const fetchAllProps = async (): Promise<Prop[]> => {
       throw error;
     }
 
+    const allProps = normalizeProps(props);
+
     // Filter out unwanted prop types
-    const filteredProps = (props || []).filter((prop: Prop) => !shouldExcludeProp(prop.stat_type));
+    const filteredProps = allProps.filter((prop) => !shouldExcludeProp(prop.stat_type));
     const merged = mergePropsWithProjectionCache(filteredProps);
     updateProjectionCacheFromProps(merged);
+    setLastPropsCache(merged);
     console.log(`Successfully fetched ${merged.length} props (filtered from ${props?.length || 0})`);
-    return merged;
+    return merged.length > 0 ? merged : getLastPropsCache();
   } catch (error) {
     console.error('Error in fetchAllProps:', error);
-    throw error;
+    // Fallback to last cached props on error
+    return getLastPropsCache();
   }
 };
 
