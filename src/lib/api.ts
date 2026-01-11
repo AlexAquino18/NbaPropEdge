@@ -205,30 +205,23 @@ export const fetchPropsForGame = async (gameId: string): Promise<Prop[]> => {
 
 export const fetchAllProps = async (): Promise<Prop[]> => {
   try {
-    console.log('Fetching all props from database...');
+    console.log('Fetching all props from database (fresh)...');
     const { data: props, error } = await supabase
       .from('props')
       .select('*')
       .order('edge', { ascending: false, nullsFirst: false });
-    
     if (error) {
       console.error('Error fetching all props:', error);
-      throw error;
+      return [];
     }
-
+    // Normalize and filter only, do NOT merge with cache
     const allProps = normalizeProps(props);
-
-    // Filter out unwanted prop types
-    const filteredProps = allProps.filter((prop) => !shouldExcludeProp(prop.stat_type));
-    const merged = mergePropsWithProjectionCache(filteredProps);
-    updateProjectionCacheFromProps(merged);
-    setLastPropsCache(merged);
-    console.log(`Successfully fetched ${merged.length} props (filtered from ${props?.length || 0})`);
-    return merged.length > 0 ? merged : getLastPropsCache();
+    const filtered = allProps.filter((p) => !shouldExcludeProp(p.stat_type));
+    console.log(`Fetched ${filtered.length} fresh props`);
+    return filtered;
   } catch (error) {
     console.error('Error in fetchAllProps:', error);
-    // Fallback to last cached props on error
-    return getLastPropsCache();
+    return [];
   }
 };
 
