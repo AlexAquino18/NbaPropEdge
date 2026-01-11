@@ -36,11 +36,14 @@ export default function BestProps() {
   const { data: props = [], isLoading, isFetching, error } = useQuery<Prop[], Error>({
     queryKey: ['all-props'],
     queryFn: fetchAllProps,
-    refetchInterval: 60000,
-    staleTime: 60_000,
-    refetchOnWindowFocus: false,
+    // Force fresh data
+    staleTime: 0,
+    cacheTime: 0,
+    refetchOnMount: 'always',
+    refetchOnWindowFocus: true,
+    refetchOnReconnect: true,
+    refetchInterval: 30000,
     retry: 1,
-    initialData: getLastPropsCache(),
   });
 
   // Get unique teams from props
