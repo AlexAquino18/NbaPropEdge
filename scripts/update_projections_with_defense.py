@@ -78,6 +78,7 @@ LEAGUE_AVG_OREB = 30.0
 LEAGUE_AVG_DREB = 69.0
 LEAGUE_AVG_AST = 63.0
 LEAGUE_AVG_TOV = 14.5
+LEAGUE_AVG_DEF_RTG = 113.0
 
 # Complete defensive matchup data with stat-specific rankings
 # Format: {team_abbr: {position: {stat_rank}}} where rank 1 = best defense (hardest), 30 = worst defense (easiest)
@@ -351,14 +352,13 @@ def get_player_position(player_name):
     return PLAYER_POSITIONS.get(player_name, 'SF')
 
 def get_defensive_adjustment(opponent_team, player_position, stat_type):
-    '''Calculate defensive adjustment based on opponent's stat-specific defensive ranking'''
+    '''Nonlinear, capped defensive adjustment based on opponent positional matchups'''
     if opponent_team not in DEFENSIVE_MATCHUPS:
         return 1.0
-    
+
     if player_position not in DEFENSIVE_MATCHUPS[opponent_team]:
         return 1.0
-    
-    # Map stat types to defensive ranking keys
+
     stat_key_map = {
         'Points': 'pts',
         'Rebounds': 'reb',
@@ -366,37 +366,31 @@ def get_defensive_adjustment(opponent_team, player_position, stat_type):
         'Steals': 'stl',
         'Blocks': 'blk',
         'Blocked Shots': 'blk',
-        '3-Pointers Made': 'pts',  # Use points defense for 3PT
+        '3-Pointers Made': 'pts',
         '3-PT Made': 'pts',
         'Field Goals Made': 'pts',
         'FG Made': 'pts',
         'Free Throws Made': 'pts',
-        'Pts+Rebs': 'pts',  # Use points for combos (primary stat)
+        'Pts+Rebs': 'pts',
         'Pts+Asts': 'pts',
         'Pts+Rebs+Asts': 'pts',
         'Rebs+Asts': 'reb',
         'Blks+Stls': 'blk',
     }
-    
-    # Get the appropriate stat key
+
     stat_key = stat_key_map.get(stat_type, 'pts')
-    
-    # Get the defensive rank for this specific stat
-    def_rankings = DEFENSIVE_MATCHUPS[opponent_team][player_position]
-    if stat_key not in def_rankings:
+    rank = DEFENSIVE_MATCHUPS[opponent_team][player_position].get(stat_key)
+
+    if not rank:
         return 1.0
-    
-    rank = def_rankings[stat_key]
-    
-    # Convert rank (1-30) to adjustment factor
-    # Rank 1 = elite defense (hardest) = 0.85x (reduce by 15%)
-    # Rank 15.5 = average defense = 1.00x (no adjustment)
-    # Rank 30 = worst defense (easiest) = 1.15x (boost by 15%)
-    
-    # Linear scaling across full range
-    adjustment = 0.85 + ((rank - 1) / 29) * 0.30
-    
-    return adjustment
+
+    # Convert rank → percentile (0 best, 1 worst)
+    percentile = (rank - 1) / 29
+
+    # Nonlinear curve (elite defenses matter more)
+    adjustment = 0.92 + (percentile ** 1.35) * 0.16
+
+    return max(0.90, min(1.10, adjustment))
 
 def get_pace_adjustment(player_team, opponent_team):
     '''Calculate pace adjustment based on team paces'''
@@ -406,49 +400,51 @@ def get_pace_adjustment(player_team, opponent_team):
     return avg_pace / LEAGUE_AVG_PACE
 
 def get_rebound_adjustment(player_team, opponent_team, stat_type):
-    '''Calculate rebound adjustment based on opponent's defensive rebounding'''
+    '''Rebound adj: opponent DREB% and miss proxy via DefRtg'''
     if 'Reb' not in stat_type:
         return 1.0
-    
-    opp_stats = NBA_TEAM_STATS.get(opponent_team, {})
-    opp_dreb_pct = opp_stats.get('dreb_pct', LEAGUE_AVG_DREB)
-    
-    # Lower opponent DREB% = more rebounds available for offensive rebounds
-    # Use ratio approach: if opponent grabs fewer DREBs, more available
-    # 65% DREB = 1.06x boost, 69% (avg) = 1.0x, 73% DREB = 0.95x penalty
-    adjustment = LEAGUE_AVG_DREB / opp_dreb_pct
-    return max(0.90, min(1.10, adjustment))  # Cap between 0.90-1.10
+
+    opp = NBA_TEAM_STATS.get(opponent_team, {})
+
+    opp_dreb = opp.get('dreb_pct', LEAGUE_AVG_DREB)
+    opp_def_rtg = opp.get('def_rtg', LEAGUE_AVG_DEF_RTG)
+
+    # More misses = more rebounds; lower DREB% = more available
+    miss_factor = opp_def_rtg / LEAGUE_AVG_DEF_RTG
+    dreb_factor = LEAGUE_AVG_DREB / opp_dreb
+
+    adjustment = miss_factor * dreb_factor
+
+    return max(0.92, min(1.08, adjustment))
 
 def get_assist_adjustment(player_team, opponent_team, stat_type):
-    '''Calculate assist adjustment based on team's assist rate and opponent pace'''
+    '''Assist adj: blend team AST% and opponent pace'''
     if 'Ast' not in stat_type:
         return 1.0
-    
-    team_stats = NBA_TEAM_STATS.get(player_team, {})
-    team_ast_pct = team_stats.get('ast_pct', LEAGUE_AVG_AST)
-    
-    # Higher team AST% = more assist opportunities for floor generals
-    adjustment = team_ast_pct / LEAGUE_AVG_AST
-    return max(0.90, min(1.10, adjustment))  # Cap between 0.90-1.10
 
-def get_efficiency_adjustment(player_team, opponent_team, stat_type):
-    '''Calculate efficiency-based adjustments for scoring stats'''
-    if stat_type not in ['Points', 'Field Goals Made', 'FG Made', '3-Pointers Made', '3-PT Made']:
-        return 1.0
-    
-    opp_stats = NBA_TEAM_STATS.get(opponent_team, {})
-    opp_def_rtg = opp_stats.get('def_rtg', 113.0)
-    
-    # Lower opponent DefRtg = HARDER to score (elite defense)
-    # 105 DefRtg (elite) = 0.93x, 113 DefRtg (avg) = 1.0x, 120 DefRtg (poor) = 1.06x
-    adjustment = 1.0 - ((113.0 - opp_def_rtg) / 100)
+    team_ast_pct = NBA_TEAM_STATS.get(player_team, {}).get('ast_pct', LEAGUE_AVG_AST)
+    opp_pace = NBA_TEAM_STATS.get(opponent_team, {}).get('pace', LEAGUE_AVG_PACE)
+
+    adjustment = (team_ast_pct / LEAGUE_AVG_AST) * (opp_pace / LEAGUE_AVG_PACE)
+
     return max(0.90, min(1.10, adjustment))
 
+def get_efficiency_adjustment(player_team, opponent_team, stat_type):
+    '''Efficiency adj for scoring stats using normalized DefRtg'''
+    if stat_type not in ['Points', 'Field Goals Made', 'FG Made', '3-Pointers Made', '3-PT Made']:
+        return 1.0
+
+    opp_def_rtg = NBA_TEAM_STATS.get(opponent_team, {}).get('def_rtg', LEAGUE_AVG_DEF_RTG)
+
+    adjustment = opp_def_rtg / LEAGUE_AVG_DEF_RTG
+
+    return max(0.93, min(1.07, adjustment))
+
 def calculate_projection(player_stats, line, stat_type, opponent_team, player_position, player_team):
-    '''Calculate projection using real stats + defensive adjustments + pace adjustments'''
+    '''Calculate projection using real stats + blended defense + pace + stat-specific adj'''
     if not player_stats or len(player_stats) == 0:
         return line, 0.5, 'low'
-    
+
     # Stat mapping
     stat_map = {
         'Points': 'points',
@@ -469,7 +465,7 @@ def calculate_projection(player_stats, line, stat_type, opponent_team, player_po
         'Rebs+Asts': lambda s: s.get('rebounds', 0) + s.get('assists', 0),
         'Blks+Stls': lambda s: s.get('blocks', 0) + s.get('steals', 0),
     }
-    
+
     # Extract values
     if stat_type in stat_map:
         if callable(stat_map[stat_type]):
@@ -478,47 +474,47 @@ def calculate_projection(player_stats, line, stat_type, opponent_team, player_po
             values = [s.get(stat_map[stat_type], 0) for s in player_stats]
     else:
         return line, 0.5, 'low'
-    
+
     if len(values) == 0:
         return line, 0.5, 'low'
-    
+
     # Weighted average (recent games weighted more)
     weights = np.exp(np.linspace(-1, 0, len(values)))
     weights = weights / weights.sum()
     weighted_avg = np.average(values, weights=weights)
-    
-    # Apply defensive adjustment (position-specific)
-    defensive_adj = get_defensive_adjustment(opponent_team, player_position, stat_type)
-    adjusted_projection = weighted_avg * defensive_adj
-    
+
+    # Blend positional defense and opponent efficiency ONCE
+    pos_def_adj = get_defensive_adjustment(opponent_team, player_position, stat_type)
+    eff_adj_for_blend = get_efficiency_adjustment(player_team, opponent_team, stat_type)
+    def_adj = (pos_def_adj * 0.65) + (eff_adj_for_blend * 0.35)
+
+    adjusted_projection = weighted_avg * def_adj
+
     # Apply pace adjustment
     pace_adj = get_pace_adjustment(player_team, opponent_team)
     adjusted_projection *= pace_adj
-    
+
     # Apply stat-specific adjustments
     rebound_adj = get_rebound_adjustment(player_team, opponent_team, stat_type)
     adjusted_projection *= rebound_adj
-    
+
     assist_adj = get_assist_adjustment(player_team, opponent_team, stat_type)
     adjusted_projection *= assist_adj
-    
-    efficiency_adj = get_efficiency_adjustment(player_team, opponent_team, stat_type)
-    adjusted_projection *= efficiency_adj
-    
+
     # Calculate standard deviation
     std_dev = np.std(values) if len(values) > 1 else weighted_avg * 0.25
-    
+
     # Calculate probability
     z_score = (adjusted_projection - line) / (std_dev + 0.01)
     prob_over = scipy_stats.norm.cdf(z_score)
-    
+
     # Confidence level
     if len(values) >= 10:
         cv = std_dev / (weighted_avg + 0.01)
         confidence = 'high' if cv < 0.3 else 'medium' if cv < 0.5 else 'low'
     else:
         confidence = 'low'
-    
+
     return round(adjusted_projection, 1), round(prob_over, 4), confidence
 
 def run_script_safely(args: list[str], label: str, timeout: int = 60):
@@ -812,19 +808,14 @@ def main():
                 print(f'\n📊 ADJUSTMENTS APPLIED:')
                 
                 # Show each adjustment
-                def_adj = get_defensive_adjustment(opponent_team, player_position, stat_type)
+                pos_def = get_defensive_adjustment(opponent_team, player_position, stat_type)
+                eff_adj = get_efficiency_adjustment(player_team, opponent_team, stat_type)
+                def_adj = (pos_def * 0.65) + (eff_adj * 0.35)
                 pace_adj = get_pace_adjustment(player_team, opponent_team)
                 reb_adj = get_rebound_adjustment(player_team, opponent_team, stat_type)
                 ast_adj = get_assist_adjustment(player_team, opponent_team, stat_type)
-                eff_adj = get_efficiency_adjustment(player_team, opponent_team, stat_type)
                 
-                print(f'  1. Defensive Matchup: {def_adj:.3f}x', end='')
-                if opponent_team in DEFENSIVE_MATCHUPS and player_position in DEFENSIVE_MATCHUPS[opponent_team]:
-                    rank = DEFENSIVE_MATCHUPS[opponent_team][player_position]
-                    print(f' (Rank: {rank}/150 vs {player_position})')
-                else:
-                    print(f' (No data)')
-                
+                print(f'  1. Defense blend: {def_adj:.3f}x (pos: {pos_def:.3f}, eff: {eff_adj:.3f})')
                 player_pace = NBA_TEAM_STATS.get(player_team, {}).get('pace', LEAGUE_AVG_PACE)
                 opp_pace = NBA_TEAM_STATS.get(opponent_team, {}).get('pace', LEAGUE_AVG_PACE)
                 print(f'  2. Pace: {pace_adj:.3f}x ({player_team}: {player_pace:.1f}, {opponent_team}: {opp_pace:.1f})')
@@ -837,11 +828,7 @@ def main():
                     team_ast = NBA_TEAM_STATS.get(player_team, {}).get('ast_pct', LEAGUE_AVG_AST)
                     print(f'  4. Assists: {ast_adj:.3f}x ({player_team} AST: {team_ast:.1f}%)')
                 
-                if eff_adj != 1.0:
-                    opp_def = NBA_TEAM_STATS.get(opponent_team, {}).get('def_rtg', 113.0)
-                    print(f'  5. Efficiency: {eff_adj:.3f}x ({opponent_team} DefRtg: {opp_def:.1f})')
-                
-                total_adj = def_adj * pace_adj * reb_adj * ast_adj * eff_adj
+                total_adj = def_adj * pace_adj * reb_adj * ast_adj
                 print(f'\n  🎯 TOTAL ADJUSTMENT: {total_adj:.3f}x')
             
             # Calculate projection
@@ -893,11 +880,10 @@ def main():
     print('💡 Your projections now include:')
     print('   ✓ Real player performance data (last 15 games)')
     print('   ✓ Weighted recent games more heavily')
-    print('   ✓ Defensive matchup adjustments by position')
+    print('   ✓ Blended defense (positional + efficiency) applied once')
     print('   ✓ Team pace adjustments (both teams)')
-    print('   ✓ Rebound adjustments (opponent DREB%)')
-    print('   ✓ Assist adjustments (team AST%)')
-    print('   ✓ Scoring efficiency (opponent DefRtg)')
+    print('   ✓ Rebound adjustments (DREB% + miss proxy)')
+    print('   ✓ Assist adjustments (team AST% × opp pace)')
     print('   ✓ Statistical probability calculations')
     print('   ✓ Confidence levels based on consistency')
     print('=' * 60)
