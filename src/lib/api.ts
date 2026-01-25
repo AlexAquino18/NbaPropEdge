@@ -84,6 +84,9 @@ export async function fetchRealHeadToHeadStats(playerName: string, opponentTeam:
 
 export async function fetchAllProps() {
   try {
+    // Add timestamp to prevent caching
+    const cacheKey = Date.now();
+    
     const { data, error } = await supabase
       .from('props')
       .select(`
