@@ -1,4 +1,5 @@
 import { useState, useMemo, useEffect } from 'react';
+import * as React from 'react';
 import { ArrowUpDown, ArrowUp, ArrowDown } from 'lucide-react';
 import {
   Table,
@@ -118,6 +119,20 @@ export function PropTable({ props, onPlayerClick }: PropTableProps) {
 
   // Component to display sportsbook odds with history chart
   const SportsbookOddsCell = ({ prop }: { prop: Prop }) => {
+    // Debug logging
+    React.useEffect(() => {
+      if (prop.player_name === 'Cade Cunningham' && prop.stat_type === '3-PT Made') {
+        console.log('DEBUG: Cade Cunningham prop data:', {
+          player_name: prop.player_name,
+          stat_type: prop.stat_type,
+          draftkings_line: prop.draftkings_line,
+          fanduel_line: prop.fanduel_line,
+          has_dk: !!prop.draftkings_line,
+          has_fd: !!prop.fanduel_line
+        });
+      }
+    }, [prop]);
+
     // First check if odds are in the database
     if (prop.draftkings_line || prop.fanduel_line) {
       return (
