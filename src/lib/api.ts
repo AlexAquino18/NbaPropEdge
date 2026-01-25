@@ -84,8 +84,8 @@ export async function fetchRealHeadToHeadStats(playerName: string, opponentTeam:
 
 export async function fetchAllProps() {
   try {
-    // Add timestamp to prevent caching
-    const cacheKey = Date.now();
+    // Force cache invalidation - Jan 25 2026
+    const timestamp = new Date().getTime();
     
     const { data, error } = await supabase
       .from('props')
@@ -103,6 +103,9 @@ export async function fetchAllProps() {
       .order('edge', { ascending: false, nullsFirst: false });
     
     if (error) throw error;
+    
+    console.log(`Fetched ${data?.length || 0} props at ${timestamp}`);
+    
     return data || [];
   } catch (error) {
     console.error('Error fetching all props:', error);
