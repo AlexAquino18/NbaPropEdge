@@ -53,6 +53,59 @@ export type Database = {
         }
         Relationships: []
       }
+      odds_history: {
+        Row: {
+          id: string
+          prop_id: string | null
+          player_name: string
+          stat_type: string
+          draftkings_line: number | null
+          draftkings_over_odds: number | null
+          draftkings_under_odds: number | null
+          fanduel_line: number | null
+          fanduel_over_odds: number | null
+          fanduel_under_odds: number | null
+          prizepicks_line: number | null
+          recorded_at: string
+        }
+        Insert: {
+          id?: string
+          prop_id?: string | null
+          player_name: string
+          stat_type: string
+          draftkings_line?: number | null
+          draftkings_over_odds?: number | null
+          draftkings_under_odds?: number | null
+          fanduel_line?: number | null
+          fanduel_over_odds?: number | null
+          fanduel_under_odds?: number | null
+          prizepicks_line?: number | null
+          recorded_at?: string
+        }
+        Update: {
+          id?: string
+          prop_id?: string | null
+          player_name?: string
+          stat_type?: string
+          draftkings_line?: number | null
+          draftkings_over_odds?: number | null
+          draftkings_under_odds?: number | null
+          fanduel_line?: number | null
+          fanduel_over_odds?: number | null
+          fanduel_under_odds?: number | null
+          prizepicks_line?: number | null
+          recorded_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "odds_history_prop_id_fkey"
+            columns: ["prop_id"]
+            isOneToOne: false
+            referencedRelation: "props"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       player_stats: {
         Row: {
           assists: number | null
@@ -132,6 +185,13 @@ export type Database = {
           stat_type: string
           team: string | null
           updated_at: string
+          draftkings_line: number | null
+          draftkings_over_odds: number | null
+          draftkings_under_odds: number | null
+          fanduel_line: number | null
+          fanduel_over_odds: number | null
+          fanduel_under_odds: number | null
+          prizepicks_odds: number | null
         }
         Insert: {
           confidence?: string | null
@@ -148,6 +208,13 @@ export type Database = {
           stat_type: string
           team?: string | null
           updated_at?: string
+          draftkings_line?: number | null
+          draftkings_over_odds?: number | null
+          draftkings_under_odds?: number | null
+          fanduel_line?: number | null
+          fanduel_over_odds?: number | null
+          fanduel_under_odds?: number | null
+          prizepicks_odds?: number | null
         }
         Update: {
           confidence?: string | null
@@ -164,6 +231,13 @@ export type Database = {
           stat_type?: string
           team?: string | null
           updated_at?: string
+          draftkings_line?: number | null
+          draftkings_over_odds?: number | null
+          draftkings_under_odds?: number | null
+          fanduel_line?: number | null
+          fanduel_over_odds?: number | null
+          fanduel_under_odds?: number | null
+          prizepicks_odds?: number | null
         }
         Relationships: [
           {

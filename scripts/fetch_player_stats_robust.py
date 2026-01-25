@@ -5,6 +5,7 @@ from dotenv import load_dotenv
 from supabase import create_client
 from requests.adapters import HTTPAdapter
 from urllib3.util.retry import Retry
+from datetime import datetime
 
 load_dotenv()
 supabase = create_client(
@@ -12,7 +13,7 @@ supabase = create_client(
     os.getenv('VITE_SUPABASE_PUBLISHABLE_KEY')
 )
 
-print('🏀 Fetching NBA Player Stats')
+print('🏀 Fetching NBA Player Stats (Incremental Cache Mode)')
 print('=' * 60)
 
 # Get unique players from props
@@ -62,7 +63,7 @@ def get_all_players():
     print('📥 Fetching player list from NBA API...')
     for attempt in range(5):
         try:
-            time.sleep(2 * (attempt + 1))  # Longer delays
+            time.sleep(2 * (attempt + 1))
             response = session.get(url, headers=NBA_HEADERS, timeout=30)
             
             if response.status_code == 200:
@@ -98,10 +99,8 @@ def find_player(player_name):
         name_idx = headers.index('DISPLAY_FIRST_LAST')
         id_idx = headers.index('PERSON_ID')
         
-        # Normalize name for comparison (remove accents, convert to lowercase)
         import unicodedata
         def normalize_name(name):
-            # Remove accents and special characters
             nfkd = unicodedata.normalize('NFKD', name)
             return ''.join([c for c in nfkd if not unicodedata.combining(c)]).lower()
         
@@ -115,7 +114,6 @@ def find_player(player_name):
         # Try partial match (normalized)
         for player in players:
             db_name = normalize_name(player[name_idx])
-            # Check if either name contains the other
             if search_name in db_name or db_name in search_name:
                 return {'id': player[id_idx], 'name': player[name_idx]}
         
@@ -124,7 +122,7 @@ def find_player(player_name):
         for player in players:
             db_name = normalize_name(player[name_idx])
             db_last = db_name.split()[-1] if ' ' in db_name else db_name
-            if search_last == db_last and len(search_last) > 3:  # Avoid short name matches
+            if search_last == db_last and len(search_last) > 3:
                 return {'id': player[id_idx], 'name': player[name_idx]}
         
         return None
@@ -132,12 +130,28 @@ def find_player(player_name):
         print(f'      ❌ Error parsing player data: {e}')
         return None
 
-def fetch_player_stats(player_id, player_name):
+def get_latest_cached_game_date(player_name):
+    """Get the most recent game date we have cached for a player"""
+    try:
+        result = supabase.table('player_stats')\
+            .select('game_date')\
+            .eq('player_name', player_name)\
+            .order('game_date', desc=True)\
+            .limit(1)\
+            .execute()
+        
+        if result.data and len(result.data) > 0:
+            return result.data[0]['game_date']
+        return None
+    except:
+        return None
+
+def fetch_player_stats(player_id, player_name, latest_cached_date=None):
     url = f'https://stats.nba.com/stats/playergamelog?PlayerID={player_id}&Season=2025-26&SeasonType=Regular+Season'
     
     for attempt in range(5):
         try:
-            time.sleep(3 + attempt)  # Progressive delays
+            time.sleep(3 + attempt)
             response = session.get(url, headers=NBA_HEADERS, timeout=30)
             
             if response.status_code == 200:
@@ -145,11 +159,16 @@ def fetch_player_stats(player_id, player_name):
                 games = data['resultSets'][0]['rowSet']
                 headers = data['resultSets'][0]['headers']
                 
-                # Map indices
                 idx_map = {h: headers.index(h) for h in ['GAME_DATE', 'MATCHUP', 'MIN', 'PTS', 'REB', 'AST', 'STL', 'BLK', 'TOV', 'FG3M', 'FGM', 'FGA', 'FTM', 'FTA']}
                 
                 stats = []
                 for game in games[:15]:  # Last 15 games
+                    game_date = game[idx_map['GAME_DATE']]
+                    
+                    # Skip games we already have cached
+                    if latest_cached_date and game_date <= latest_cached_date:
+                        continue
+                    
                     minutes = game[idx_map['MIN']]
                     if not minutes or minutes == 0:
                         continue
@@ -160,7 +179,7 @@ def fetch_player_stats(player_id, player_name):
                     stats.append({
                         'player_name': player_name,
                         'player_id': f'nba-{player_id}',
-                        'game_date': game[idx_map['GAME_DATE']],
+                        'game_date': game_date,
                         'points': game[idx_map['PTS']] or 0,
                         'rebounds': game[idx_map['REB']] or 0,
                         'assists': game[idx_map['AST']] or 0,
@@ -196,18 +215,38 @@ def fetch_player_stats(player_id, player_name):
 # Process players
 success = 0
 errors = 0
+skipped_cached = 0
 rate_limited = False
 
 for i, player_name in enumerate(unique_players, 1):
     print(f'[{i}/{len(unique_players)}] 🔍 {player_name}...')
     
-    # If we get rate limited multiple times, slow down even more
     if rate_limited and i % 10 == 0:
         print('   ⏸️  Taking a 30s break to avoid rate limiting...')
         time.sleep(30)
         rate_limited = False
     
     try:
+        # Check what we already have cached
+        latest_cached = get_latest_cached_game_date(player_name)
+        
+        if latest_cached:
+            # Check how recent the cache is
+            try:
+                cached_dt = datetime.strptime(latest_cached, '%Y-%m-%d')
+                now = datetime.now()
+                days_old = (now - cached_dt).days
+                
+                # If cache is less than 2 days old, skip this player
+                if days_old < 2:
+                    print(f'  ✓ Cache up-to-date (latest: {latest_cached}), skipping...\n')
+                    skipped_cached += 1
+                    continue
+                else:
+                    print(f'  📦 Cache found (latest: {latest_cached}), fetching new games only...')
+            except:
+                pass
+        
         # Find player
         player = find_player(player_name)
         if not player:
@@ -216,17 +255,22 @@ for i, player_name in enumerate(unique_players, 1):
             time.sleep(2)
             continue
         
-        # Fetch stats
-        stats = fetch_player_stats(player['id'], player['name'])
+        # Fetch only new stats
+        stats = fetch_player_stats(player['id'], player['name'], latest_cached)
+        
         if not stats or len(stats) == 0:
-            print(f'  ⚠️  No stats found\n')
-            errors += 1
+            if latest_cached:
+                print(f'  ✓ No new games since {latest_cached}\n')
+                skipped_cached += 1
+            else:
+                print(f'  ⚠️  No stats found\n')
+                errors += 1
             time.sleep(2)
             continue
         
-        # Save to database
+        # Save new games to database
         for stat in stats:
-            # Check if stat already exists
+            # Double-check to avoid duplicates
             existing = supabase.table('player_stats')\
                 .select('id')\
                 .eq('player_name', stat['player_name'])\
@@ -236,11 +280,11 @@ for i, player_name in enumerate(unique_players, 1):
             if not existing.data:
                 supabase.table('player_stats').insert(stat).execute()
         
-        print(f'  ✅ Saved {len(stats)} games')
+        print(f'  ✅ Saved {len(stats)} NEW games')
         print(f'     Latest: {stats[0]["game_date"]} - {stats[0]["points"]} PTS, {stats[0]["rebounds"]} REB, {stats[0]["assists"]} AST vs {stats[0]["opponent"]}\n')
         success += 1
         
-        time.sleep(4)  # Longer rate limit delay
+        time.sleep(4)
         
     except Exception as e:
         print(f'  ❌ Error: {str(e)[:80]}\n')
@@ -250,10 +294,11 @@ for i, player_name in enumerate(unique_players, 1):
 print('\n' + '=' * 60)
 print('📈 SUMMARY')
 print('=' * 60)
-print(f'✅ Successfully fetched: {success} players')
+print(f'✅ Updated: {success} players (new games added)')
+print(f'📦 Cached: {skipped_cached} players (already up-to-date)')
 print(f'❌ Errors: {errors} players')
 print(f'📊 Total: {len(unique_players)} players')
 print('=' * 60)
-print('\n💡 If many players failed, the NBA API may still be blocking.')
-print('   Try running the script again later or in smaller batches.')
+print('\n💡 Incremental caching is active!')
+print('   Only new games are fetched, making runs much faster.')
 print('=' * 60)

@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { ArrowUpDown, ArrowUp, ArrowDown } from 'lucide-react';
 import {
   Table,
@@ -14,6 +14,8 @@ import { EdgeBadge } from './EdgeBadge';
 import { StatTypeBadge } from './StatTypeBadge';
 import { PlayerStatsModal } from './PlayerStatsModal';
 import { SportsbookOdds } from './SportsbookOdds';
+import { OddsHistoryChart } from './OddsHistoryChart';
+import { loadSportsbookOdds, getSportsbookOdds, type SportsbookOdds as SportsbookOddsType } from '@/lib/sportsbookOdds';
 import type { Prop } from '@/types';
 
 interface PropTableProps {
@@ -24,6 +26,12 @@ interface PropTableProps {
 type SortKey = 'player_name' | 'stat_type' | 'line' | 'projection' | 'edge' | 'probability_over' | 'confidence';
 type SortDirection = 'asc' | 'desc';
 
+// Helper function to format American odds
+const formatOdds = (odds: number | null) => {
+  if (odds === null) return null;
+  return odds > 0 ? `+${odds}` : `${odds}`;
+};
+
 export function PropTable({ props, onPlayerClick }: PropTableProps) {
   const [sortKey, setSortKey] = useState<SortKey>('edge');
   const [sortDirection, setSortDirection] = useState<SortDirection>('desc');
@@ -31,8 +39,16 @@ export function PropTable({ props, onPlayerClick }: PropTableProps) {
     name: string;
     statType: string;
     line: number;
-    prop: Prop; // Add the full prop object
+    prop: Prop;
   } | null>(null);
+  const [oddsLoaded, setOddsLoaded] = useState(false);
+
+  // Load sportsbook odds on mount
+  useEffect(() => {
+    loadSportsbookOdds().then(() => {
+      setOddsLoaded(true);
+    });
+  }, []);
 
   const sortedProps = useMemo(() => {
     return [...props].sort((a, b) => {
@@ -100,6 +116,91 @@ export function PropTable({ props, onPlayerClick }: PropTableProps) {
     );
   };
 
+  // Component to display sportsbook odds with history chart
+  const SportsbookOddsCell = ({ prop }: { prop: Prop }) => {
+    // First check if odds are in the database
+    if (prop.draftkings_line || prop.fanduel_line) {
+      return (
+        <div className="flex items-center justify-center gap-2">
+          <div className="flex flex-col gap-1 text-xs">
+            {prop.draftkings_line && (
+              <div className="flex items-center justify-center gap-1">
+                <Badge variant="outline" className="bg-blue-500/10 text-blue-600 border-blue-500/20 text-[10px] px-1 py-0">
+                  DK
+                </Badge>
+                <span className="font-mono text-[11px]">
+                  {prop.draftkings_line.toFixed(1)}
+                </span>
+                <span className="text-[10px] text-muted-foreground">
+                  ({formatOdds(prop.draftkings_over_odds)}/{formatOdds(prop.draftkings_under_odds)})
+                </span>
+              </div>
+            )}
+            {prop.fanduel_line && (
+              <div className="flex items-center justify-center gap-1">
+                <Badge variant="outline" className="bg-orange-500/10 text-orange-600 border-orange-500/20 text-[10px] px-1 py-0">
+                  FD
+                </Badge>
+                <span className="font-mono text-[11px]">
+                  {prop.fanduel_line.toFixed(1)}
+                </span>
+                <span className="text-[10px] text-muted-foreground">
+                  ({formatOdds(prop.fanduel_over_odds)}/{formatOdds(prop.fanduel_under_odds)})
+                </span>
+              </div>
+            )}
+          </div>
+          <OddsHistoryChart playerName={prop.player_name} statType={prop.stat_type} />
+        </div>
+      );
+    }
+
+    // Otherwise check the JSON cache
+    if (!oddsLoaded) {
+      return <span className="text-xs text-muted-foreground">...</span>;
+    }
+
+    const odds = getSportsbookOdds(prop.player_name, prop.stat_type);
+    
+    if (!odds) {
+      return <span className="text-xs text-muted-foreground">-</span>;
+    }
+
+    return (
+      <div className="flex items-center justify-center gap-2">
+        <div className="flex flex-col gap-1 text-xs">
+          {odds.DraftKings && (
+            <div className="flex items-center justify-center gap-1">
+              <Badge variant="outline" className="bg-blue-500/10 text-blue-600 border-blue-500/20 text-[10px] px-1 py-0">
+                DK
+              </Badge>
+              <span className="font-mono text-[11px]">
+                {odds.DraftKings.line.toFixed(1)}
+              </span>
+              <span className="text-[10px] text-muted-foreground">
+                ({formatOdds(odds.DraftKings.over)}/{formatOdds(odds.DraftKings.under)})
+              </span>
+            </div>
+          )}
+          {odds.FanDuel && (
+            <div className="flex items-center justify-center gap-1">
+              <Badge variant="outline" className="bg-orange-500/10 text-orange-600 border-orange-500/20 text-[10px] px-1 py-0">
+                FD
+              </Badge>
+              <span className="font-mono text-[11px]">
+                {odds.FanDuel.line.toFixed(1)}
+              </span>
+              <span className="text-[10px] text-muted-foreground">
+                ({formatOdds(odds.FanDuel.over)}/{formatOdds(odds.FanDuel.under)})
+              </span>
+            </div>
+          )}
+        </div>
+        <OddsHistoryChart playerName={prop.player_name} statType={prop.stat_type} />
+      </div>
+    );
+  };
+
   return (
     <>
       <div className="rounded-xl border border-border/50 overflow-hidden bg-card/50">
@@ -149,6 +250,11 @@ export function PropTable({ props, onPlayerClick }: PropTableProps) {
                   Proj
                   <SortIcon columnKey="projection" />
                 </Button>
+              </TableHead>
+              <TableHead className="text-center">
+                <span className="font-semibold text-xs uppercase tracking-wider">
+                  Sportsbook
+                </span>
               </TableHead>
               <TableHead className="text-right">
                 <Button
@@ -200,7 +306,7 @@ export function PropTable({ props, onPlayerClick }: PropTableProps) {
                         name: prop.player_name,
                         statType: prop.stat_type,
                         line: prop.line,
-                        prop: prop, // Add the full prop object
+                        prop: prop,
                       })}
                     >
                       <p className="font-semibold">{prop.player_name}</p>
@@ -218,6 +324,9 @@ export function PropTable({ props, onPlayerClick }: PropTableProps) {
                 </TableCell>
                 <TableCell className="text-right font-mono">
                   {prop.projection !== null ? Number(prop.projection).toFixed(1) : 'N/A'}
+                </TableCell>
+                <TableCell className="text-center">
+                  <SportsbookOddsCell prop={prop} />
                 </TableCell>
                 <TableCell className="text-right font-mono">
                   {formatProbability(prop.probability_over)}

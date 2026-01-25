@@ -7,6 +7,7 @@ from collections import defaultdict
 import numpy as np
 from scipy import stats as scipy_stats
 import sys
+import shutil
 
 # Fix Windows console encoding
 if sys.platform == 'win32':
@@ -298,6 +299,45 @@ def step3_run_projections():
             print(result.stderr)
             return False
 
+def step4_fetch_sportsbook_odds():
+    """Step 4: Fetch sportsbook odds for all players"""
+    print('\n' + '=' * 60)
+    print('STEP 4: FETCHING SPORTSBOOK ODDS')
+    print('=' * 60)
+    
+    try:
+        # Run the fetch_sportsbook_odds.py script
+        import subprocess
+        result = subprocess.run(
+            [sys.executable, 'scripts/fetch_sportsbook_odds.py'],
+            capture_output=True,
+            text=True,
+            encoding='utf-8'
+        )
+        
+        if result.returncode == 0:
+            print(result.stdout)
+            
+            # Copy the odds cache to the public folder so it's accessible
+            cache_file = 'sportsbook_odds_cache.json'
+            public_file = 'public/sportsbook_odds_cache.json'
+            
+            if os.path.exists(cache_file):
+                shutil.copy(cache_file, public_file)
+                print(f'✅ Copied odds cache to {public_file}')
+            else:
+                print('⚠️  Odds cache file not found')
+            
+            return True
+        else:
+            print('⚠️  Error fetching sportsbook odds:')
+            print(result.stderr)
+            return False
+            
+    except Exception as e:
+        print(f'Error running sportsbook odds fetch: {e}')
+        return False
+
 def main():
     print('\n')
     print('*' * 60)
@@ -306,6 +346,7 @@ def main():
     print('  1. Fetch games from Ball Don\'t Lie')
     print('  2. Link props to games')
     print('  3. Run advanced projections')
+    print('  4. Fetch sportsbook odds')
     print('*' * 60)
     print('\n')
     
@@ -330,10 +371,14 @@ def main():
     print('\nStarting projection calculations...')
     step3_run_projections()
     
+    # Step 4: Fetch sportsbook odds
+    print('\nFetching sportsbook odds...')
+    step4_fetch_sportsbook_odds()
+    
     print('\n' + '*' * 60)
     print('  PIPELINE COMPLETE!')
     print('*' * 60)
-    print('\nRefresh your browser to see updated projections!')
+    print('\nRefresh your browser to see updated projections with sportsbook odds!')
 
 if __name__ == '__main__':
     main()

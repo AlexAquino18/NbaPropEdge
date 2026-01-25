@@ -8,6 +8,7 @@ import subprocess
 import sys
 import requests
 from datetime import datetime, timedelta, timezone
+from bs4 import BeautifulSoup
 
 # NBA Team Pace and Advanced Stats (2024-25 Season)
 NBA_TEAM_STATS = {
@@ -857,42 +858,38 @@ def step0_refresh_props():
     print('=' * 60)
     print('STEP 0: FETCHING PLAYER PROPS')
     print('=' * 60)
-    url = os.getenv('VITE_SUPABASE_URL')
-    anon = os.getenv('VITE_SUPABASE_PUBLISHABLE_KEY')
-    if not url or not anon:
-        print('Missing Supabase env vars, skipping props refresh')
-        return False
-
-    def invoke(fn_name: str):
-        try:
-            fn_url = f"{url}/functions/v1/{fn_name}"
-            headers = {
-                'Authorization': f'Bearer {anon}',
-                'apikey': anon,
-                'Content-Type': 'application/json',
-            }
-            resp = requests.post(fn_url, headers=headers, timeout=60)
-            ok = resp.status_code in (200, 202)
-            print(f"Invoke {fn_name}: status {resp.status_code}{' (ok)' if ok else ''}")
-            if not ok:
-                print(resp.text[:200])
-            return ok
-        except Exception as e:
-            print(f"Error invoking {fn_name}: {e}")
+    
+    # Instead of calling Edge Function, run the fetch_prizepicks_props.py script directly
+    try:
+        print('📥 Fetching props from PrizePicks...')
+        result = subprocess.run(
+            [sys.executable, 'scripts/fetch_prizepicks_props.py'],
+            capture_output=True,
+            text=True,
+            encoding='utf-8',
+            errors='replace',
+            timeout=60
+        )
+        
+        if result.returncode == 0:
+            print(result.stdout)
+            print('✅ Props fetched successfully from PrizePicks')
+            return True
+        else:
+            print(f'⚠️  Error fetching props:')
+            if result.stderr:
+                print(result.stderr[:500])
             return False
-
-    # Refresh the current props board
-    return invoke('refresh-data')
+    except Exception as e:
+        print(f'❌ Error running fetch script: {e}')
+        return False
 
 def clear_props_board():
     """Delete all rows from props to ensure only active board props remain after refresh"""
     try:
-        print('≡ƒº╣ Clearing existing props board...')
+        print('🗑️ Clearing existing props board...')
         ids_resp = supabase.table('props').select('id').limit(100000).execute()
-        ids = [row['id'] for row in ids_resp.data or []]
-        if not ids:
-            print('Γä╣∩╕Å  Props board already empty')
-            return True
+        ids = [row['id'] for row in (ids_resp.data or [])]
         # Batch delete to avoid URL size limits
         batch_size = 100
         for i in range(0, len(ids), batch_size):
@@ -905,7 +902,7 @@ def clear_props_board():
         return False
 
 def main():
-    print('≡ƒÅÇ ADVANCED PROJECTION MODEL')
+    print('🚀 ADVANCED PROJECTION MODEL')
     print('=' * 60)
 
     # Step 0a: Clear props so we only keep active board items
@@ -914,9 +911,9 @@ def main():
     # Step 0b: Refresh props so projections run on the latest board
     refreshed = step0_refresh_props()
     if refreshed:
-        print('Γ£à Props refreshed from board (active only)')
+        print('✅ Props refreshed from board (active only)')
         try:
-            print('≡ƒöº Fetching player stats via PowerShell (fetch-stats.ps1)...')
+            print('🔄 Fetching player stats via PowerShell (fetch-stats.ps1)...')
             subprocess.run([
                 'powershell',
                 '-NoProfile',
@@ -924,11 +921,11 @@ def main():
                 '-File', '.\\fetch-stats.ps1',
                 '-NoPause'
             ], check=False)
-            print('Γ£à Player stats fetch complete\n')
+            print('✅ Player stats fetch complete\n')
         except Exception as e:
-            print(f'ΓÜá∩╕Å  Could not run fetch-stats.ps1: {e}\n')
+            print(f'⚠️  Could not run fetch-stats.ps1: {e}\n')
     else:
-        print('ΓÜá∩╕Å  Could not verify props refresh; continuing with existing props')
+        print('⚠️  Could not verify props refresh; continuing with existing props')
 
     # Fetch today's games from Ball Don't Lie before linking
     ok_games = run_script_safely([sys.executable, 'scripts/fetch_balldontlie_games.py'], "Fetch today's games (Ball Don't Lie)", timeout=40)
@@ -937,7 +934,7 @@ def main():
         run_script_safely([sys.executable, 'scripts/fetch_espn_games.py'], "Fetch today's games (ESPN)", timeout=40)
 
     # Step 1: Ensure games and teams are linked
-    print('≡ƒôè Step 1: Linking Games and Teams')
+    print('🔗 Step 1: Linking Games and Teams')
     print('=' * 60)
     print()
 
@@ -950,17 +947,31 @@ def main():
     # Re-link once more to catch any late fixes
     link_props_to_games()
 
+    # NEW: Fetch injuries before calculating projections
     print()
     print('=' * 60)
-    print('≡ƒôè Step 2: Calculating Advanced Projections')
+    print('🏥 Fetching Current NBA Injuries')
+    print('=' * 60)
+    print()
+    
+    injuries_fetched = fetch_current_injuries()
+    if injuries_fetched:
+        print(f'✅ Injury data loaded: {len(INJURY_CACHE)} players tracked')
+        print(f'   Teams with injuries: {len(TEAM_INJURIES)}')
+    else:
+        print('⚠️  Could not fetch injury data, continuing without injury adjustments')
+
+    print()
+    print('=' * 60)
+    print('🔮 Step 2: Calculating Advanced Projections')
     print('=' * 60)
     print()
 
     # Get all props
-    print('≡ƒôÑ Fetching props from database...')
+    print('📊 Fetching props from database...')
     props_response = supabase.table('props').select('*').execute()
     all_props = props_response.data or []
-    print(f'Γ£ô Found {len(all_props)} props')
+    print(f'✅ Found {len(all_props)} props')
 
     # Only process props whose game is scheduled today or tomorrow
     games_window_resp = supabase.table('games').select('id, game_time').execute()
@@ -978,7 +989,7 @@ def main():
             return None
     window_game_ids = set(g['id'] for g in games_window if (parse_time2(g.get('game_time')) and start <= parse_time2(g.get('game_time')) <= end))
     props = [p for p in all_props if p.get('game_id') in window_game_ids]
-    print(f'Γ£ô Processing {len(props)} props scheduled for today/tomorrow\n')
+    print(f'✅ Processing {len(props)} props scheduled for today/tomorrow\n')
 
     updated = 0
     errors = 0
@@ -1038,7 +1049,7 @@ def main():
                 print(f'Stat: {stat_type} | Line: {line}')
                 print(f'Team: {player_team} vs {opponent_team}')
                 print(f'Games analyzed: {len(player_stats)}')
-                print(f'\n≡ƒôè ADJUSTMENTS APPLIED:')
+                print(f'\n🔗 ADJUSTMENTS APPLIED:')
                 
                 # Show each adjustment
                 pos_def = get_defensive_adjustment(opponent_team, player_position, stat_type)
@@ -1062,7 +1073,7 @@ def main():
                     print(f'  4. Assists: {ast_adj:.3f}x ({player_team} AST: {team_ast:.1f}%)')
                 
                 total_adj = def_adj * pace_adj * reb_adj * ast_adj
-                print(f'\n  ≡ƒÄ» TOTAL ADJUSTMENT: {total_adj:.3f}x')
+                print(f'\n  🔮 TOTAL ADJUSTMENT: {total_adj:.3f}x')
             
             # Calculate projection
             projection, prob_over, confidence = calculate_projection(
@@ -1072,13 +1083,13 @@ def main():
             # Cap probability between 5% and 95% to avoid extreme edges
             prob_over = max(0.05, min(0.95, prob_over))
             
-            # Calculate edge (capped at ┬▒30%)
+            # Calculate edge (capped at ±30%)
             edge = (prob_over - 0.5) * 100
             edge = max(-30, min(30, edge))
             
             # Show result for detailed example
             if i <= show_details:
-                print(f'\n  ≡ƒôê RESULT:')
+                print(f'\n  🔮 RESULT:')
                 print(f'     Projection: {projection}')
                 print(f'     Probability Over: {prob_over:.1%}')
                 print(f'     Edge: {edge:+.1f}%')
@@ -1100,25 +1111,25 @@ def main():
         except Exception as e:
             errors += 1
             if i <= show_details or i % 100 == 0:
-                print(f'Γ¥î Error on prop {i}: {str(e)[:80]}')
+                print(f'⚠️ Error on prop {i}: {str(e)[:80]}')
     
     print()
     print('=' * 60)
-    print('Γ£à PROJECTION UPDATE COMPLETE')
+    print('✅ PROJECTION UPDATE COMPLETE')
     print('=' * 60)
-    print(f'Γ£à Successfully updated: {updated}/{len(props)} props')
-    print(f'ΓÅ¡∩╕Å  Skipped (no team): {skipped}')
-    print(f'Γ¥î Errors: {errors}')
+    print(f'✅ Successfully updated: {updated}/{len(props)} props')
+    print(f'⚠️  Skipped (no team): {skipped}')
+    print(f'⚠️ Errors: {errors}')
     print()
-    print('≡ƒÆí Your projections now include:')
-    print('   Γ£ô Real player performance data (last 15 games)')
-    print('   Γ£ô Weighted recent games more heavily')
-    print('   Γ£ô Blended defense (positional + efficiency) applied once')
-    print('   Γ£ô Team pace adjustments (both teams)')
-    print('   Γ£ô Rebound adjustments (DREB% + miss proxy)')
-    print('   Γ£ô Assist adjustments (team AST% ├ù opp pace)')
-    print('   Γ£ô Statistical probability calculations')
-    print('   Γ£ô Confidence levels based on consistency')
+    print('📊 Your projections now include:')
+    print('   ✅ Real player performance data (last 15 games)')
+    print('   ✅ Weighted recent games more heavily')
+    print('   ✅ Blended defense (positional + efficiency) applied once')
+    print('   ✅ Team pace adjustments (both teams)')
+    print('   ✅ Rebound adjustments (DREB% + miss proxy)')
+    print('   ✅ Assist adjustments (team AST% × opp pace)')
+    print('   ✅ Statistical probability calculations')
+    print('   ✅ Confidence levels based on consistency')
     print('=' * 60)
 
 if __name__ == '__main__':

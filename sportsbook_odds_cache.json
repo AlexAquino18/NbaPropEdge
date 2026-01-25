@@ -1,0 +1,4576 @@
+{
+  "Craig Porter Jr|Assists": {
+    "FanDuel": {
+      "line": 4.5,
+      "over": 132,
+      "under": -178
+    },
+    "DraftKings": {
+      "line": 4.5,
+      "over": 135,
+      "under": -175
+    }
+  },
+  "Evan Mobley|Assists": {
+    "FanDuel": {
+      "line": 3.5,
+      "over": -180,
+      "under": 134
+    },
+    "DraftKings": {
+      "line": 4.5,
+      "over": 135,
+      "under": -175
+    }
+  },
+  "Paolo Banchero|Assists": {
+    "FanDuel": {
+      "line": 3.5,
+      "over": -122,
+      "under": -108
+    },
+    "DraftKings": {
+      "line": 3.5,
+      "over": -120,
+      "under": -110
+    }
+  },
+  "Jalen Suggs|Assists": {
+    "FanDuel": {
+      "line": 4.5,
+      "over": 110,
+      "under": -146
+    },
+    "DraftKings": {
+      "line": 4.5,
+      "over": 124,
+      "under": -160
+    }
+  },
+  "Wendell Carter Jr|Assists": {
+    "FanDuel": {
+      "line": 3.5,
+      "over": 102,
+      "under": -136
+    },
+    "DraftKings": {
+      "line": 3.5,
+      "over": 100,
+      "under": -130
+    }
+  },
+  "Jaylon Tyson|Assists": {
+    "FanDuel": {
+      "line": 2.5,
+      "over": 146,
+      "under": -198
+    }
+  },
+  "Desmond Bane|Assists": {
+    "FanDuel": {
+      "line": 4.5,
+      "over": -108,
+      "under": -122
+    },
+    "DraftKings": {
+      "line": 4.5,
+      "over": 100,
+      "under": -130
+    }
+  },
+  "Jarrett Allen|Assists": {
+    "FanDuel": {
+      "line": 1.5,
+      "over": 118,
+      "under": -158
+    }
+  },
+  "Donovan Mitchell|Assists": {
+    "FanDuel": {
+      "line": 5.5,
+      "over": -152,
+      "under": 114
+    },
+    "DraftKings": {
+      "line": 5.5,
+      "over": -145,
+      "under": 114
+    }
+  },
+  "Goga Bitadze|Points": {
+    "FanDuel": {
+      "line": 4.5,
+      "over": 110,
+      "under": -146
+    },
+    "DraftKings": {
+      "line": 4.5,
+      "over": 105,
+      "under": -135
+    }
+  },
+  "Craig Porter Jr|Points": {
+    "FanDuel": {
+      "line": 5.5,
+      "over": -114,
+      "under": -114
+    },
+    "DraftKings": {
+      "line": 5.5,
+      "over": -105,
+      "under": -125
+    }
+  },
+  "Desmond Bane|Points": {
+    "FanDuel": {
+      "line": 22.5,
+      "over": -104,
+      "under": -125
+    },
+    "DraftKings": {
+      "line": 23.5,
+      "over": -120,
+      "under": -110
+    }
+  },
+  "Tristan da Silva|Points": {
+    "FanDuel": {
+      "line": 6.5,
+      "over": -102,
+      "under": -130
+    },
+    "DraftKings": {
+      "line": 6.5,
+      "over": -105,
+      "under": -125
+    }
+  },
+  "Anthony Black|Points": {
+    "FanDuel": {
+      "line": 14.5,
+      "over": -104,
+      "under": -128
+    },
+    "DraftKings": {
+      "line": 14.5,
+      "over": -130,
+      "under": 100
+    }
+  },
+  "Jalen Suggs|Points": {
+    "FanDuel": {
+      "line": 13.5,
+      "over": -118,
+      "under": -112
+    },
+    "DraftKings": {
+      "line": 13.5,
+      "over": 100,
+      "under": -130
+    }
+  },
+  "Wendell Carter Jr|Points": {
+    "FanDuel": {
+      "line": 8.5,
+      "over": 100,
+      "under": -132
+    },
+    "DraftKings": {
+      "line": 8.5,
+      "over": -135,
+      "under": 105
+    }
+  },
+  "Jarrett Allen|Points": {
+    "FanDuel": {
+      "line": 9.5,
+      "over": -136,
+      "under": 102
+    },
+    "DraftKings": {
+      "line": 9.5,
+      "over": -110,
+      "under": -120
+    }
+  },
+  "Jaylon Tyson|Points": {
+    "FanDuel": {
+      "line": 18.5,
+      "over": -118,
+      "under": -112
+    },
+    "DraftKings": {
+      "line": 18.5,
+      "over": -120,
+      "under": -110
+    }
+  },
+  "Evan Mobley|Points": {
+    "FanDuel": {
+      "line": 17.5,
+      "over": -120,
+      "under": -110
+    },
+    "DraftKings": {
+      "line": 18.5,
+      "over": -105,
+      "under": -125
+    }
+  },
+  "Paolo Banchero|Points": {
+    "FanDuel": {
+      "line": 23.5,
+      "over": -128,
+      "under": -104
+    },
+    "DraftKings": {
+      "line": 24.5,
+      "over": -110,
+      "under": -120
+    }
+  },
+  "Dean Wade|Points": {
+    "FanDuel": {
+      "line": 8.5,
+      "over": 100,
+      "under": -132
+    },
+    "DraftKings": {
+      "line": 8.5,
+      "over": -125,
+      "under": -105
+    }
+  },
+  "Donovan Mitchell|Points": {
+    "FanDuel": {
+      "line": 31.5,
+      "over": -102,
+      "under": -130
+    },
+    "DraftKings": {
+      "line": 31.5,
+      "over": -115,
+      "under": -115
+    }
+  },
+  "Tyrese Proctor|Points": {
+    "FanDuel": {
+      "line": 4.5,
+      "over": -138,
+      "under": 104
+    }
+  },
+  "Moe Wagner|Points": {
+    "FanDuel": {
+      "line": 4.5,
+      "over": -130,
+      "under": -102
+    },
+    "DraftKings": {
+      "line": 5.5,
+      "over": -115,
+      "under": -115
+    }
+  },
+  "Tristan da Silva|Rebounds": {
+    "FanDuel": {
+      "line": 2.5,
+      "over": -112,
+      "under": -118
+    },
+    "DraftKings": {
+      "line": 2.5,
+      "over": -130,
+      "under": 100
+    }
+  },
+  "Desmond Bane|Rebounds": {
+    "FanDuel": {
+      "line": 3.5,
+      "over": 100,
+      "under": -132
+    },
+    "DraftKings": {
+      "line": 3.5,
+      "over": 110,
+      "under": -140
+    }
+  },
+  "Paolo Banchero|Rebounds": {
+    "FanDuel": {
+      "line": 7.5,
+      "over": -114,
+      "under": -114
+    },
+    "DraftKings": {
+      "line": 7.5,
+      "over": -125,
+      "under": -105
+    }
+  },
+  "Craig Porter Jr|Rebounds": {
+    "FanDuel": {
+      "line": 3.5,
+      "over": 118,
+      "under": -158
+    },
+    "DraftKings": {
+      "line": 2.5,
+      "over": -154,
+      "under": 120
+    }
+  },
+  "Moe Wagner|Rebounds": {
+    "FanDuel": {
+      "line": 3.5,
+      "over": -106,
+      "under": -125
+    },
+    "DraftKings": {
+      "line": 3.5,
+      "over": -105,
+      "under": -125
+    }
+  },
+  "Evan Mobley|Rebounds": {
+    "FanDuel": {
+      "line": 6.5,
+      "over": -114,
+      "under": -114
+    },
+    "DraftKings": {
+      "line": 6.5,
+      "over": -115,
+      "under": -115
+    }
+  },
+  "Dean Wade|Rebounds": {
+    "FanDuel": {
+      "line": 4.5,
+      "over": -110,
+      "under": -120
+    },
+    "DraftKings": {
+      "line": 4.5,
+      "over": -125,
+      "under": -105
+    }
+  },
+  "Wendell Carter Jr|Rebounds": {
+    "FanDuel": {
+      "line": 6.5,
+      "over": -110,
+      "under": -120
+    },
+    "DraftKings": {
+      "line": 6.5,
+      "over": -145,
+      "under": 114
+    }
+  },
+  "Goga Bitadze|Rebounds": {
+    "FanDuel": {
+      "line": 4.5,
+      "over": 110,
+      "under": -146
+    }
+  },
+  "Jalen Suggs|Rebounds": {
+    "FanDuel": {
+      "line": 2.5,
+      "over": 102,
+      "under": -136
+    },
+    "DraftKings": {
+      "line": 2.5,
+      "over": 105,
+      "under": -135
+    }
+  },
+  "Jaylon Tyson|Rebounds": {
+    "FanDuel": {
+      "line": 5.5,
+      "over": 106,
+      "under": -140
+    },
+    "DraftKings": {
+      "line": 5.5,
+      "over": 114,
+      "under": -145
+    }
+  },
+  "Donovan Mitchell|3-PT Made": {
+    "FanDuel": {
+      "line": 3.5,
+      "over": -130,
+      "under": -102
+    },
+    "DraftKings": {
+      "line": 3.5,
+      "over": -154,
+      "under": 120
+    }
+  },
+  "Jaylon Tyson|3-PT Made": {
+    "FanDuel": {
+      "line": 3.5,
+      "over": -114,
+      "under": -114
+    },
+    "DraftKings": {
+      "line": 3.5,
+      "over": -115,
+      "under": -115
+    }
+  },
+  "Dean Wade|3-PT Made": {
+    "FanDuel": {
+      "line": 2.5,
+      "over": 164,
+      "under": -225
+    },
+    "DraftKings": {
+      "line": 2.5,
+      "over": 145,
+      "under": -188
+    }
+  },
+  "Paolo Banchero|3-PT Made": {
+    "FanDuel": {
+      "line": 0.5,
+      "over": -260,
+      "under": 188
+    },
+    "DraftKings": {
+      "line": 1.5,
+      "over": 170,
+      "under": -220
+    }
+  },
+  "Tristan da Silva|3-PT Made": {
+    "FanDuel": {
+      "line": 0.5,
+      "over": -245,
+      "under": 178
+    }
+  },
+  "Anthony Black|3-PT Made": {
+    "FanDuel": {
+      "line": 2.5,
+      "over": 142,
+      "under": -194
+    },
+    "DraftKings": {
+      "line": 2.5,
+      "over": 124,
+      "under": -160
+    }
+  },
+  "Jalen Suggs|3-PT Made": {
+    "FanDuel": {
+      "line": 2.5,
+      "over": -108,
+      "under": -122
+    },
+    "DraftKings": {
+      "line": 2.5,
+      "over": 100,
+      "under": -130
+    }
+  },
+  "Desmond Bane|3-PT Made": {
+    "FanDuel": {
+      "line": 2.5,
+      "over": 102,
+      "under": -136
+    },
+    "DraftKings": {
+      "line": 2.5,
+      "over": -120,
+      "under": -110
+    }
+  },
+  "Wendell Carter Jr|3-PT Made": {
+    "FanDuel": {
+      "line": 0.5,
+      "over": -172,
+      "under": 128
+    }
+  },
+  "Desmond Bane|Pts+Asts": {
+    "DraftKings": {
+      "line": 28.5,
+      "over": -110,
+      "under": -120
+    }
+  },
+  "Paolo Banchero|Pts+Asts": {
+    "DraftKings": {
+      "line": 28.5,
+      "over": -105,
+      "under": -125
+    }
+  },
+  "Evan Mobley|Pts+Asts": {
+    "DraftKings": {
+      "line": 22.5,
+      "over": -115,
+      "under": -115
+    }
+  },
+  "Jaylon Tyson|Pts+Asts": {
+    "DraftKings": {
+      "line": 20.5,
+      "over": -125,
+      "under": -105
+    }
+  },
+  "Jalen Suggs|Pts+Asts": {
+    "DraftKings": {
+      "line": 17.5,
+      "over": -110,
+      "under": -120
+    }
+  },
+  "Wendell Carter Jr|Pts+Asts": {
+    "DraftKings": {
+      "line": 12.5,
+      "over": -115,
+      "under": -115
+    }
+  },
+  "Paolo Banchero|Pts+Rebs": {
+    "DraftKings": {
+      "line": 32.5,
+      "over": -105,
+      "under": -125
+    }
+  },
+  "Desmond Bane|Pts+Rebs": {
+    "DraftKings": {
+      "line": 27.5,
+      "over": -105,
+      "under": -125
+    }
+  },
+  "Evan Mobley|Pts+Rebs": {
+    "DraftKings": {
+      "line": 24.5,
+      "over": -125,
+      "under": -105
+    }
+  },
+  "Jaylon Tyson|Pts+Rebs": {
+    "DraftKings": {
+      "line": 23.5,
+      "over": -125,
+      "under": -105
+    }
+  },
+  "Wendell Carter Jr|Pts+Rebs": {
+    "DraftKings": {
+      "line": 16.5,
+      "over": 100,
+      "under": -130
+    }
+  },
+  "Jalen Suggs|Pts+Rebs": {
+    "DraftKings": {
+      "line": 15.5,
+      "over": -115,
+      "under": -115
+    }
+  },
+  "Dean Wade|Pts+Rebs": {
+    "DraftKings": {
+      "line": 13.5,
+      "over": -115,
+      "under": -115
+    }
+  },
+  "Paolo Banchero|Pts+Rebs+Asts": {
+    "DraftKings": {
+      "line": 35.5,
+      "over": -125,
+      "under": -105
+    }
+  },
+  "Desmond Bane|Pts+Rebs+Asts": {
+    "DraftKings": {
+      "line": 31.5,
+      "over": -120,
+      "under": -110
+    }
+  },
+  "Evan Mobley|Pts+Rebs+Asts": {
+    "DraftKings": {
+      "line": 29.5,
+      "over": -105,
+      "under": -125
+    }
+  },
+  "Jaylon Tyson|Pts+Rebs+Asts": {
+    "DraftKings": {
+      "line": 26.5,
+      "over": -105,
+      "under": -125
+    }
+  },
+  "Jalen Suggs|Pts+Rebs+Asts": {
+    "DraftKings": {
+      "line": 19.5,
+      "over": -125,
+      "under": -105
+    }
+  },
+  "Wendell Carter Jr|Pts+Rebs+Asts": {
+    "DraftKings": {
+      "line": 19.5,
+      "over": -120,
+      "under": -110
+    }
+  },
+  "Craig Porter Jr|Pts+Rebs+Asts": {
+    "DraftKings": {
+      "line": 12.5,
+      "over": -120,
+      "under": -110
+    }
+  },
+  "Paolo Banchero|Rebs+Asts": {
+    "DraftKings": {
+      "line": 11.5,
+      "over": -105,
+      "under": -125
+    }
+  },
+  "Evan Mobley|Rebs+Asts": {
+    "DraftKings": {
+      "line": 10.5,
+      "over": -130,
+      "under": 100
+    }
+  },
+  "Wendell Carter Jr|Rebs+Asts": {
+    "DraftKings": {
+      "line": 10.5,
+      "over": -115,
+      "under": -115
+    }
+  },
+  "Desmond Bane|Rebs+Asts": {
+    "DraftKings": {
+      "line": 7.5,
+      "over": -130,
+      "under": 100
+    }
+  },
+  "Jaylon Tyson|Rebs+Asts": {
+    "DraftKings": {
+      "line": 7.5,
+      "over": 100,
+      "under": -130
+    }
+  },
+  "Craig Porter Jr|Rebs+Asts": {
+    "DraftKings": {
+      "line": 7.5,
+      "over": 120,
+      "under": -154
+    }
+  },
+  "Jalen Suggs|Rebs+Asts": {
+    "DraftKings": {
+      "line": 6.5,
+      "over": -120,
+      "under": -110
+    }
+  },
+  "Evan Mobley|3-PT Made": {
+    "DraftKings": {
+      "line": 0.5,
+      "over": -140,
+      "under": 110
+    }
+  },
+  "Jaylen Brown|Assists": {
+    "FanDuel": {
+      "line": 4.5,
+      "over": -122,
+      "under": -104
+    },
+    "DraftKings": {
+      "line": 4.5,
+      "over": -128,
+      "under": -103
+    }
+  },
+  "Ayo Dosunmu|Assists": {
+    "FanDuel": {
+      "line": 3.5,
+      "over": -108,
+      "under": -118
+    },
+    "DraftKings": {
+      "line": 3.5,
+      "over": -110,
+      "under": -120
+    }
+  },
+  "Josh Giddey|Assists": {
+    "FanDuel": {
+      "line": 6.5,
+      "over": -148,
+      "under": 116
+    },
+    "DraftKings": {
+      "line": 6.5,
+      "over": -122,
+      "under": -108
+    }
+  },
+  "Derrick White|Assists": {
+    "FanDuel": {
+      "line": 5.5,
+      "over": 112,
+      "under": -142
+    },
+    "DraftKings": {
+      "line": 5.5,
+      "over": 106,
+      "under": -140
+    }
+  },
+  "Nikola Vucevic|Assists": {
+    "FanDuel": {
+      "line": 3.5,
+      "over": -113,
+      "under": -113
+    },
+    "DraftKings": {
+      "line": 3.5,
+      "over": -107,
+      "under": -123
+    }
+  },
+  "Coby White|Assists": {
+    "FanDuel": {
+      "line": 4.5,
+      "over": -130,
+      "under": 102
+    },
+    "DraftKings": {
+      "line": 4.5,
+      "over": -129,
+      "under": -102
+    }
+  },
+  "Payton Pritchard|Assists": {
+    "FanDuel": {
+      "line": 5.5,
+      "over": 102,
+      "under": -130
+    },
+    "DraftKings": {
+      "line": 5.5,
+      "over": 106,
+      "under": -139
+    }
+  },
+  "Matas Buzelis|Blocked Shots": {
+    "FanDuel": {
+      "line": 1.5,
+      "over": 162,
+      "under": -220
+    },
+    "DraftKings": {
+      "line": 0.5,
+      "over": -234,
+      "under": 173
+    }
+  },
+  "Derrick White|Blocked Shots": {
+    "FanDuel": {
+      "line": 1.5,
+      "over": 126,
+      "under": -168
+    }
+  },
+  "Neemias Queta|Blocked Shots": {
+    "FanDuel": {
+      "line": 1.5,
+      "over": 138,
+      "under": -186
+    },
+    "DraftKings": {
+      "line": 1.5,
+      "over": 129,
+      "under": -172
+    }
+  },
+  "Anfernee Simons|Points": {
+    "FanDuel": {
+      "line": 12.5,
+      "over": -115,
+      "under": -111
+    },
+    "DraftKings": {
+      "line": 12.5,
+      "over": -116,
+      "under": -110
+    }
+  },
+  "Coby White|Points": {
+    "FanDuel": {
+      "line": 18.5,
+      "over": 100,
+      "under": -128
+    },
+    "DraftKings": {
+      "line": 17.5,
+      "over": -114,
+      "under": -112
+    }
+  },
+  "Derrick White|Points": {
+    "FanDuel": {
+      "line": 17.5,
+      "over": -120,
+      "under": -106
+    },
+    "DraftKings": {
+      "line": 17.5,
+      "over": -109,
+      "under": -117
+    }
+  },
+  "Luka Garza|Points": {
+    "FanDuel": {
+      "line": 7.5,
+      "over": -122,
+      "under": -104
+    },
+    "DraftKings": {
+      "line": 7.5,
+      "over": -126,
+      "under": -101
+    }
+  },
+  "Jaylen Brown|Points": {
+    "FanDuel": {
+      "line": 29.5,
+      "over": -113,
+      "under": -113
+    },
+    "DraftKings": {
+      "line": 29.5,
+      "over": -107,
+      "under": -119
+    }
+  },
+  "Sam Hauser|Points": {
+    "FanDuel": {
+      "line": 10.5,
+      "over": -118,
+      "under": -108
+    },
+    "DraftKings": {
+      "line": 10.5,
+      "over": -114,
+      "under": -112
+    }
+  },
+  "Josh Giddey|Points": {
+    "FanDuel": {
+      "line": 13.5,
+      "over": -102,
+      "under": -125
+    },
+    "DraftKings": {
+      "line": 13.5,
+      "over": -117,
+      "under": -109
+    }
+  },
+  "Nikola Vucevic|Points": {
+    "FanDuel": {
+      "line": 16.5,
+      "over": -113,
+      "under": -113
+    },
+    "DraftKings": {
+      "line": 16.5,
+      "over": -101,
+      "under": -126
+    }
+  },
+  "Ayo Dosunmu|Points": {
+    "FanDuel": {
+      "line": 12.5,
+      "over": -111,
+      "under": -115
+    },
+    "DraftKings": {
+      "line": 12.5,
+      "over": -102,
+      "under": -125
+    }
+  },
+  "Matas Buzelis|Points": {
+    "FanDuel": {
+      "line": 13.5,
+      "over": -130,
+      "under": 102
+    },
+    "DraftKings": {
+      "line": 13.5,
+      "over": -122,
+      "under": -105
+    }
+  },
+  "Jordan Walsh|Points": {
+    "FanDuel": {
+      "line": 3.5,
+      "over": -128,
+      "under": 100
+    },
+    "DraftKings": {
+      "line": 3.5,
+      "over": -137,
+      "under": 108
+    }
+  },
+  "Jalen Smith|Points": {
+    "FanDuel": {
+      "line": 11.5,
+      "over": -106,
+      "under": -120
+    },
+    "DraftKings": {
+      "line": 11.5,
+      "over": 101,
+      "under": -128
+    }
+  },
+  "Payton Pritchard|Points": {
+    "FanDuel": {
+      "line": 15.5,
+      "over": -125,
+      "under": -102
+    },
+    "DraftKings": {
+      "line": 15.5,
+      "over": -113,
+      "under": -112
+    }
+  },
+  "Neemias Queta|Points": {
+    "FanDuel": {
+      "line": 10.5,
+      "over": -102,
+      "under": -125
+    },
+    "DraftKings": {
+      "line": 9.5,
+      "over": -129,
+      "under": 102
+    }
+  },
+  "Isaac Okoro|Points": {
+    "FanDuel": {
+      "line": 8.5,
+      "over": -106,
+      "under": -120
+    },
+    "DraftKings": {
+      "line": 8.5,
+      "over": -119,
+      "under": -107
+    }
+  },
+  "Patrick Williams|Points": {
+    "FanDuel": {
+      "line": 5.5,
+      "over": -118,
+      "under": -108
+    },
+    "DraftKings": {
+      "line": 5.5,
+      "over": -128,
+      "under": 100
+    }
+  },
+  "Nikola Vucevic|Pts+Asts": {
+    "FanDuel": {
+      "line": 20.5,
+      "over": -106,
+      "under": -122
+    },
+    "DraftKings": {
+      "line": 19.5,
+      "over": -120,
+      "under": -109
+    }
+  },
+  "Ayo Dosunmu|Pts+Asts": {
+    "FanDuel": {
+      "line": 16.5,
+      "over": -106,
+      "under": -125
+    },
+    "DraftKings": {
+      "line": 15.5,
+      "over": -127,
+      "under": -104
+    }
+  },
+  "Coby White|Pts+Asts": {
+    "FanDuel": {
+      "line": 23.5,
+      "over": -102,
+      "under": -130
+    },
+    "DraftKings": {
+      "line": 22.5,
+      "over": -117,
+      "under": -112
+    }
+  },
+  "Jaylen Brown|Pts+Asts": {
+    "FanDuel": {
+      "line": 34.5,
+      "over": -112,
+      "under": -118
+    },
+    "DraftKings": {
+      "line": 34.5,
+      "over": -107,
+      "under": -123
+    }
+  },
+  "Josh Giddey|Pts+Asts": {
+    "FanDuel": {
+      "line": 20.5,
+      "over": -118,
+      "under": -112
+    },
+    "DraftKings": {
+      "line": 20.5,
+      "over": -116,
+      "under": -113
+    }
+  },
+  "Payton Pritchard|Pts+Asts": {
+    "FanDuel": {
+      "line": 21.5,
+      "over": -112,
+      "under": -118
+    },
+    "DraftKings": {
+      "line": 21.5,
+      "over": -103,
+      "under": -128
+    }
+  },
+  "Anfernee Simons|Pts+Asts": {
+    "FanDuel": {
+      "line": 15.5,
+      "over": -108,
+      "under": -122
+    },
+    "DraftKings": {
+      "line": 15.5,
+      "over": -105,
+      "under": -126
+    }
+  },
+  "Derrick White|Pts+Asts": {
+    "FanDuel": {
+      "line": 23.5,
+      "over": -106,
+      "under": -125
+    },
+    "DraftKings": {
+      "line": 22.5,
+      "over": -123,
+      "under": -107
+    }
+  },
+  "Ayo Dosunmu|Pts+Rebs": {
+    "FanDuel": {
+      "line": 15.5,
+      "over": -104,
+      "under": -120
+    },
+    "DraftKings": {
+      "line": 14.5,
+      "over": -128,
+      "under": -103
+    }
+  },
+  "Isaac Okoro|Pts+Rebs": {
+    "FanDuel": {
+      "line": 11.5,
+      "over": -102,
+      "under": -125
+    },
+    "DraftKings": {
+      "line": 11.5,
+      "over": -117,
+      "under": -112
+    }
+  },
+  "Nikola Vucevic|Pts+Rebs": {
+    "FanDuel": {
+      "line": 25.5,
+      "over": -106,
+      "under": -120
+    },
+    "DraftKings": {
+      "line": 25.5,
+      "over": -105,
+      "under": -126
+    }
+  },
+  "Jalen Smith|Pts+Rebs": {
+    "FanDuel": {
+      "line": 19.5,
+      "over": -118,
+      "under": -108
+    },
+    "DraftKings": {
+      "line": 19.5,
+      "over": -109,
+      "under": -121
+    }
+  },
+  "Payton Pritchard|Pts+Rebs": {
+    "FanDuel": {
+      "line": 20.5,
+      "over": -104,
+      "under": -122
+    },
+    "DraftKings": {
+      "line": 19.5,
+      "over": -120,
+      "under": -110
+    }
+  },
+  "Josh Giddey|Pts+Rebs": {
+    "FanDuel": {
+      "line": 19.5,
+      "over": -113,
+      "under": -113
+    },
+    "DraftKings": {
+      "line": 19.5,
+      "over": -124,
+      "under": -106
+    }
+  },
+  "Derrick White|Pts+Rebs": {
+    "FanDuel": {
+      "line": 22.5,
+      "over": -106,
+      "under": -120
+    },
+    "DraftKings": {
+      "line": 21.5,
+      "over": -124,
+      "under": -106
+    }
+  },
+  "Coby White|Pts+Rebs": {
+    "FanDuel": {
+      "line": 21.5,
+      "over": -108,
+      "under": -118
+    },
+    "DraftKings": {
+      "line": 20.5,
+      "over": -126,
+      "under": -104
+    }
+  },
+  "Matas Buzelis|Pts+Rebs": {
+    "FanDuel": {
+      "line": 18.5,
+      "over": -120,
+      "under": -106
+    },
+    "DraftKings": {
+      "line": 18.5,
+      "over": -121,
+      "under": -109
+    }
+  },
+  "Neemias Queta|Pts+Rebs": {
+    "FanDuel": {
+      "line": 19.5,
+      "over": -102,
+      "under": -125
+    },
+    "DraftKings": {
+      "line": 18.5,
+      "over": -122,
+      "under": -108
+    }
+  },
+  "Sam Hauser|Pts+Rebs": {
+    "FanDuel": {
+      "line": 14.5,
+      "over": -125,
+      "under": -102
+    },
+    "DraftKings": {
+      "line": 14.5,
+      "over": -121,
+      "under": -108
+    }
+  },
+  "Jaylen Brown|Pts+Rebs": {
+    "FanDuel": {
+      "line": 36.5,
+      "over": -111,
+      "under": -115
+    },
+    "DraftKings": {
+      "line": 36.5,
+      "over": -106,
+      "under": -124
+    }
+  },
+  "Ayo Dosunmu|Pts+Rebs+Asts": {
+    "FanDuel": {
+      "line": 18.5,
+      "over": -128,
+      "under": 100
+    },
+    "DraftKings": {
+      "line": 18.5,
+      "over": -118,
+      "under": -112
+    }
+  },
+  "Josh Giddey|Pts+Rebs+Asts": {
+    "FanDuel": {
+      "line": 26.5,
+      "over": -122,
+      "under": -104
+    },
+    "DraftKings": {
+      "line": 26.5,
+      "over": -119,
+      "under": -110
+    }
+  },
+  "Jaylen Brown|Pts+Rebs+Asts": {
+    "FanDuel": {
+      "line": 41.5,
+      "over": -106,
+      "under": -120
+    },
+    "DraftKings": {
+      "line": 40.5,
+      "over": -123,
+      "under": -107
+    }
+  },
+  "Neemias Queta|Pts+Rebs+Asts": {
+    "FanDuel": {
+      "line": 20.5,
+      "over": -113,
+      "under": -113
+    },
+    "DraftKings": {
+      "line": 20.5,
+      "over": -103,
+      "under": -127
+    }
+  },
+  "Payton Pritchard|Pts+Rebs+Asts": {
+    "FanDuel": {
+      "line": 25.5,
+      "over": -115,
+      "under": -108
+    },
+    "DraftKings": {
+      "line": 25.5,
+      "over": -106,
+      "under": -124
+    }
+  },
+  "Jalen Smith|Pts+Rebs+Asts": {
+    "FanDuel": {
+      "line": 21.5,
+      "over": -104,
+      "under": -122
+    }
+  },
+  "Coby White|Pts+Rebs+Asts": {
+    "FanDuel": {
+      "line": 26.5,
+      "over": -106,
+      "under": -120
+    },
+    "DraftKings": {
+      "line": 25.5,
+      "over": -125,
+      "under": -105
+    }
+  },
+  "Derrick White|Pts+Rebs+Asts": {
+    "FanDuel": {
+      "line": 27.5,
+      "over": -118,
+      "under": -108
+    },
+    "DraftKings": {
+      "line": 27.5,
+      "over": -113,
+      "under": -116
+    }
+  },
+  "Anfernee Simons|Pts+Rebs+Asts": {
+    "FanDuel": {
+      "line": 17.5,
+      "over": -115,
+      "under": -111
+    },
+    "DraftKings": {
+      "line": 17.5,
+      "over": -116,
+      "under": -113
+    }
+  },
+  "Matas Buzelis|Pts+Rebs+Asts": {
+    "FanDuel": {
+      "line": 20.5,
+      "over": -122,
+      "under": -104
+    },
+    "DraftKings": {
+      "line": 20.5,
+      "over": -124,
+      "under": -106
+    }
+  },
+  "Nikola Vucevic|Pts+Rebs+Asts": {
+    "FanDuel": {
+      "line": 28.5,
+      "over": -122,
+      "under": -104
+    },
+    "DraftKings": {
+      "line": 28.5,
+      "over": -120,
+      "under": -109
+    }
+  },
+  "Jordan Walsh|Rebounds": {
+    "FanDuel": {
+      "line": 3.5,
+      "over": 106,
+      "under": -136
+    }
+  },
+  "Payton Pritchard|Rebounds": {
+    "FanDuel": {
+      "line": 4.5,
+      "over": 124,
+      "under": -160
+    },
+    "DraftKings": {
+      "line": 3.5,
+      "over": -165,
+      "under": 125
+    }
+  },
+  "Josh Giddey|Rebounds": {
+    "FanDuel": {
+      "line": 6.5,
+      "over": 126,
+      "under": -162
+    },
+    "DraftKings": {
+      "line": 6.5,
+      "over": 115,
+      "under": -151
+    }
+  },
+  "Isaac Okoro|Rebounds": {
+    "FanDuel": {
+      "line": 2.5,
+      "over": -138,
+      "under": 108
+    },
+    "DraftKings": {
+      "line": 2.5,
+      "over": -138,
+      "under": 105
+    }
+  },
+  "Neemias Queta|Rebounds": {
+    "FanDuel": {
+      "line": 8.5,
+      "over": -113,
+      "under": -113
+    },
+    "DraftKings": {
+      "line": 8.5,
+      "over": -128,
+      "under": -103
+    }
+  },
+  "Jaylen Brown|Rebounds": {
+    "FanDuel": {
+      "line": 6.5,
+      "over": -120,
+      "under": -106
+    },
+    "DraftKings": {
+      "line": 6.5,
+      "over": -114,
+      "under": -115
+    }
+  },
+  "Jalen Smith|Rebounds": {
+    "FanDuel": {
+      "line": 7.5,
+      "over": -146,
+      "under": 114
+    },
+    "DraftKings": {
+      "line": 7.5,
+      "over": -143,
+      "under": 109
+    }
+  },
+  "Ayo Dosunmu|Rebounds": {
+    "FanDuel": {
+      "line": 2.5,
+      "over": -113,
+      "under": -113
+    },
+    "DraftKings": {
+      "line": 2.5,
+      "over": -115,
+      "under": -114
+    }
+  },
+  "Nikola Vucevic|Rebounds": {
+    "FanDuel": {
+      "line": 8.5,
+      "over": -111,
+      "under": -115
+    },
+    "DraftKings": {
+      "line": 8.5,
+      "over": -124,
+      "under": -106
+    }
+  },
+  "Coby White|Rebounds": {
+    "FanDuel": {
+      "line": 3.5,
+      "over": 130,
+      "under": -166
+    },
+    "DraftKings": {
+      "line": 3.5,
+      "over": 116,
+      "under": -152
+    }
+  },
+  "Matas Buzelis|Rebounds": {
+    "FanDuel": {
+      "line": 4.5,
+      "over": -113,
+      "under": -113
+    },
+    "DraftKings": {
+      "line": 4.5,
+      "over": -129,
+      "under": -102
+    }
+  },
+  "Derrick White|Rebounds": {
+    "FanDuel": {
+      "line": 4.5,
+      "over": 110,
+      "under": -140
+    },
+    "DraftKings": {
+      "line": 4.5,
+      "over": -102,
+      "under": -129
+    }
+  },
+  "Luka Garza|Rebounds": {
+    "FanDuel": {
+      "line": 4.5,
+      "over": -122,
+      "under": -104
+    },
+    "DraftKings": {
+      "line": 4.5,
+      "over": -122,
+      "under": -108
+    }
+  },
+  "Sam Hauser|Rebounds": {
+    "FanDuel": {
+      "line": 4.5,
+      "over": 124,
+      "under": -160
+    },
+    "DraftKings": {
+      "line": 4.5,
+      "over": 112,
+      "under": -148
+    }
+  },
+  "Jaylen Brown|Rebs+Asts": {
+    "FanDuel": {
+      "line": 11.5,
+      "over": -108,
+      "under": -118
+    },
+    "DraftKings": {
+      "line": 11.5,
+      "over": -109,
+      "under": -121
+    }
+  },
+  "Nikola Vucevic|Rebs+Asts": {
+    "FanDuel": {
+      "line": 12.5,
+      "over": -104,
+      "under": -122
+    },
+    "DraftKings": {
+      "line": 12.5,
+      "over": -105,
+      "under": -126
+    }
+  },
+  "Payton Pritchard|Rebs+Asts": {
+    "FanDuel": {
+      "line": 9.5,
+      "over": -115,
+      "under": -111
+    },
+    "DraftKings": {
+      "line": 9.5,
+      "over": -107,
+      "under": -123
+    }
+  },
+  "Coby White|Rebs+Asts": {
+    "FanDuel": {
+      "line": 7.5,
+      "over": -148,
+      "under": 116
+    },
+    "DraftKings": {
+      "line": 7.5,
+      "over": -146,
+      "under": 111
+    }
+  },
+  "Josh Giddey|Rebs+Asts": {
+    "FanDuel": {
+      "line": 13.5,
+      "over": 100,
+      "under": -128
+    },
+    "DraftKings": {
+      "line": 12.5,
+      "over": -129,
+      "under": -102
+    }
+  },
+  "Derrick White|Rebs+Asts": {
+    "FanDuel": {
+      "line": 9.5,
+      "over": -125,
+      "under": -102
+    },
+    "DraftKings": {
+      "line": 9.5,
+      "over": -130,
+      "under": -101
+    }
+  },
+  "Jaylen Brown|Steals": {
+    "FanDuel": {
+      "line": 1.5,
+      "over": 194,
+      "under": -270
+    }
+  },
+  "Derrick White|Steals": {
+    "FanDuel": {
+      "line": 1.5,
+      "over": 194,
+      "under": -270
+    },
+    "DraftKings": {
+      "line": 0.5,
+      "over": -242,
+      "under": 179
+    }
+  },
+  "Payton Pritchard|Steals": {
+    "FanDuel": {
+      "line": 0.5,
+      "over": -245,
+      "under": 178
+    },
+    "DraftKings": {
+      "line": 1.5,
+      "over": 182,
+      "under": -246
+    }
+  },
+  "Ayo Dosunmu|3-PT Made": {
+    "FanDuel": {
+      "line": 1.5,
+      "over": -113,
+      "under": -113
+    },
+    "DraftKings": {
+      "line": 1.5,
+      "over": -117,
+      "under": -113
+    }
+  },
+  "Matas Buzelis|3-PT Made": {
+    "FanDuel": {
+      "line": 1.5,
+      "over": -150,
+      "under": 118
+    },
+    "DraftKings": {
+      "line": 1.5,
+      "over": -147,
+      "under": 111
+    }
+  },
+  "Coby White|3-PT Made": {
+    "FanDuel": {
+      "line": 2.5,
+      "over": -113,
+      "under": -113
+    },
+    "DraftKings": {
+      "line": 2.5,
+      "over": -117,
+      "under": -112
+    }
+  },
+  "Jalen Smith|3-PT Made": {
+    "FanDuel": {
+      "line": 1.5,
+      "over": -113,
+      "under": -113
+    },
+    "DraftKings": {
+      "line": 1.5,
+      "over": -122,
+      "under": -108
+    }
+  },
+  "Josh Giddey|3-PT Made": {
+    "FanDuel": {
+      "line": 1.5,
+      "over": 130,
+      "under": -166
+    },
+    "DraftKings": {
+      "line": 1.5,
+      "over": 117,
+      "under": -155
+    }
+  },
+  "Nikola Vucevic|3-PT Made": {
+    "FanDuel": {
+      "line": 1.5,
+      "over": -132,
+      "under": 104
+    },
+    "DraftKings": {
+      "line": 1.5,
+      "over": -135,
+      "under": 103
+    }
+  },
+  "Jaylen Brown|3-PT Made": {
+    "FanDuel": {
+      "line": 2.5,
+      "over": 142,
+      "under": -184
+    },
+    "DraftKings": {
+      "line": 2.5,
+      "over": 153,
+      "under": -204
+    }
+  },
+  "Sam Hauser|3-PT Made": {
+    "FanDuel": {
+      "line": 2.5,
+      "over": -164,
+      "under": 128
+    },
+    "DraftKings": {
+      "line": 2.5,
+      "over": -153,
+      "under": 116
+    }
+  },
+  "Derrick White|3-PT Made": {
+    "FanDuel": {
+      "line": 3.5,
+      "over": 132,
+      "under": -170
+    },
+    "DraftKings": {
+      "line": 2.5,
+      "over": -176,
+      "under": 133
+    }
+  },
+  "Anfernee Simons|3-PT Made": {
+    "FanDuel": {
+      "line": 2.5,
+      "over": 130,
+      "under": -166
+    },
+    "DraftKings": {
+      "line": 2.5,
+      "over": 139,
+      "under": -184
+    }
+  },
+  "Isaac Okoro|3-PT Made": {
+    "FanDuel": {
+      "line": 1.5,
+      "over": 180,
+      "under": -235
+    },
+    "DraftKings": {
+      "line": 1.5,
+      "over": 149,
+      "under": -198
+    }
+  },
+  "Payton Pritchard|3-PT Made": {
+    "FanDuel": {
+      "line": 2.5,
+      "over": 100,
+      "under": -128
+    },
+    "DraftKings": {
+      "line": 2.5,
+      "over": 108,
+      "under": -143
+    }
+  },
+  "Anfernee Simons|Assists": {
+    "DraftKings": {
+      "line": 2.5,
+      "over": 109,
+      "under": -144
+    }
+  },
+  "Matas Buzelis|Assists": {
+    "DraftKings": {
+      "line": 1.5,
+      "over": -191,
+      "under": 144
+    }
+  },
+  "Kevin Huerter|Points": {
+    "DraftKings": {
+      "line": 8.5,
+      "over": -113,
+      "under": -113
+    }
+  },
+  "Matas Buzelis|Pts+Asts": {
+    "DraftKings": {
+      "line": 16.5,
+      "over": -102,
+      "under": -129
+    }
+  },
+  "Anfernee Simons|Pts+Rebs": {
+    "DraftKings": {
+      "line": 15.5,
+      "over": -102,
+      "under": -129
+    }
+  },
+  "Luka Garza|Pts+Rebs": {
+    "DraftKings": {
+      "line": 12.5,
+      "over": -120,
+      "under": -109
+    }
+  },
+  "Kevin Huerter|Pts+Rebs": {
+    "DraftKings": {
+      "line": 11.5,
+      "over": -113,
+      "under": -117
+    }
+  },
+  "Sam Hauser|Pts+Rebs+Asts": {
+    "DraftKings": {
+      "line": 16.5,
+      "over": -114,
+      "under": -115
+    }
+  },
+  "Kevin Huerter|Pts+Rebs+Asts": {
+    "DraftKings": {
+      "line": 13.5,
+      "over": -115,
+      "under": -114
+    }
+  },
+  "Kevin Huerter|Rebounds": {
+    "DraftKings": {
+      "line": 2.5,
+      "over": -131,
+      "under": -101
+    }
+  },
+  "Anfernee Simons|Rebounds": {
+    "DraftKings": {
+      "line": 2.5,
+      "over": 117,
+      "under": -154
+    }
+  },
+  "Matas Buzelis|Rebs+Asts": {
+    "DraftKings": {
+      "line": 6.5,
+      "over": -141,
+      "under": 107
+    }
+  },
+  "Ayo Dosunmu|Rebs+Asts": {
+    "DraftKings": {
+      "line": 6.5,
+      "over": 111,
+      "under": -146
+    }
+  },
+  "Anfernee Simons|Rebs+Asts": {
+    "DraftKings": {
+      "line": 4.5,
+      "over": -127,
+      "under": -104
+    }
+  },
+  "Kevin Huerter|3-PT Made": {
+    "DraftKings": {
+      "line": 1.5,
+      "over": -115,
+      "under": -115
+    }
+  },
+  "Naji Marshall|Assists": {
+    "FanDuel": {
+      "line": 3.5,
+      "over": 102,
+      "under": -130
+    },
+    "DraftKings": {
+      "line": 3.5,
+      "over": -117,
+      "under": -113
+    }
+  },
+  "Marcus Smart|Assists": {
+    "FanDuel": {
+      "line": 2.5,
+      "over": -142,
+      "under": 112
+    },
+    "DraftKings": {
+      "line": 2.5,
+      "over": -122,
+      "under": -108
+    }
+  },
+  "LeBron James|Assists": {
+    "FanDuel": {
+      "line": 6.5,
+      "over": -113,
+      "under": -113
+    },
+    "DraftKings": {
+      "line": 6.5,
+      "over": -114,
+      "under": -116
+    }
+  },
+  "Cooper Flagg|Assists": {
+    "FanDuel": {
+      "line": 3.5,
+      "over": -160,
+      "under": 124
+    },
+    "DraftKings": {
+      "line": 4.5,
+      "over": 122,
+      "under": -161
+    }
+  },
+  "Brandon Williams|Assists": {
+    "FanDuel": {
+      "line": 3.5,
+      "over": -140,
+      "under": 110
+    },
+    "DraftKings": {
+      "line": 3.5,
+      "over": -133,
+      "under": 101
+    }
+  },
+  "Luka Doncic|Assists": {
+    "FanDuel": {
+      "line": 8.5,
+      "over": -148,
+      "under": 116
+    },
+    "DraftKings": {
+      "line": 9.5,
+      "over": -102,
+      "under": -128
+    }
+  },
+  "Jarred Vanderbilt|Points": {
+    "FanDuel": {
+      "line": 4.5,
+      "over": -102,
+      "under": -125
+    },
+    "DraftKings": {
+      "line": 4.5,
+      "over": -102,
+      "under": -125
+    }
+  },
+  "Luka Doncic|Points": {
+    "FanDuel": {
+      "line": 33.5,
+      "over": -128,
+      "under": 100
+    },
+    "DraftKings": {
+      "line": 34.5,
+      "over": -106,
+      "under": -121
+    }
+  },
+  "P.J. Washington|Points": {
+    "FanDuel": {
+      "line": 13.5,
+      "over": -106,
+      "under": -120
+    },
+    "DraftKings": {
+      "line": 12.5,
+      "over": -125,
+      "under": -102
+    }
+  },
+  "Brandon Williams|Points": {
+    "FanDuel": {
+      "line": 13.5,
+      "over": -106,
+      "under": -120
+    },
+    "DraftKings": {
+      "line": 13.5,
+      "over": -117,
+      "under": -109
+    }
+  },
+  "LeBron James|Points": {
+    "FanDuel": {
+      "line": 22.5,
+      "over": -113,
+      "under": -115
+    },
+    "DraftKings": {
+      "line": 22.5,
+      "over": -118,
+      "under": -108
+    }
+  },
+  "Jake LaRavia|Points": {
+    "FanDuel": {
+      "line": 7.5,
+      "over": -125,
+      "under": -102
+    },
+    "DraftKings": {
+      "line": 7.5,
+      "over": -128,
+      "under": 101
+    }
+  },
+  "Daniel Gafford|Points": {
+    "FanDuel": {
+      "line": 7.5,
+      "over": -108,
+      "under": -118
+    },
+    "DraftKings": {
+      "line": 7.5,
+      "over": -114,
+      "under": -112
+    }
+  },
+  "Marcus Smart|Points": {
+    "FanDuel": {
+      "line": 8.5,
+      "over": -118,
+      "under": -108
+    },
+    "DraftKings": {
+      "line": 8.5,
+      "over": -131,
+      "under": 103
+    }
+  },
+  "Dwight Powell|Points": {
+    "FanDuel": {
+      "line": 3.5,
+      "over": -130,
+      "under": 102
+    },
+    "DraftKings": {
+      "line": 4.5,
+      "over": 118,
+      "under": -151
+    }
+  },
+  "Gabe Vincent|Points": {
+    "FanDuel": {
+      "line": 4.5,
+      "over": 100,
+      "under": -128
+    },
+    "DraftKings": {
+      "line": 4.5,
+      "over": -109,
+      "under": -117
+    }
+  },
+  "Klay Thompson|Points": {
+    "FanDuel": {
+      "line": 11.5,
+      "over": -120,
+      "under": -104
+    },
+    "DraftKings": {
+      "line": 11.5,
+      "over": -122,
+      "under": -104
+    }
+  },
+  "Rui Hachimura|Points": {
+    "FanDuel": {
+      "line": 10.5,
+      "over": -104,
+      "under": -122
+    },
+    "DraftKings": {
+      "line": 10.5,
+      "over": -118,
+      "under": -108
+    }
+  },
+  "Caleb Martin|Points": {
+    "FanDuel": {
+      "line": 3.5,
+      "over": -122,
+      "under": -104
+    },
+    "DraftKings": {
+      "line": 3.5,
+      "over": -133,
+      "under": 105
+    }
+  },
+  "Max Christie|Points": {
+    "FanDuel": {
+      "line": 14.5,
+      "over": -125,
+      "under": -102
+    },
+    "DraftKings": {
+      "line": 14.5,
+      "over": -114,
+      "under": -112
+    }
+  },
+  "Deandre Ayton|Points": {
+    "FanDuel": {
+      "line": 12.5,
+      "over": -118,
+      "under": -108
+    },
+    "DraftKings": {
+      "line": 12.5,
+      "over": -112,
+      "under": -114
+    }
+  },
+  "Cooper Flagg|Points": {
+    "FanDuel": {
+      "line": 18.5,
+      "over": -122,
+      "under": -104
+    },
+    "DraftKings": {
+      "line": 19.5,
+      "over": -111,
+      "under": -115
+    }
+  },
+  "Naji Marshall|Points": {
+    "FanDuel": {
+      "line": 17.5,
+      "over": -120,
+      "under": -106
+    },
+    "DraftKings": {
+      "line": 18.5,
+      "over": -104,
+      "under": -122
+    }
+  },
+  "Jaxson Hayes|Points": {
+    "FanDuel": {
+      "line": 5.5,
+      "over": -113,
+      "under": -113
+    },
+    "DraftKings": {
+      "line": 5.5,
+      "over": -114,
+      "under": -112
+    }
+  },
+  "Naji Marshall|Pts+Asts": {
+    "FanDuel": {
+      "line": 21.5,
+      "over": -112,
+      "under": -118
+    },
+    "DraftKings": {
+      "line": 21.5,
+      "over": -124,
+      "under": -106
+    }
+  },
+  "Brandon Williams|Pts+Asts": {
+    "FanDuel": {
+      "line": 17.5,
+      "over": -112,
+      "under": -118
+    },
+    "DraftKings": {
+      "line": 17.5,
+      "over": -114,
+      "under": -115
+    }
+  },
+  "LeBron James|Pts+Asts": {
+    "FanDuel": {
+      "line": 29.5,
+      "over": -108,
+      "under": -122
+    },
+    "DraftKings": {
+      "line": 29.5,
+      "over": -113,
+      "under": -116
+    }
+  },
+  "Luka Doncic|Pts+Asts": {
+    "FanDuel": {
+      "line": 43.5,
+      "over": -118,
+      "under": -112
+    },
+    "DraftKings": {
+      "line": 43.5,
+      "over": -119,
+      "under": -111
+    }
+  },
+  "Cooper Flagg|Pts+Asts": {
+    "FanDuel": {
+      "line": 22.5,
+      "over": -130,
+      "under": -102
+    },
+    "DraftKings": {
+      "line": 23.5,
+      "over": -121,
+      "under": -109
+    }
+  },
+  "Naji Marshall|Pts+Rebs": {
+    "FanDuel": {
+      "line": 23.5,
+      "over": -104,
+      "under": -122
+    },
+    "DraftKings": {
+      "line": 23.5,
+      "over": -115,
+      "under": -114
+    }
+  },
+  "Luka Doncic|Pts+Rebs": {
+    "FanDuel": {
+      "line": 42.5,
+      "over": -106,
+      "under": -120
+    },
+    "DraftKings": {
+      "line": 41.5,
+      "over": -121,
+      "under": -108
+    }
+  },
+  "Brandon Williams|Pts+Rebs": {
+    "FanDuel": {
+      "line": 16.5,
+      "over": -104,
+      "under": -122
+    },
+    "DraftKings": {
+      "line": 16.5,
+      "over": -112,
+      "under": -117
+    }
+  },
+  "P.J. Washington|Pts+Rebs": {
+    "FanDuel": {
+      "line": 19.5,
+      "over": -108,
+      "under": -118
+    },
+    "DraftKings": {
+      "line": 18.5,
+      "over": -125,
+      "under": -105
+    }
+  },
+  "LeBron James|Pts+Rebs": {
+    "FanDuel": {
+      "line": 28.5,
+      "over": -125,
+      "under": -102
+    },
+    "DraftKings": {
+      "line": 28.5,
+      "over": -125,
+      "under": -105
+    }
+  },
+  "Daniel Gafford|Pts+Rebs": {
+    "FanDuel": {
+      "line": 13.5,
+      "over": -113,
+      "under": -113
+    },
+    "DraftKings": {
+      "line": 13.5,
+      "over": -116,
+      "under": -113
+    }
+  },
+  "Jake LaRavia|Pts+Rebs": {
+    "FanDuel": {
+      "line": 11.5,
+      "over": -111,
+      "under": -115
+    },
+    "DraftKings": {
+      "line": 11.5,
+      "over": -115,
+      "under": -114
+    }
+  },
+  "Rui Hachimura|Pts+Rebs": {
+    "FanDuel": {
+      "line": 13.5,
+      "over": -115,
+      "under": -111
+    },
+    "DraftKings": {
+      "line": 14.5,
+      "over": -105,
+      "under": -126
+    }
+  },
+  "Deandre Ayton|Pts+Rebs": {
+    "FanDuel": {
+      "line": 21.5,
+      "over": -111,
+      "under": -115
+    },
+    "DraftKings": {
+      "line": 21.5,
+      "over": -106,
+      "under": -124
+    }
+  },
+  "Max Christie|Pts+Rebs": {
+    "FanDuel": {
+      "line": 18.5,
+      "over": -125,
+      "under": -102
+    },
+    "DraftKings": {
+      "line": 18.5,
+      "over": -118,
+      "under": -112
+    }
+  },
+  "Cooper Flagg|Pts+Rebs": {
+    "FanDuel": {
+      "line": 24.5,
+      "over": -118,
+      "under": -108
+    },
+    "DraftKings": {
+      "line": 25.5,
+      "over": -110,
+      "under": -119
+    }
+  },
+  "Max Christie|Pts+Rebs+Asts": {
+    "FanDuel": {
+      "line": 21.5,
+      "over": -113,
+      "under": -113
+    },
+    "DraftKings": {
+      "line": 21.5,
+      "over": -108,
+      "under": -122
+    }
+  },
+  "Brandon Williams|Pts+Rebs+Asts": {
+    "FanDuel": {
+      "line": 20.5,
+      "over": -106,
+      "under": -120
+    },
+    "DraftKings": {
+      "line": 20.5,
+      "over": -109,
+      "under": -121
+    }
+  },
+  "LeBron James|Pts+Rebs+Asts": {
+    "FanDuel": {
+      "line": 35.5,
+      "over": -115,
+      "under": -111
+    },
+    "DraftKings": {
+      "line": 35.5,
+      "over": -119,
+      "under": -110
+    }
+  },
+  "Klay Thompson|Pts+Rebs+Asts": {
+    "FanDuel": {
+      "line": 15.5,
+      "over": -125,
+      "under": -102
+    }
+  },
+  "Dwight Powell|Pts+Rebs+Asts": {
+    "FanDuel": {
+      "line": 9.5,
+      "over": -115,
+      "under": -111
+    }
+  },
+  "Luka Doncic|Pts+Rebs+Asts": {
+    "FanDuel": {
+      "line": 51.5,
+      "over": -115,
+      "under": -111
+    },
+    "DraftKings": {
+      "line": 51.5,
+      "over": -119,
+      "under": -111
+    }
+  },
+  "Daniel Gafford|Pts+Rebs+Asts": {
+    "FanDuel": {
+      "line": 14.5,
+      "over": -111,
+      "under": -115
+    }
+  },
+  "P.J. Washington|Pts+Rebs+Asts": {
+    "FanDuel": {
+      "line": 21.5,
+      "over": -102,
+      "under": -125
+    }
+  },
+  "Marcus Smart|Pts+Rebs+Asts": {
+    "FanDuel": {
+      "line": 14.5,
+      "over": -113,
+      "under": -113
+    },
+    "DraftKings": {
+      "line": 14.5,
+      "over": -118,
+      "under": -112
+    }
+  },
+  "Jake LaRavia|Pts+Rebs+Asts": {
+    "FanDuel": {
+      "line": 13.5,
+      "over": -106,
+      "under": -120
+    }
+  },
+  "Caleb Martin|Pts+Rebs+Asts": {
+    "FanDuel": {
+      "line": 8.5,
+      "over": 102,
+      "under": -130
+    }
+  },
+  "Cooper Flagg|Pts+Rebs+Asts": {
+    "FanDuel": {
+      "line": 28.5,
+      "over": -120,
+      "under": -106
+    },
+    "DraftKings": {
+      "line": 29.5,
+      "over": -116,
+      "under": -113
+    }
+  },
+  "Naji Marshall|Pts+Rebs+Asts": {
+    "FanDuel": {
+      "line": 26.5,
+      "over": -120,
+      "under": -106
+    },
+    "DraftKings": {
+      "line": 27.5,
+      "over": -108,
+      "under": -122
+    }
+  },
+  "P.J. Washington|Rebounds": {
+    "FanDuel": {
+      "line": 5.5,
+      "over": -130,
+      "under": 102
+    },
+    "DraftKings": {
+      "line": 5.5,
+      "over": -132,
+      "under": 100
+    }
+  },
+  "Dwight Powell|Rebounds": {
+    "FanDuel": {
+      "line": 4.5,
+      "over": 104,
+      "under": -132
+    },
+    "DraftKings": {
+      "line": 4.5,
+      "over": 103,
+      "under": -135
+    }
+  },
+  "Luka Doncic|Rebounds": {
+    "FanDuel": {
+      "line": 7.5,
+      "over": -113,
+      "under": -113
+    },
+    "DraftKings": {
+      "line": 7.5,
+      "over": -114,
+      "under": -116
+    }
+  },
+  "Rui Hachimura|Rebounds": {
+    "FanDuel": {
+      "line": 3.5,
+      "over": 118,
+      "under": -150
+    },
+    "DraftKings": {
+      "line": 3.5,
+      "over": 107,
+      "under": -141
+    }
+  },
+  "Brandon Williams|Rebounds": {
+    "FanDuel": {
+      "line": 2.5,
+      "over": -125,
+      "under": -102
+    },
+    "DraftKings": {
+      "line": 2.5,
+      "over": -121,
+      "under": -109
+    }
+  },
+  "LeBron James|Rebounds": {
+    "FanDuel": {
+      "line": 6.5,
+      "over": 110,
+      "under": -140
+    },
+    "DraftKings": {
+      "line": 5.5,
+      "over": -152,
+      "under": 116
+    }
+  },
+  "Jarred Vanderbilt|Rebounds": {
+    "FanDuel": {
+      "line": 4.5,
+      "over": 104,
+      "under": -132
+    },
+    "DraftKings": {
+      "line": 4.5,
+      "over": 103,
+      "under": -136
+    }
+  },
+  "Marcus Smart|Rebounds": {
+    "FanDuel": {
+      "line": 2.5,
+      "over": -130,
+      "under": 102
+    },
+    "DraftKings": {
+      "line": 2.5,
+      "over": -119,
+      "under": -110
+    }
+  },
+  "Deandre Ayton|Rebounds": {
+    "FanDuel": {
+      "line": 8.5,
+      "over": 100,
+      "under": -128
+    },
+    "DraftKings": {
+      "line": 8.5,
+      "over": -112,
+      "under": -117
+    }
+  },
+  "Jake LaRavia|Rebounds": {
+    "FanDuel": {
+      "line": 3.5,
+      "over": -113,
+      "under": -113
+    },
+    "DraftKings": {
+      "line": 3.5,
+      "over": -104,
+      "under": -126
+    }
+  },
+  "Max Christie|Rebounds": {
+    "FanDuel": {
+      "line": 3.5,
+      "over": -146,
+      "under": 114
+    },
+    "DraftKings": {
+      "line": 3.5,
+      "over": -146,
+      "under": 111
+    }
+  },
+  "Daniel Gafford|Rebounds": {
+    "FanDuel": {
+      "line": 5.5,
+      "over": -136,
+      "under": 106
+    },
+    "DraftKings": {
+      "line": 5.5,
+      "over": -147,
+      "under": 112
+    }
+  },
+  "Naji Marshall|Rebounds": {
+    "FanDuel": {
+      "line": 5.5,
+      "over": 112,
+      "under": -142
+    },
+    "DraftKings": {
+      "line": 5.5,
+      "over": 112,
+      "under": -148
+    }
+  },
+  "Jaxson Hayes|Rebounds": {
+    "FanDuel": {
+      "line": 3.5,
+      "over": -146,
+      "under": 114
+    },
+    "DraftKings": {
+      "line": 3.5,
+      "over": -136,
+      "under": 103
+    }
+  },
+  "Caleb Martin|Rebounds": {
+    "FanDuel": {
+      "line": 2.5,
+      "over": -113,
+      "under": -113
+    },
+    "DraftKings": {
+      "line": 2.5,
+      "over": -120,
+      "under": -109
+    }
+  },
+  "Cooper Flagg|Rebounds": {
+    "FanDuel": {
+      "line": 5.5,
+      "over": -113,
+      "under": -113
+    },
+    "DraftKings": {
+      "line": 5.5,
+      "over": -118,
+      "under": -112
+    }
+  },
+  "Naji Marshall|Rebs+Asts": {
+    "FanDuel": {
+      "line": 8.5,
+      "over": -125,
+      "under": -102
+    },
+    "DraftKings": {
+      "line": 8.5,
+      "over": -131,
+      "under": -101
+    }
+  },
+  "Brandon Williams|Rebs+Asts": {
+    "FanDuel": {
+      "line": 6.5,
+      "over": -115,
+      "under": -111
+    },
+    "DraftKings": {
+      "line": 6.5,
+      "over": -111,
+      "under": -118
+    }
+  },
+  "LeBron James|Rebs+Asts": {
+    "FanDuel": {
+      "line": 12.5,
+      "over": -132,
+      "under": 104
+    },
+    "DraftKings": {
+      "line": 12.5,
+      "over": -121,
+      "under": -109
+    }
+  },
+  "Luka Doncic|Rebs+Asts": {
+    "FanDuel": {
+      "line": 16.5,
+      "over": -128,
+      "under": 100
+    },
+    "DraftKings": {
+      "line": 16.5,
+      "over": -135,
+      "under": 102
+    }
+  },
+  "Cooper Flagg|Rebs+Asts": {
+    "FanDuel": {
+      "line": 9.5,
+      "over": -115,
+      "under": -113
+    },
+    "DraftKings": {
+      "line": 9.5,
+      "over": -131,
+      "under": 100
+    }
+  },
+  "Luka Doncic|Steals": {
+    "FanDuel": {
+      "line": 1.5,
+      "over": -106,
+      "under": -125
+    },
+    "DraftKings": {
+      "line": 1.5,
+      "over": -102,
+      "under": -130
+    }
+  },
+  "Marcus Smart|Steals": {
+    "FanDuel": {
+      "line": 1.5,
+      "over": 124,
+      "under": -166
+    },
+    "DraftKings": {
+      "line": 1.5,
+      "over": 135,
+      "under": -180
+    }
+  },
+  "Naji Marshall|Steals": {
+    "FanDuel": {
+      "line": 1.5,
+      "over": 194,
+      "under": -270
+    }
+  },
+  "Jake LaRavia|Steals": {
+    "FanDuel": {
+      "line": 1.5,
+      "over": 194,
+      "under": -270
+    },
+    "DraftKings": {
+      "line": 1.5,
+      "over": 157,
+      "under": -211
+    }
+  },
+  "Naji Marshall|3-PT Made": {
+    "FanDuel": {
+      "line": 1.5,
+      "over": 150,
+      "under": -194
+    },
+    "DraftKings": {
+      "line": 1.5,
+      "over": 166,
+      "under": -221
+    }
+  },
+  "Rui Hachimura|3-PT Made": {
+    "FanDuel": {
+      "line": 1.5,
+      "over": 118,
+      "under": -150
+    },
+    "DraftKings": {
+      "line": 1.5,
+      "over": 103,
+      "under": -136
+    }
+  },
+  "Klay Thompson|3-PT Made": {
+    "FanDuel": {
+      "line": 2.5,
+      "over": -130,
+      "under": 102
+    },
+    "DraftKings": {
+      "line": 2.5,
+      "over": -112,
+      "under": -117
+    }
+  },
+  "P.J. Washington|3-PT Made": {
+    "FanDuel": {
+      "line": 1.5,
+      "over": 140,
+      "under": -180
+    },
+    "DraftKings": {
+      "line": 1.5,
+      "over": 154,
+      "under": -205
+    }
+  },
+  "Gabe Vincent|3-PT Made": {
+    "FanDuel": {
+      "line": 1.5,
+      "over": 196,
+      "under": -260
+    }
+  },
+  "Marcus Smart|3-PT Made": {
+    "FanDuel": {
+      "line": 1.5,
+      "over": 120,
+      "under": -154
+    },
+    "DraftKings": {
+      "line": 1.5,
+      "over": 104,
+      "under": -137
+    }
+  },
+  "LeBron James|3-PT Made": {
+    "FanDuel": {
+      "line": 1.5,
+      "over": 102,
+      "under": -130
+    },
+    "DraftKings": {
+      "line": 1.5,
+      "over": -106,
+      "under": -124
+    }
+  },
+  "Luka Doncic|3-PT Made": {
+    "FanDuel": {
+      "line": 3.5,
+      "over": 118,
+      "under": -150
+    },
+    "DraftKings": {
+      "line": 3.5,
+      "over": 110,
+      "under": -144
+    }
+  },
+  "Cooper Flagg|3-PT Made": {
+    "FanDuel": {
+      "line": 1.5,
+      "over": 164,
+      "under": -215
+    },
+    "DraftKings": {
+      "line": 1.5,
+      "over": 180,
+      "under": -242
+    }
+  },
+  "Max Christie|3-PT Made": {
+    "FanDuel": {
+      "line": 2.5,
+      "over": -115,
+      "under": -111
+    },
+    "DraftKings": {
+      "line": 2.5,
+      "over": 102,
+      "under": -135
+    }
+  },
+  "Jake LaRavia|3-PT Made": {
+    "FanDuel": {
+      "line": 1.5,
+      "over": 164,
+      "under": -215
+    },
+    "DraftKings": {
+      "line": 0.5,
+      "over": -240,
+      "under": 179
+    }
+  },
+  "Max Christie|Assists": {
+    "DraftKings": {
+      "line": 2.5,
+      "over": -104,
+      "under": -126
+    }
+  },
+  "Deandre Ayton|Assists": {
+    "DraftKings": {
+      "line": 0.5,
+      "over": -172,
+      "under": 130
+    }
+  },
+  "Luka Doncic|Blks+Stls": {
+    "DraftKings": {
+      "line": 1.5,
+      "over": -194,
+      "under": 145
+    }
+  },
+  "LeBron James|Blks+Stls": {
+    "DraftKings": {
+      "line": 1.5,
+      "over": -137,
+      "under": 103
+    }
+  },
+  "Deandre Ayton|Blks+Stls": {
+    "DraftKings": {
+      "line": 1.5,
+      "over": -131,
+      "under": -101
+    }
+  },
+  "Cooper Flagg|Blks+Stls": {
+    "DraftKings": {
+      "line": 1.5,
+      "over": -113,
+      "under": -117
+    }
+  },
+  "Max Christie|Pts+Asts": {
+    "DraftKings": {
+      "line": 17.5,
+      "over": -107,
+      "under": -123
+    }
+  },
+  "Deandre Ayton|Pts+Asts": {
+    "DraftKings": {
+      "line": 13.5,
+      "over": -114,
+      "under": -116
+    }
+  },
+  "Marcus Smart|Pts+Asts": {
+    "DraftKings": {
+      "line": 11.5,
+      "over": -126,
+      "under": -105
+    }
+  },
+  "Klay Thompson|Pts+Rebs": {
+    "DraftKings": {
+      "line": 14.5,
+      "over": -107,
+      "under": -123
+    }
+  },
+  "Marcus Smart|Pts+Rebs": {
+    "DraftKings": {
+      "line": 11.5,
+      "over": -124,
+      "under": -106
+    }
+  },
+  "Jaxson Hayes|Pts+Rebs": {
+    "DraftKings": {
+      "line": 9.5,
+      "over": -108,
+      "under": -121
+    }
+  },
+  "Jarred Vanderbilt|Pts+Rebs": {
+    "DraftKings": {
+      "line": 8.5,
+      "over": -125,
+      "under": -105
+    }
+  },
+  "Dwight Powell|Pts+Rebs": {
+    "DraftKings": {
+      "line": 8.5,
+      "over": -118,
+      "under": -111
+    }
+  },
+  "Caleb Martin|Pts+Rebs": {
+    "DraftKings": {
+      "line": 6.5,
+      "over": -128,
+      "under": -103
+    }
+  },
+  "Deandre Ayton|Pts+Rebs+Asts": {
+    "DraftKings": {
+      "line": 22.5,
+      "over": -107,
+      "under": -123
+    }
+  },
+  "Klay Thompson|Rebounds": {
+    "DraftKings": {
+      "line": 2.5,
+      "over": 120,
+      "under": -159
+    }
+  },
+  "Deandre Ayton|Rebs+Asts": {
+    "DraftKings": {
+      "line": 9.5,
+      "over": -108,
+      "under": -121
+    }
+  },
+  "Max Christie|Rebs+Asts": {
+    "DraftKings": {
+      "line": 6.5,
+      "over": -109,
+      "under": -120
+    }
+  },
+  "Marcus Smart|Rebs+Asts": {
+    "DraftKings": {
+      "line": 5.5,
+      "over": -101,
+      "under": -131
+    }
+  },
+  "Jusuf Nurkic|Assists": {
+    "FanDuel": {
+      "line": 5.5,
+      "over": 112,
+      "under": -142
+    }
+  },
+  "Keyonte George|Assists": {
+    "FanDuel": {
+      "line": 6.5,
+      "over": 100,
+      "under": -128
+    },
+    "DraftKings": {
+      "line": 6.5,
+      "over": -111,
+      "under": -119
+    }
+  },
+  "Jaime Jaquez Jr|Assists": {
+    "FanDuel": {
+      "line": 4.5,
+      "over": -128,
+      "under": 100
+    },
+    "DraftKings": {
+      "line": 4.5,
+      "over": -129,
+      "under": -102
+    }
+  },
+  "Kasparas Jakucionis|Assists": {
+    "FanDuel": {
+      "line": 3.5,
+      "over": 118,
+      "under": -150
+    },
+    "DraftKings": {
+      "line": 3.5,
+      "over": 117,
+      "under": -155
+    }
+  },
+  "Bam Adebayo|Assists": {
+    "FanDuel": {
+      "line": 3.5,
+      "over": -102,
+      "under": -125
+    },
+    "DraftKings": {
+      "line": 3.5,
+      "over": 104,
+      "under": -137
+    }
+  },
+  "Andrew Wiggins|Assists": {
+    "FanDuel": {
+      "line": 2.5,
+      "over": -170,
+      "under": 132
+    },
+    "DraftKings": {
+      "line": 2.5,
+      "over": -168,
+      "under": 127
+    }
+  },
+  "Pelle Larsson|Assists": {
+    "FanDuel": {
+      "line": 4.5,
+      "over": 124,
+      "under": -160
+    },
+    "DraftKings": {
+      "line": 3.5,
+      "over": -156,
+      "under": 118
+    }
+  },
+  "Ace Bailey|Points": {
+    "FanDuel": {
+      "line": 14.5,
+      "over": -111,
+      "under": -115
+    },
+    "DraftKings": {
+      "line": 14.5,
+      "over": -106,
+      "under": -120
+    }
+  },
+  "Norman Powell|Points": {
+    "FanDuel": {
+      "line": 23.5,
+      "over": -120,
+      "under": -104
+    },
+    "DraftKings": {
+      "line": 23.5,
+      "over": -114,
+      "under": -112
+    }
+  },
+  "Pelle Larsson|Points": {
+    "FanDuel": {
+      "line": 11.5,
+      "over": -128,
+      "under": 100
+    },
+    "DraftKings": {
+      "line": 11.5,
+      "over": -115,
+      "under": -111
+    }
+  },
+  "Bam Adebayo|Points": {
+    "FanDuel": {
+      "line": 20.5,
+      "over": -106,
+      "under": -120
+    },
+    "DraftKings": {
+      "line": 19.5,
+      "over": -119,
+      "under": -107
+    }
+  },
+  "Brice Sensabaugh|Points": {
+    "FanDuel": {
+      "line": 15.5,
+      "over": -111,
+      "under": -115
+    }
+  },
+  "Cody Williams|Points": {
+    "FanDuel": {
+      "line": 7.5,
+      "over": 102,
+      "under": -130
+    },
+    "DraftKings": {
+      "line": 7.5,
+      "over": -111,
+      "under": -115
+    }
+  },
+  "Keyonte George|Points": {
+    "FanDuel": {
+      "line": 26.5,
+      "over": -115,
+      "under": -111
+    },
+    "DraftKings": {
+      "line": 27.5,
+      "over": -105,
+      "under": -122
+    }
+  },
+  "Andrew Wiggins|Points": {
+    "FanDuel": {
+      "line": 16.5,
+      "over": 106,
+      "under": -136
+    },
+    "DraftKings": {
+      "line": 16.5,
+      "over": 100,
+      "under": -128
+    }
+  },
+  "Jaime Jaquez Jr|Points": {
+    "FanDuel": {
+      "line": 14.5,
+      "over": -113,
+      "under": -113
+    },
+    "DraftKings": {
+      "line": 14.5,
+      "over": -112,
+      "under": -114
+    }
+  },
+  "Jusuf Nurkic|Points": {
+    "FanDuel": {
+      "line": 14.5,
+      "over": -125,
+      "under": -102
+    },
+    "DraftKings": {
+      "line": 15.5,
+      "over": -101,
+      "under": -127
+    }
+  },
+  "Svi Mykhailiuk|Points": {
+    "FanDuel": {
+      "line": 7.5,
+      "over": 106,
+      "under": -136
+    },
+    "DraftKings": {
+      "line": 6.5,
+      "over": -124,
+      "under": -103
+    }
+  },
+  "Kyle Filipowski|Points": {
+    "FanDuel": {
+      "line": 11.5,
+      "over": -128,
+      "under": 100
+    },
+    "DraftKings": {
+      "line": 11.5,
+      "over": -121,
+      "under": -105
+    }
+  },
+  "Kasparas Jakucionis|Points": {
+    "FanDuel": {
+      "line": 7.5,
+      "over": -106,
+      "under": -120
+    },
+    "DraftKings": {
+      "line": 7.5,
+      "over": -110,
+      "under": -115
+    }
+  },
+  "Keyonte George|Pts+Asts": {
+    "FanDuel": {
+      "line": 33.5,
+      "over": -112,
+      "under": -118
+    },
+    "DraftKings": {
+      "line": 33.5,
+      "over": -121,
+      "under": -109
+    }
+  },
+  "Norman Powell|Pts+Asts": {
+    "FanDuel": {
+      "line": 26.5,
+      "over": -125,
+      "under": -106
+    },
+    "DraftKings": {
+      "line": 26.5,
+      "over": -119,
+      "under": -110
+    }
+  },
+  "Jusuf Nurkic|Pts+Asts": {
+    "FanDuel": {
+      "line": 20.5,
+      "over": -110,
+      "under": -120
+    }
+  },
+  "Brice Sensabaugh|Pts+Asts": {
+    "FanDuel": {
+      "line": 17.5,
+      "over": -108,
+      "under": -122
+    }
+  },
+  "Kasparas Jakucionis|Pts+Asts": {
+    "FanDuel": {
+      "line": 10.5,
+      "over": -122,
+      "under": -108
+    },
+    "DraftKings": {
+      "line": 10.5,
+      "over": -126,
+      "under": -104
+    }
+  },
+  "Jaime Jaquez Jr|Pts+Asts": {
+    "FanDuel": {
+      "line": 19.5,
+      "over": -114,
+      "under": -114
+    },
+    "DraftKings": {
+      "line": 19.5,
+      "over": -114,
+      "under": -116
+    }
+  },
+  "Andrew Wiggins|Pts+Asts": {
+    "FanDuel": {
+      "line": 18.5,
+      "over": -128,
+      "under": -104
+    },
+    "DraftKings": {
+      "line": 19.5,
+      "over": -108,
+      "under": -121
+    }
+  },
+  "Bam Adebayo|Pts+Asts": {
+    "FanDuel": {
+      "line": 23.5,
+      "over": -122,
+      "under": -108
+    },
+    "DraftKings": {
+      "line": 23.5,
+      "over": -111,
+      "under": -118
+    }
+  },
+  "Ace Bailey|Pts+Asts": {
+    "FanDuel": {
+      "line": 16.5,
+      "over": -104,
+      "under": -128
+    },
+    "DraftKings": {
+      "line": 16.5,
+      "over": -106,
+      "under": -124
+    }
+  },
+  "Pelle Larsson|Pts+Asts": {
+    "FanDuel": {
+      "line": 16.5,
+      "over": -106,
+      "under": -125
+    },
+    "DraftKings": {
+      "line": 15.5,
+      "over": -125,
+      "under": -105
+    }
+  },
+  "Keyonte George|Pts+Rebs": {
+    "FanDuel": {
+      "line": 30.5,
+      "over": -120,
+      "under": -106
+    },
+    "DraftKings": {
+      "line": 31.5,
+      "over": -108,
+      "under": -121
+    }
+  },
+  "Ace Bailey|Pts+Rebs": {
+    "FanDuel": {
+      "line": 19.5,
+      "over": -113,
+      "under": -113
+    },
+    "DraftKings": {
+      "line": 19.5,
+      "over": -107,
+      "under": -122
+    }
+  },
+  "Kyle Filipowski|Pts+Rebs": {
+    "FanDuel": {
+      "line": 20.5,
+      "over": -120,
+      "under": -106
+    },
+    "DraftKings": {
+      "line": 20.5,
+      "over": -108,
+      "under": -122
+    }
+  },
+  "Kasparas Jakucionis|Pts+Rebs": {
+    "FanDuel": {
+      "line": 10.5,
+      "over": -113,
+      "under": -113
+    },
+    "DraftKings": {
+      "line": 10.5,
+      "over": -124,
+      "under": -106
+    }
+  },
+  "Pelle Larsson|Pts+Rebs": {
+    "FanDuel": {
+      "line": 15.5,
+      "over": -115,
+      "under": -111
+    },
+    "DraftKings": {
+      "line": 15.5,
+      "over": -112,
+      "under": -118
+    }
+  },
+  "Norman Powell|Pts+Rebs": {
+    "FanDuel": {
+      "line": 27.5,
+      "over": -115,
+      "under": -111
+    },
+    "DraftKings": {
+      "line": 27.5,
+      "over": -114,
+      "under": -115
+    }
+  },
+  "Andrew Wiggins|Pts+Rebs": {
+    "FanDuel": {
+      "line": 20.5,
+      "over": -122,
+      "under": -104
+    },
+    "DraftKings": {
+      "line": 21.5,
+      "over": -107,
+      "under": -123
+    }
+  },
+  "Bam Adebayo|Pts+Rebs": {
+    "FanDuel": {
+      "line": 31.5,
+      "over": -111,
+      "under": -115
+    },
+    "DraftKings": {
+      "line": 31.5,
+      "over": -107,
+      "under": -123
+    }
+  },
+  "Keyonte George|Pts+Rebs+Asts": {
+    "FanDuel": {
+      "line": 37.5,
+      "over": -113,
+      "under": -113
+    },
+    "DraftKings": {
+      "line": 38.5,
+      "over": -107,
+      "under": -123
+    }
+  },
+  "Jusuf Nurkic|Pts+Rebs+Asts": {
+    "FanDuel": {
+      "line": 32.5,
+      "over": -106,
+      "under": -120
+    }
+  },
+  "Jaime Jaquez Jr|Pts+Rebs+Asts": {
+    "FanDuel": {
+      "line": 24.5,
+      "over": -115,
+      "under": -111
+    },
+    "DraftKings": {
+      "line": 24.5,
+      "over": -114,
+      "under": -116
+    }
+  },
+  "Kasparas Jakucionis|Pts+Rebs+Asts": {
+    "FanDuel": {
+      "line": 13.5,
+      "over": -128,
+      "under": 100
+    },
+    "DraftKings": {
+      "line": 14.5,
+      "over": -103,
+      "under": -128
+    }
+  },
+  "Norman Powell|Pts+Rebs+Asts": {
+    "FanDuel": {
+      "line": 30.5,
+      "over": -118,
+      "under": -108
+    },
+    "DraftKings": {
+      "line": 30.5,
+      "over": -117,
+      "under": -113
+    }
+  },
+  "Andrew Wiggins|Pts+Rebs+Asts": {
+    "FanDuel": {
+      "line": 23.5,
+      "over": -128,
+      "under": 100
+    },
+    "DraftKings": {
+      "line": 24.5,
+      "over": -112,
+      "under": -118
+    }
+  },
+  "Ace Bailey|Pts+Rebs+Asts": {
+    "FanDuel": {
+      "line": 21.5,
+      "over": -111,
+      "under": -115
+    },
+    "DraftKings": {
+      "line": 21.5,
+      "over": -107,
+      "under": -123
+    }
+  },
+  "Brice Sensabaugh|Pts+Rebs+Asts": {
+    "FanDuel": {
+      "line": 21.5,
+      "over": -108,
+      "under": -118
+    }
+  },
+  "Pelle Larsson|Pts+Rebs+Asts": {
+    "FanDuel": {
+      "line": 19.5,
+      "over": -125,
+      "under": -102
+    },
+    "DraftKings": {
+      "line": 19.5,
+      "over": -121,
+      "under": -108
+    }
+  },
+  "Bam Adebayo|Pts+Rebs+Asts": {
+    "FanDuel": {
+      "line": 34.5,
+      "over": -122,
+      "under": -104
+    },
+    "DraftKings": {
+      "line": 34.5,
+      "over": -121,
+      "under": -109
+    }
+  },
+  "Brice Sensabaugh|Rebounds": {
+    "FanDuel": {
+      "line": 3.5,
+      "over": -146,
+      "under": 114
+    }
+  },
+  "Jaime Jaquez Jr|Rebounds": {
+    "FanDuel": {
+      "line": 4.5,
+      "over": -142,
+      "under": 112
+    },
+    "DraftKings": {
+      "line": 4.5,
+      "over": -148,
+      "under": 112
+    }
+  },
+  "Pelle Larsson|Rebounds": {
+    "FanDuel": {
+      "line": 3.5,
+      "over": -113,
+      "under": -113
+    },
+    "DraftKings": {
+      "line": 3.5,
+      "over": -133,
+      "under": 101
+    }
+  },
+  "Bam Adebayo|Rebounds": {
+    "FanDuel": {
+      "line": 10.5,
+      "over": -142,
+      "under": 112
+    },
+    "DraftKings": {
+      "line": 11.5,
+      "over": 104,
+      "under": -137
+    }
+  },
+  "Kyle Filipowski|Rebounds": {
+    "FanDuel": {
+      "line": 8.5,
+      "over": -106,
+      "under": -120
+    },
+    "DraftKings": {
+      "line": 8.5,
+      "over": -105,
+      "under": -125
+    }
+  },
+  "Ace Bailey|Rebounds": {
+    "FanDuel": {
+      "line": 5.5,
+      "over": 130,
+      "under": -166
+    },
+    "DraftKings": {
+      "line": 4.5,
+      "over": -138,
+      "under": 105
+    }
+  },
+  "Jusuf Nurkic|Rebounds": {
+    "FanDuel": {
+      "line": 11.5,
+      "over": -118,
+      "under": -108
+    }
+  },
+  "Keyonte George|Rebounds": {
+    "FanDuel": {
+      "line": 3.5,
+      "over": -166,
+      "under": 130
+    },
+    "DraftKings": {
+      "line": 4.5,
+      "over": 124,
+      "under": -164
+    }
+  },
+  "Kasparas Jakucionis|Rebounds": {
+    "FanDuel": {
+      "line": 3.5,
+      "over": 142,
+      "under": -184
+    },
+    "DraftKings": {
+      "line": 3.5,
+      "over": 119,
+      "under": -158
+    }
+  },
+  "Andrew Wiggins|Rebounds": {
+    "FanDuel": {
+      "line": 4.5,
+      "over": -148,
+      "under": 116
+    },
+    "DraftKings": {
+      "line": 5.5,
+      "over": 115,
+      "under": -152
+    }
+  },
+  "Norman Powell|Rebounds": {
+    "FanDuel": {
+      "line": 3.5,
+      "over": -122,
+      "under": -104
+    },
+    "DraftKings": {
+      "line": 3.5,
+      "over": -136,
+      "under": 103
+    }
+  },
+  "Cody Williams|Rebounds": {
+    "FanDuel": {
+      "line": 3.5,
+      "over": -132,
+      "under": 104
+    }
+  },
+  "Keyonte George|Rebs+Asts": {
+    "FanDuel": {
+      "line": 10.5,
+      "over": -113,
+      "under": -113
+    },
+    "DraftKings": {
+      "line": 10.5,
+      "over": -121,
+      "under": -109
+    }
+  },
+  "Norman Powell|Rebs+Asts": {
+    "FanDuel": {
+      "line": 6.5,
+      "over": -115,
+      "under": -111
+    },
+    "DraftKings": {
+      "line": 6.5,
+      "over": -140,
+      "under": 107
+    }
+  },
+  "Bam Adebayo|Rebs+Asts": {
+    "FanDuel": {
+      "line": 14.5,
+      "over": -113,
+      "under": -113
+    },
+    "DraftKings": {
+      "line": 14.5,
+      "over": -121,
+      "under": -109
+    }
+  },
+  "Kasparas Jakucionis|Rebs+Asts": {
+    "FanDuel": {
+      "line": 6.5,
+      "over": 100,
+      "under": -128
+    },
+    "DraftKings": {
+      "line": 6.5,
+      "over": -107,
+      "under": -123
+    }
+  },
+  "Andrew Wiggins|Rebs+Asts": {
+    "FanDuel": {
+      "line": 7.5,
+      "over": -146,
+      "under": 114
+    },
+    "DraftKings": {
+      "line": 8.5,
+      "over": 105,
+      "under": -138
+    }
+  },
+  "Pelle Larsson|Rebs+Asts": {
+    "FanDuel": {
+      "line": 7.5,
+      "over": -132,
+      "under": 104
+    },
+    "DraftKings": {
+      "line": 7.5,
+      "over": -134,
+      "under": 102
+    }
+  },
+  "Andrew Wiggins|Steals": {
+    "FanDuel": {
+      "line": 1.5,
+      "over": 162,
+      "under": -220
+    },
+    "DraftKings": {
+      "line": 1.5,
+      "over": 180,
+      "under": -244
+    }
+  },
+  "Keyonte George|Steals": {
+    "FanDuel": {
+      "line": 1.5,
+      "over": 162,
+      "under": -220
+    },
+    "DraftKings": {
+      "line": 1.5,
+      "over": 166,
+      "under": -224
+    }
+  },
+  "Norman Powell|Steals": {
+    "FanDuel": {
+      "line": 1.5,
+      "over": 194,
+      "under": -270
+    },
+    "DraftKings": {
+      "line": 1.5,
+      "over": 164,
+      "under": -221
+    }
+  },
+  "Brice Sensabaugh|3-PT Made": {
+    "FanDuel": {
+      "line": 2.5,
+      "over": 134,
+      "under": -172
+    }
+  },
+  "Andrew Wiggins|3-PT Made": {
+    "FanDuel": {
+      "line": 2.5,
+      "over": 164,
+      "under": -215
+    },
+    "DraftKings": {
+      "line": 1.5,
+      "over": -176,
+      "under": 133
+    }
+  },
+  "Keyonte George|3-PT Made": {
+    "FanDuel": {
+      "line": 2.5,
+      "over": -150,
+      "under": 118
+    },
+    "DraftKings": {
+      "line": 2.5,
+      "over": -147,
+      "under": 112
+    }
+  },
+  "Pelle Larsson|3-PT Made": {
+    "FanDuel": {
+      "line": 1.5,
+      "over": 142,
+      "under": -184
+    },
+    "DraftKings": {
+      "line": 1.5,
+      "over": 129,
+      "under": -171
+    }
+  },
+  "Svi Mykhailiuk|3-PT Made": {
+    "FanDuel": {
+      "line": 1.5,
+      "over": 122,
+      "under": -156
+    },
+    "DraftKings": {
+      "line": 1.5,
+      "over": 101,
+      "under": -133
+    }
+  },
+  "Ace Bailey|3-PT Made": {
+    "FanDuel": {
+      "line": 1.5,
+      "over": -118,
+      "under": -108
+    },
+    "DraftKings": {
+      "line": 1.5,
+      "over": -132,
+      "under": 101
+    }
+  },
+  "Bam Adebayo|3-PT Made": {
+    "FanDuel": {
+      "line": 1.5,
+      "over": -111,
+      "under": -115
+    },
+    "DraftKings": {
+      "line": 1.5,
+      "over": -106,
+      "under": -125
+    }
+  },
+  "Kasparas Jakucionis|3-PT Made": {
+    "FanDuel": {
+      "line": 1.5,
+      "over": 134,
+      "under": -172
+    },
+    "DraftKings": {
+      "line": 1.5,
+      "over": 149,
+      "under": -198
+    }
+  },
+  "Norman Powell|3-PT Made": {
+    "FanDuel": {
+      "line": 2.5,
+      "over": -164,
+      "under": 128
+    },
+    "DraftKings": {
+      "line": 2.5,
+      "over": -171,
+      "under": 129
+    }
+  },
+  "Norman Powell|Assists": {
+    "DraftKings": {
+      "line": 2.5,
+      "over": -173,
+      "under": 131
+    }
+  },
+  "Ace Bailey|Assists": {
+    "DraftKings": {
+      "line": 1.5,
+      "over": -154,
+      "under": 117
+    }
+  },
+  "Simone Fontecchio|Points": {
+    "DraftKings": {
+      "line": 9.5,
+      "over": -113,
+      "under": -113
+    }
+  },
+  "Jaime Jaquez Jr|Pts+Rebs": {
+    "DraftKings": {
+      "line": 19.5,
+      "over": -115,
+      "under": -114
+    }
+  },
+  "Simone Fontecchio|Pts+Rebs": {
+    "DraftKings": {
+      "line": 13.5,
+      "over": -117,
+      "under": -113
+    }
+  },
+  "Simone Fontecchio|Rebounds": {
+    "DraftKings": {
+      "line": 3.5,
+      "over": -149,
+      "under": 113
+    }
+  },
+  "Jaime Jaquez Jr|Rebs+Asts": {
+    "DraftKings": {
+      "line": 9.5,
+      "over": -129,
+      "under": -102
+    }
+  },
+  "Ace Bailey|Rebs+Asts": {
+    "DraftKings": {
+      "line": 6.5,
+      "over": -132,
+      "under": 100
+    }
+  },
+  "Stephen Curry|Assists": {
+    "FanDuel": {
+      "line": 5.5,
+      "over": 110,
+      "under": -146
+    }
+  },
+  "Donte DiVincenzo|Assists": {
+    "FanDuel": {
+      "line": 4.5,
+      "over": -106,
+      "under": -125
+    }
+  },
+  "Jaden McDaniels|Assists": {
+    "FanDuel": {
+      "line": 3.5,
+      "over": 142,
+      "under": -192
+    }
+  },
+  "Brandin Podziemski|Assists": {
+    "FanDuel": {
+      "line": 4.5,
+      "over": 134,
+      "under": -180
+    }
+  },
+  "Anthony Edwards|Assists": {
+    "FanDuel": {
+      "line": 3.5,
+      "over": -152,
+      "under": 114
+    }
+  },
+  "Draymond Green|Assists": {
+    "FanDuel": {
+      "line": 5.5,
+      "over": -130,
+      "under": -102
+    }
+  },
+  "Julius Randle|Assists": {
+    "FanDuel": {
+      "line": 5.5,
+      "over": -102,
+      "under": -130
+    }
+  },
+  "Rudy Gobert|Blocked Shots": {
+    "FanDuel": {
+      "line": 1.5,
+      "over": -106,
+      "under": -125
+    }
+  },
+  "Jaden McDaniels|Points": {
+    "FanDuel": {
+      "line": 14.5,
+      "over": -114,
+      "under": -114
+    }
+  },
+  "Draymond Green|Points": {
+    "FanDuel": {
+      "line": 8.5,
+      "over": -128,
+      "under": -104
+    }
+  },
+  "Moses Moody|Points": {
+    "FanDuel": {
+      "line": 11.5,
+      "over": 106,
+      "under": -140
+    }
+  },
+  "Quinten Post|Points": {
+    "FanDuel": {
+      "line": 6.5,
+      "over": 102,
+      "under": -136
+    }
+  },
+  "Julius Randle|Points": {
+    "FanDuel": {
+      "line": 22.5,
+      "over": -112,
+      "under": -118
+    }
+  },
+  "Brandin Podziemski|Points": {
+    "FanDuel": {
+      "line": 14.5,
+      "over": -104,
+      "under": -128
+    }
+  },
+  "Al Horford|Points": {
+    "FanDuel": {
+      "line": 6.5,
+      "over": -118,
+      "under": -112
+    }
+  },
+  "De'Anthony Melton|Points": {
+    "FanDuel": {
+      "line": 12.5,
+      "over": 100,
+      "under": -132
+    }
+  },
+  "Donte DiVincenzo|Points": {
+    "FanDuel": {
+      "line": 12.5,
+      "over": -125,
+      "under": -106
+    }
+  },
+  "Naz Reid|Points": {
+    "FanDuel": {
+      "line": 14.5,
+      "over": -132,
+      "under": 100
+    }
+  },
+  "Anthony Edwards|Points": {
+    "FanDuel": {
+      "line": 29.5,
+      "over": -120,
+      "under": -110
+    }
+  },
+  "Rudy Gobert|Points": {
+    "FanDuel": {
+      "line": 10.5,
+      "over": -102,
+      "under": -130
+    }
+  },
+  "Stephen Curry|Points": {
+    "FanDuel": {
+      "line": 29.5,
+      "over": -104,
+      "under": -128
+    }
+  },
+  "Donte DiVincenzo|Pts+Asts": {
+    "FanDuel": {
+      "line": 17.5,
+      "over": -112,
+      "under": -118
+    }
+  },
+  "Julius Randle|Pts+Asts": {
+    "FanDuel": {
+      "line": 27.5,
+      "over": -128,
+      "under": -104
+    }
+  },
+  "Brandin Podziemski|Pts+Asts": {
+    "FanDuel": {
+      "line": 18.5,
+      "over": -110,
+      "under": -120
+    }
+  },
+  "Stephen Curry|Pts+Asts": {
+    "FanDuel": {
+      "line": 34.5,
+      "over": -118,
+      "under": -114
+    }
+  },
+  "Anthony Edwards|Pts+Asts": {
+    "FanDuel": {
+      "line": 33.5,
+      "over": -122,
+      "under": -110
+    }
+  },
+  "Draymond Green|Pts+Asts": {
+    "FanDuel": {
+      "line": 14.5,
+      "over": -122,
+      "under": -108
+    }
+  },
+  "Jaden McDaniels|Pts+Asts": {
+    "FanDuel": {
+      "line": 17.5,
+      "over": -122,
+      "under": -108
+    }
+  },
+  "Donte DiVincenzo|Pts+Rebs": {
+    "FanDuel": {
+      "line": 17.5,
+      "over": -114,
+      "under": -114
+    }
+  },
+  "Draymond Green|Pts+Rebs": {
+    "FanDuel": {
+      "line": 14.5,
+      "over": -132,
+      "under": 100
+    }
+  },
+  "Stephen Curry|Pts+Rebs": {
+    "FanDuel": {
+      "line": 32.5,
+      "over": -122,
+      "under": -106
+    }
+  },
+  "Moses Moody|Pts+Rebs": {
+    "FanDuel": {
+      "line": 14.5,
+      "over": -104,
+      "under": -128
+    }
+  },
+  "Naz Reid|Pts+Rebs": {
+    "FanDuel": {
+      "line": 21.5,
+      "over": -122,
+      "under": -108
+    }
+  },
+  "Quinten Post|Pts+Rebs": {
+    "FanDuel": {
+      "line": 9.5,
+      "over": -110,
+      "under": -120
+    }
+  },
+  "Al Horford|Pts+Rebs": {
+    "FanDuel": {
+      "line": 11.5,
+      "over": -130,
+      "under": -102
+    }
+  },
+  "Brandin Podziemski|Pts+Rebs": {
+    "FanDuel": {
+      "line": 19.5,
+      "over": -108,
+      "under": -122
+    }
+  },
+  "Julius Randle|Pts+Rebs": {
+    "FanDuel": {
+      "line": 29.5,
+      "over": -114,
+      "under": -114
+    }
+  },
+  "Rudy Gobert|Pts+Rebs": {
+    "FanDuel": {
+      "line": 21.5,
+      "over": -120,
+      "under": -110
+    }
+  },
+  "Jaden McDaniels|Pts+Rebs": {
+    "FanDuel": {
+      "line": 19.5,
+      "over": -104,
+      "under": -128
+    }
+  },
+  "Anthony Edwards|Pts+Rebs": {
+    "FanDuel": {
+      "line": 35.5,
+      "over": -104,
+      "under": -128
+    }
+  },
+  "Donte DiVincenzo|Pts+Rebs+Asts": {
+    "FanDuel": {
+      "line": 22.5,
+      "over": -106,
+      "under": -125
+    }
+  },
+  "Brandin Podziemski|Pts+Rebs+Asts": {
+    "FanDuel": {
+      "line": 23.5,
+      "over": -112,
+      "under": -118
+    }
+  },
+  "Julius Randle|Pts+Rebs+Asts": {
+    "FanDuel": {
+      "line": 35.5,
+      "over": -104,
+      "under": -128
+    }
+  },
+  "Stephen Curry|Pts+Rebs+Asts": {
+    "FanDuel": {
+      "line": 38.5,
+      "over": -114,
+      "under": -114
+    }
+  },
+  "Draymond Green|Pts+Rebs+Asts": {
+    "FanDuel": {
+      "line": 20.5,
+      "over": -128,
+      "under": -104
+    }
+  },
+  "Jaden McDaniels|Pts+Rebs+Asts": {
+    "FanDuel": {
+      "line": 22.5,
+      "over": -110,
+      "under": -120
+    }
+  },
+  "Anthony Edwards|Pts+Rebs+Asts": {
+    "FanDuel": {
+      "line": 39.5,
+      "over": -106,
+      "under": -125
+    }
+  },
+  "Rudy Gobert|Rebounds": {
+    "FanDuel": {
+      "line": 11.5,
+      "over": -108,
+      "under": -122
+    }
+  },
+  "Al Horford|Rebounds": {
+    "FanDuel": {
+      "line": 4.5,
+      "over": -158,
+      "under": 118
+    }
+  },
+  "De'Anthony Melton|Rebounds": {
+    "FanDuel": {
+      "line": 2.5,
+      "over": -180,
+      "under": 134
+    }
+  },
+  "Stephen Curry|Rebounds": {
+    "FanDuel": {
+      "line": 3.5,
+      "over": -152,
+      "under": 114
+    }
+  },
+  "Moses Moody|Rebounds": {
+    "FanDuel": {
+      "line": 3.5,
+      "over": 128,
+      "under": -172
+    }
+  },
+  "Draymond Green|Rebounds": {
+    "FanDuel": {
+      "line": 6.5,
+      "over": 124,
+      "under": -166
+    }
+  },
+  "Julius Randle|Rebounds": {
+    "FanDuel": {
+      "line": 6.5,
+      "over": -138,
+      "under": 104
+    }
+  },
+  "Naz Reid|Rebounds": {
+    "FanDuel": {
+      "line": 6.5,
+      "over": -106,
+      "under": -122
+    }
+  },
+  "Anthony Edwards|Rebounds": {
+    "FanDuel": {
+      "line": 5.5,
+      "over": 110,
+      "under": -146
+    }
+  },
+  "Quinten Post|Rebounds": {
+    "FanDuel": {
+      "line": 3.5,
+      "over": 128,
+      "under": -172
+    }
+  },
+  "Jaden McDaniels|Rebounds": {
+    "FanDuel": {
+      "line": 4.5,
+      "over": -114,
+      "under": -114
+    }
+  },
+  "Brandin Podziemski|Rebounds": {
+    "FanDuel": {
+      "line": 5.5,
+      "over": 128,
+      "under": -172
+    }
+  },
+  "Donte DiVincenzo|Rebounds": {
+    "FanDuel": {
+      "line": 4.5,
+      "over": -114,
+      "under": -114
+    }
+  },
+  "Jaden McDaniels|Rebs+Asts": {
+    "FanDuel": {
+      "line": 7.5,
+      "over": -128,
+      "under": -104
+    }
+  },
+  "Stephen Curry|Rebs+Asts": {
+    "FanDuel": {
+      "line": 9.5,
+      "over": 102,
+      "under": -136
+    }
+  },
+  "Draymond Green|Rebs+Asts": {
+    "FanDuel": {
+      "line": 11.5,
+      "over": -130,
+      "under": -102
+    }
+  },
+  "Julius Randle|Rebs+Asts": {
+    "FanDuel": {
+      "line": 12.5,
+      "over": -108,
+      "under": -122
+    }
+  },
+  "Brandin Podziemski|Rebs+Asts": {
+    "FanDuel": {
+      "line": 9.5,
+      "over": 108,
+      "under": -144
+    }
+  },
+  "Donte DiVincenzo|Rebs+Asts": {
+    "FanDuel": {
+      "line": 9.5,
+      "over": 106,
+      "under": -140
+    }
+  },
+  "Anthony Edwards|Rebs+Asts": {
+    "FanDuel": {
+      "line": 9.5,
+      "over": 102,
+      "under": -136
+    }
+  },
+  "Stephen Curry|Steals": {
+    "FanDuel": {
+      "line": 1.5,
+      "over": 194,
+      "under": -270
+    }
+  },
+  "Anthony Edwards|Steals": {
+    "FanDuel": {
+      "line": 1.5,
+      "over": 148,
+      "under": -200
+    }
+  },
+  "Brandin Podziemski|Steals": {
+    "FanDuel": {
+      "line": 1.5,
+      "over": 138,
+      "under": -186
+    }
+  },
+  "Jaden McDaniels|Steals": {
+    "FanDuel": {
+      "line": 1.5,
+      "over": 162,
+      "under": -220
+    }
+  },
+  "De'Anthony Melton|Steals": {
+    "FanDuel": {
+      "line": 1.5,
+      "over": 126,
+      "under": -168
+    }
+  },
+  "Donte DiVincenzo|Steals": {
+    "FanDuel": {
+      "line": 1.5,
+      "over": 148,
+      "under": -200
+    }
+  },
+  "De'Anthony Melton|3-PT Made": {
+    "FanDuel": {
+      "line": 1.5,
+      "over": 118,
+      "under": -158
+    }
+  },
+  "Julius Randle|3-PT Made": {
+    "FanDuel": {
+      "line": 1.5,
+      "over": 108,
+      "under": -144
+    }
+  },
+  "Brandin Podziemski|3-PT Made": {
+    "FanDuel": {
+      "line": 1.5,
+      "over": -146,
+      "under": 110
+    }
+  },
+  "Anthony Edwards|3-PT Made": {
+    "FanDuel": {
+      "line": 3.5,
+      "over": -102,
+      "under": -130
+    }
+  },
+  "Donte DiVincenzo|3-PT Made": {
+    "FanDuel": {
+      "line": 2.5,
+      "over": -186,
+      "under": 140
+    }
+  },
+  "Jaden McDaniels|3-PT Made": {
+    "FanDuel": {
+      "line": 1.5,
+      "over": 136,
+      "under": -182
+    }
+  },
+  "Naz Reid|3-PT Made": {
+    "FanDuel": {
+      "line": 2.5,
+      "over": 102,
+      "under": -136
+    }
+  },
+  "Moses Moody|3-PT Made": {
+    "FanDuel": {
+      "line": 1.5,
+      "over": -186,
+      "under": 138
+    }
+  },
+  "Quinten Post|3-PT Made": {
+    "FanDuel": {
+      "line": 1.5,
+      "over": 142,
+      "under": -192
+    }
+  },
+  "Stephen Curry|3-PT Made": {
+    "FanDuel": {
+      "line": 4.5,
+      "over": -104,
+      "under": -128
+    }
+  }
+}
