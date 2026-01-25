@@ -1,4 +1,8 @@
-﻿Write-Host "================================" -ForegroundColor Cyan
+﻿param(
+    [switch]$NoPause
+)
+
+Write-Host "================================" -ForegroundColor Cyan
 Write-Host "  FULL PROJECTION PIPELINE" -ForegroundColor Cyan
 Write-Host "================================" -ForegroundColor Cyan
 Write-Host ""
@@ -19,5 +23,8 @@ Write-Host "================================" -ForegroundColor Green
 Write-Host "  COMPLETE!" -ForegroundColor Green
 Write-Host "================================" -ForegroundColor Green
 Write-Host ""
-Write-Host "Press any key to close..."
-$null = $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
+
+if (-not $NoPause) {
+    Write-Host "Press any key to close..."
+    $null = $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
+}
