@@ -31,6 +31,7 @@ interface Prop {
 }
 
 export default function Index() {
+  // Force Vercel redeploy - updated Jan 25, 2026
   const { data: games, isLoading } = useQuery({
     queryKey: ['games'],
     queryFn: async () => {
