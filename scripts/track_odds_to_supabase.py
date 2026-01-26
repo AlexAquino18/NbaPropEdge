@@ -22,7 +22,7 @@ supabase = create_client(
 )
 
 # The Odds API configuration
-ODDS_API_KEY = os.getenv('ODDS_API_KEY', 'd5ca53b6658d2e11de042943c9c6f29a')
+ODDS_API_KEY = os.getenv('ODDS_API_KEY', 'dd6fe3cb5fd32a3bb870c11d1abb22bd')
 BASE_URL = "https://api.the-odds-api.com/v4"
 
 # Stat type mapping from The Odds API to our database

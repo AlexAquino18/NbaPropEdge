@@ -16,7 +16,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 # The Odds API configuration
-ODDS_API_KEY = os.getenv('ODDS_API_KEY', '5ffd1a867973dd45f4be1118e7233de7')
+ODDS_API_KEY = os.getenv('ODDS_API_KEY', 'dd6fe3cb5fd32a3bb870c11d1abb22bd')
 BASE_URL = "https://api.the-odds-api.com/v4"
 
 # SQLite database file - stored locally, no cloud needed!
