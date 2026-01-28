@@ -31,11 +31,17 @@ export function OddsHistoryChart({ playerName, statType }: OddsHistoryChartProps
   const { data: oddsHistory, isLoading } = useQuery({
     queryKey: ['oddsHistory', playerName, statType],
     queryFn: async () => {
+      // Get today's date at midnight (start of day)
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+      const todayISO = today.toISOString();
+
       const { data, error } = await supabase
         .from('odds_history')
         .select('*')
         .eq('player_name', playerName)
         .eq('stat_type', statType)
+        .gte('recorded_at', todayISO) // Only get odds from today
         .order('recorded_at', { ascending: true });
       
       if (error) {
@@ -172,7 +178,7 @@ export function OddsHistoryChart({ playerName, statType }: OddsHistoryChartProps
                   <Line 
                     type="monotone" 
                     dataKey="DraftKings" 
-                    stroke="#ff6b35" 
+                    stroke="#ff6b35"
                     strokeWidth={3}
                     dot={{ fill: '#ff6b35', r: 5, strokeWidth: 2, stroke: '#fff' }}
                     activeDot={{ r: 7 }}
@@ -181,7 +187,7 @@ export function OddsHistoryChart({ playerName, statType }: OddsHistoryChartProps
                   <Line 
                     type="monotone" 
                     dataKey="FanDuel" 
-                    stroke="#4169e1" 
+                    stroke="#4169e1"
                     strokeWidth={3}
                     dot={{ fill: '#4169e1', r: 5, strokeWidth: 2, stroke: '#fff' }}
                     activeDot={{ r: 7 }}
