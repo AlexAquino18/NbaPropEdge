@@ -215,16 +215,19 @@ def store_props(projections, players_map, game_id_map):
             line_counts[line] = line_counts.get(line, 0) + 1
         
         # Get the most common line (main line)
-        # If all frequencies are equal, PrizePicks lists: [discount, MAIN, boost1, boost2]
-        # So we pick the 2nd lowest as the main line
+        # If all frequencies are equal, pick the MIDDLE line as the main line
         max_count = max(line_counts.values())
         main_lines = sorted([line for line, count in line_counts.items() if count == max_count])
         
-        if len(main_lines) >= 2:
-            # Multiple lines with same frequency - pick 2nd lowest (main line)
+        if len(main_lines) >= 3:
+            # Multiple lines - pick the middle one
+            middle_index = len(main_lines) // 2
+            main_line = main_lines[middle_index]
+        elif len(main_lines) == 2:
+            # Two lines - pick the higher one (middle/main)
             main_line = main_lines[1]
         else:
-            # Only one line or one most frequent - use it
+            # Only one line - use it
             main_line = main_lines[0]
         
         # Show debug info for first 10 player/stat combos
