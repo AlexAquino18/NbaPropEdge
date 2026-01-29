@@ -146,7 +146,8 @@ def scrape_injuries_from_sportsethos():
                         elif 're-evaluat' in player_text.lower() or 'reevaluat' in player_text.lower():
                             status = 'out'
                         
-                        position = 'SF'  # Default position
+                        # FIX: Use real position from PLAYER_POSITIONS instead of hard-coded 'SF'
+                        position = PLAYER_POSITIONS.get(player_name, 'SF')
                         team_abbr = normalize_team_abbr(team_abbr)
                         
                         if player_name and team_abbr:
@@ -273,7 +274,10 @@ def get_usage_boost(player_name, player_team, player_position, stat_type):
         }
     }
     
-    total_boost = 1.0
+    # FIX: Use additive boosts instead of multiplicative to prevent unrealistic stacking
+    # Convert multipliers to percentage increases, sum them, then convert back
+    total_boost_pct = 0.0
+    boosts_applied = 0
     
     for injured in high_usage_out:
         injured_pos = injured.get('position', 'UNK')
@@ -291,10 +295,19 @@ def get_usage_boost(player_name, player_team, player_position, stat_type):
             
             for stat_pattern, boost_value in boosts.items():
                 if stat_pattern in stat_type:
-                    total_boost *= boost_value
+                    # Convert multiplier to percentage (e.g., 1.12 -> 12%)
+                    boost_pct = (boost_value - 1.0) * 100
+                    total_boost_pct += boost_pct
+                    boosts_applied += 1
                     break
     
-    return min(total_boost, 1.30)
+    # If multiple boosts applied, take average to prevent over-stacking
+    if boosts_applied > 1:
+        total_boost_pct = total_boost_pct / boosts_applied * 1.5  # 1.5x factor for multiple injuries
+    
+    # Convert back to multiplier and cap at 1.25 (25% max boost)
+    final_boost = 1.0 + (total_boost_pct / 100.0)
+    return min(final_boost, 1.25)
 
 def get_injury_adjustment(player_name):
     '''Check if player is injured and return adjustment factor'''
@@ -618,13 +631,14 @@ def get_defensive_adjustment(opponent_team, player_position, stat_type):
     if not rank:
         return 1.0
 
-    # Convert rank ΓåÆ percentile (0 best, 1 worst)
+    # Convert rank to percentile (0 = best defense, 1 = worst defense)
     percentile = (rank - 1) / 29
 
-    # Nonlinear curve (elite defenses matter more)
-    adjustment = 0.92 + (percentile ** 1.35) * 0.16
+    # Nonlinear curve: elite defenses (low rank) matter more
+    # Use percentile scaling: rank 1-5 = tough, rank 26-30 = easy
+    adjustment = 0.90 + (percentile ** 1.2) * 0.20
 
-    return max(0.90, min(1.10, adjustment))
+    return max(0.88, min(1.12, adjustment))
 
 def get_pace_adjustment(player_team, opponent_team):
     '''Calculate pace adjustment based on team paces'''
@@ -635,7 +649,9 @@ def get_pace_adjustment(player_team, opponent_team):
 
 def get_rebound_adjustment(player_team, opponent_team, stat_type):
     '''Rebound adj: opponent DREB% and miss proxy via DefRtg'''
-    if 'Reb' not in stat_type:
+    # FIX: Case-insensitive check
+    stat_lower = stat_type.lower()
+    if 'reb' not in stat_lower:
         return 1.0
 
     opp = NBA_TEAM_STATS.get(opponent_team, {})
@@ -653,7 +669,9 @@ def get_rebound_adjustment(player_team, opponent_team, stat_type):
 
 def get_assist_adjustment(player_team, opponent_team, stat_type):
     '''Assist adj: blend team AST% and opponent pace'''
-    if 'Ast' not in stat_type:
+    # FIX: Case-insensitive check
+    stat_lower = stat_type.lower()
+    if 'ast' not in stat_lower and 'assist' not in stat_lower:
         return 1.0
 
     team_ast_pct = NBA_TEAM_STATS.get(player_team, {}).get('ast_pct', LEAGUE_AVG_AST)
@@ -717,12 +735,26 @@ def calculate_projection(player_stats, line, stat_type, opponent_team, player_po
     weights = weights / weights.sum()
     weighted_avg = np.average(values, weights=weights)
 
+    # 🏥 APPLY INJURY ADJUSTMENTS FIRST
+    injury_adj = get_injury_adjustment(player_name)
+    
+    # If player is OUT, return 0 projection immediately
+    if injury_adj == 0.0:
+        return 0.0, 0.01, 'low'
+    
+    # Apply player injury adjustment to baseline
+    adjusted_projection = weighted_avg * injury_adj
+    
+    # Check for usage boost from injured teammates
+    usage_boost = get_usage_boost(player_name, player_team, player_position, stat_type)
+    adjusted_projection *= usage_boost
+
     # Blend positional defense and opponent efficiency ONCE
     pos_def_adj = get_defensive_adjustment(opponent_team, player_position, stat_type)
     eff_adj_for_blend = get_efficiency_adjustment(player_team, opponent_team, stat_type)
     def_adj = (pos_def_adj * 0.65) + (eff_adj_for_blend * 0.35)
 
-    adjusted_projection = weighted_avg * def_adj
+    adjusted_projection *= def_adj
 
     # Apply pace adjustment
     pace_adj = get_pace_adjustment(player_team, opponent_team)
@@ -735,12 +767,27 @@ def calculate_projection(player_stats, line, stat_type, opponent_team, player_po
     assist_adj = get_assist_adjustment(player_team, opponent_team, stat_type)
     adjusted_projection *= assist_adj
 
-    # Calculate standard deviation
-    std_dev = np.std(values) if len(values) > 1 else weighted_avg * 0.25
+    # FIX: Calculate weighted standard deviation to match the weighted mean
+    if len(values) > 1:
+        # Weighted variance = sum(weights * (values - weighted_mean)^2)
+        variance = np.average((np.array(values) - weighted_avg)**2, weights=weights)
+        std_dev = np.sqrt(variance)
+    else:
+        std_dev = weighted_avg * 0.25
 
+    # FIX: Add sanity check for extreme projections
+    # If projection is wildly different from baseline, reduce confidence
+    projection_change = abs(adjusted_projection - weighted_avg) / (weighted_avg + 0.01)
+    if projection_change > 0.35:  # More than 35% change from baseline
+        # Regress projection back toward baseline
+        adjusted_projection = weighted_avg + (adjusted_projection - weighted_avg) * 0.7
+    
     # Calculate probability
     z_score = (adjusted_projection - line) / (std_dev + 0.01)
     prob_over = scipy_stats.norm.cdf(z_score)
+    
+    # Cap extreme probabilities more aggressively
+    prob_over = max(0.10, min(0.90, prob_over))
 
     # Confidence level
     if len(values) >= 10:
@@ -1077,7 +1124,7 @@ def main():
             
             # Calculate projection
             projection, prob_over, confidence = calculate_projection(
-                player_stats, line, stat_type, opponent_team, player_position, player_team
+                player_stats, line, stat_type, opponent_team, player_position, player_team, player_name
             )
             
             # Cap probability between 5% and 95% to avoid extreme edges
