@@ -154,27 +154,30 @@ def store_props(projections, players_map, game_id_map):
     """Store props in Supabase"""
     print('[*] Storing props...')
     
-    # Debug: Show what game IDs we have
-    print(f'[!] Available game IDs in map: {list(game_id_map.keys())[:5]}...')
+    # Define key stat types we want to track
+    KEY_STAT_TYPES = {
+        'Points',
+        'Rebounds', 
+        'Assists',
+        '3-PT Made',
+        'Steals',
+        'Blocked Shots',
+        'Turnovers',
+        'Pts+Rebs+Asts',
+        'Pts+Rebs',
+        'Pts+Asts',
+        'Rebs+Asts',
+    }
     
-    # Group by player+stat to get middle line
+    # Group by player+stat to get the most common line (main line)
     grouped = {}
-    game_ids_in_projections = set()
     
     for proj in projections:
         attrs = proj.get('attributes', {})
         stat_type = attrs.get('stat_type', '')
-        game_id = attrs.get('game_id')
         
-        if game_id:
-            game_ids_in_projections.add(game_id)
-        
-        # Skip unwanted stat types
-        stat_lower = stat_type.lower()
-        if any(skip in stat_lower for skip in [
-            '1st 3 minutes', 'first 3 minutes', 'quarters with', 
-            'two pointers', '2 pointers', 'fantasy'
-        ]):
+        # Only include key stat types
+        if stat_type not in KEY_STAT_TYPES:
             continue
         
         player_id = proj.get('relationships', {}).get('new_player', {}).get('data', {}).get('id')
@@ -186,22 +189,57 @@ def store_props(projections, players_map, game_id_map):
             grouped[key] = []
         grouped[key].append(proj)
     
-    print(f'[!] Game IDs in projections: {list(game_ids_in_projections)[:5]}...')
-    print(f'[!] Matching: {sum(1 for gid in game_ids_in_projections if gid in game_id_map)} / {len(game_ids_in_projections)} game IDs match')
-    
-    # Select middle line for each group
+    # Select the most common line for each player+stat (main line, not alternatives)
     base_projections = []
-    for group in grouped.values():
-        lines = [p['attributes']['line_score'] for p in group]
-        lines.sort()
-        middle_line = lines[len(lines) // 2]
-        
+    alternative_lines_filtered = 0
+    
+    print()
+    print('=' * 60)
+    print('MAIN LINE SELECTION DEBUG')
+    print('=' * 60)
+    
+    sample_count = 0
+    for key, group in grouped.items():
+        # Count frequency of each line
+        line_counts = {}
         for proj in group:
-            if proj['attributes']['line_score'] == middle_line:
+            line = proj['attributes']['line_score']
+            line_counts[line] = line_counts.get(line, 0) + 1
+        
+        # Get the most common line (main line)
+        main_line = max(line_counts, key=line_counts.get)
+        
+        # Show debug info for first 10 player/stat combos
+        if sample_count < 10:
+            player_id = group[0].get('relationships', {}).get('new_player', {}).get('data', {}).get('id')
+            if player_id in players_map:
+                player_name = players_map[player_id].get('attributes', {}).get('display_name', '')
+                stat_type = group[0].get('attributes', {}).get('stat_type', '')
+                
+                all_lines = sorted(line_counts.keys())
+                print(f'\n{player_name} - {stat_type}:')
+                print(f'  Available lines: {all_lines}')
+                print(f'  Main line (most common): {main_line} (appears {line_counts[main_line]}x)')
+                if len(all_lines) > 1:
+                    print(f'  ✓ Filtered out {len(all_lines) - 1} alternative line(s)')
+                sample_count += 1
+        
+        # Count how many alternative lines we're filtering out
+        if len(line_counts) > 1:
+            alternative_lines_filtered += len(group) - 1
+        
+        # Pick the first projection with the main line
+        for proj in group:
+            if proj['attributes']['line_score'] == main_line:
                 base_projections.append(proj)
                 break
     
-    print(f'[+] Filtered to {len(base_projections)} props (middle lines only)')
+    print()
+    print('=' * 60)
+    print(f'[+] Filtered to {len(base_projections)} props (main lines only, key stats)')
+    print(f'[+] Removed {alternative_lines_filtered} alternative line projections')
+    print('=' * 60)
+    print()
     
     # Insert props
     prop_inserts = []
@@ -226,9 +264,6 @@ def store_props(projections, players_map, game_id_map):
         
         if not db_game_id:
             skipped_no_game += 1
-            # Debug first few mismatches
-            if skipped_no_game <= 3:
-                print(f'[!] No game match for {player_name} - game_id: {game_id}')
             continue
         
         line = attrs.get('line_score', 0)
@@ -258,19 +293,13 @@ def store_props(projections, players_map, game_id_map):
             total_inserted = 0
             for i in range(0, len(prop_inserts), batch_size):
                 batch = prop_inserts[i:i+batch_size]
-                result = supabase.table('props').insert(batch).execute()
+                supabase.table('props').insert(batch).execute()
                 total_inserted += len(batch)
-                if i == 0:  # Only print first batch
-                    print(f'[+] Batch 1: inserted {len(batch)} props')
             
-            if len(prop_inserts) > batch_size:
-                print(f'[+] ... inserted {total_inserted} props total')
-            
+            print(f'[+] Inserted {total_inserted} props total')
             return total_inserted
         except Exception as e:
             print(f'[-] Error inserting props: {e}')
-            if prop_inserts:
-                print(f'[!] First prop sample: {prop_inserts[0]}')
             return 0
     
     return 0
