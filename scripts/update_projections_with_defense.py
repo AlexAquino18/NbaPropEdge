@@ -674,8 +674,8 @@ def get_efficiency_adjustment(player_team, opponent_team, stat_type):
 
     return max(0.93, min(1.07, adjustment))
 
-def calculate_projection(player_stats, line, stat_type, opponent_team, player_position, player_team):
-    '''Calculate projection using real stats + blended defense + pace + stat-specific adj'''
+def calculate_projection(player_stats, line, stat_type, opponent_team, player_position, player_team, player_name):
+    '''Calculate projection using real stats + blended defense + pace + stat-specific adj + INJURIES'''
     if not player_stats or len(player_stats) == 0:
         return line, 0.5, 'low'
 

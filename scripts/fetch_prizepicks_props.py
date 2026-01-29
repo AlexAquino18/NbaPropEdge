@@ -200,6 +200,14 @@ def store_props(projections, players_map, game_id_map):
     
     sample_count = 0
     for key, group in grouped.items():
+        # Show raw attributes for first prop to understand the structure
+        if sample_count == 0:
+            print('\n[DEBUG] Raw projection attributes (first prop):')
+            sample_proj = group[0].get('attributes', {})
+            for attr_key, attr_val in sample_proj.items():
+                print(f'  {attr_key}: {attr_val}')
+            print()
+        
         # Count frequency of each line
         line_counts = {}
         for proj in group:
@@ -207,7 +215,17 @@ def store_props(projections, players_map, game_id_map):
             line_counts[line] = line_counts.get(line, 0) + 1
         
         # Get the most common line (main line)
-        main_line = max(line_counts, key=line_counts.get)
+        # If all frequencies are equal, PrizePicks lists: [discount, MAIN, boost1, boost2]
+        # So we pick the 2nd lowest as the main line
+        max_count = max(line_counts.values())
+        main_lines = sorted([line for line, count in line_counts.items() if count == max_count])
+        
+        if len(main_lines) >= 2:
+            # Multiple lines with same frequency - pick 2nd lowest (main line)
+            main_line = main_lines[1]
+        else:
+            # Only one line or one most frequent - use it
+            main_line = main_lines[0]
         
         # Show debug info for first 10 player/stat combos
         if sample_count < 10:
@@ -219,9 +237,10 @@ def store_props(projections, players_map, game_id_map):
                 all_lines = sorted(line_counts.keys())
                 print(f'\n{player_name} - {stat_type}:')
                 print(f'  Available lines: {all_lines}')
-                print(f'  Main line (most common): {main_line} (appears {line_counts[main_line]}x)')
+                print(f'  Line frequencies: {dict(sorted(line_counts.items()))}')
+                print(f'  Main line (lowest/primary): {main_line}')
                 if len(all_lines) > 1:
-                    print(f'  ✓ Filtered out {len(all_lines) - 1} alternative line(s)')
+                    print(f'  ✓ Filtered out {len(all_lines) - 1} alternative line(s): {[l for l in all_lines if l != main_line]}')
                 sample_count += 1
         
         # Count how many alternative lines we're filtering out
