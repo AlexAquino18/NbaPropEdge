@@ -13,7 +13,7 @@ from pathlib import Path
 import requests
 
 # The Odds API configuration
-ODDS_API_KEY = os.getenv('ODDS_API_KEY', 'dd6fe3cb5fd32a3bb870c11d1abb22bd')
+ODDS_API_KEY = os.getenv('ODDS_API_KEY', '6d2a79247c167c0a1e96a6415d187cba')
 BASE_URL = "https://api.the-odds-api.com/v4"
 
 # SQLite database path
