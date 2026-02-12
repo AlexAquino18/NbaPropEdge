@@ -630,6 +630,7 @@ def get_defensive_adjustment(opponent_team, player_position, stat_type):
 
 def get_pace_adjustment(player_team, opponent_team):
     '''Calculate pace adjustment based on team paces'''
+    player_pace = NBA_TEAM_STATS.get(player_team, {}).get('pace', LEAGUE_AVG_PACE)
     opponent_pace = NBA_TEAM_STATS.get(opponent_team, {}).get('pace', LEAGUE_AVG_PACE)
     avg_pace = (player_pace + opponent_pace) / 2
     return avg_pace / LEAGUE_AVG_PACE
